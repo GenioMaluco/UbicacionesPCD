@@ -9,51 +9,68 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         /* ====================================================
-           RESET Y ESTRUCTURA DE TELÉFONO
+           PALETA DE COLORES Y RESET
            ==================================================== */
+        :root {
+            --salmon: #FF9E9D;
+            --salmon-light: #FFAFA4;
+            --gold: #D4AF37;
+            --gold-gradient: linear-gradient(135deg, #BF953F, #FCF6BA, #D4AF37, #FBF5B7);
+            --bg-color: #FFF5F5;
+            --letter-bg: #FFFFFF;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --salmon: #FF9E9D;
-            --salmon-light: #FFAFA4;
-            --gold: #D4AF37;
-            --gold-gradient: linear-gradient(135deg, #BF953F, #FCF6BA, #D4AF37, #FBF5B7);
-        }
-
+        /* ====================================================
+           FONDO DEL BODY (marco oscuro) Y CONTENEDOR TELÉFONO
+           ==================================================== */
         body {
-            background: #2c2c2c; /* marco oscuro */
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            background: #1a1a1a;
             margin: 0;
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
         }
 
         #phone-frame {
             max-width: 420px;
             width: 100%;
             height: 100vh;
-            max-height: 850px; /* límite para que no sea demasiado alto */
+            max-height: 850px;
             margin: 0 auto;
             position: relative;
             overflow: hidden;
-            background-color: #fce4ec; /* fallback */
             background-image: url('fondo_invitacion.png');
-            background-size: cover;     /* o 100% 100% si quieres estirar */
+            background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            box-shadow: 0 0 40px rgba(0,0,0,0.7);
-            border-radius: 20px; /* esquinas redondeadas para efecto celular */
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            border-radius: 30px;
+            background-color: #fce4ec;
+        }
+
+        #phone-frame::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 0;
+            pointer-events: none;
         }
 
         /* ====================================================
-           CONTADOR INICIAL (sobre el sobre)
+           CONTADOR INICIAL
            ==================================================== */
         #contador-inicial {
             position: absolute;
@@ -228,8 +245,12 @@
         }
 
         @keyframes flotarBurbuja {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-6px) scale(1.02); }
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-6px) scale(1.02);
+            }
         }
 
         /* ====================================================
@@ -343,7 +364,7 @@
             left: 10px;
             width: 260px;
             height: 160px;
-            background-color: #FFFFFF;
+            background-color: var(--letter-bg);
             border-radius: 8px;
             z-index: 2;
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
@@ -431,7 +452,7 @@
             transform: rotateY(-90deg) scale(0.9);
             pointer-events: none;
             overflow-y: auto;
-            padding-top: 80px; /* espacio para el contador fijo */
+            padding-top: 80px;
         }
 
         .pagina.activa {
@@ -534,6 +555,35 @@
             font-weight: 600;
         }
 
+        /* Botón Waze */
+        .btn-waze {
+            display: inline-block;
+            background: linear-gradient(135deg, #D4AF37, #F5D76E);
+            color: #E91E63;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.4);
+            transition: transform 0.2s, box-shadow 0.3s;
+            margin-top: 0.5rem;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-waze:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 35px rgba(212, 175, 55, 0.6);
+        }
+
+        .btn-waze:active {
+            transform: scale(0.97);
+        }
+
+        /* Formulario */
         .form-asistencia {
             display: flex;
             flex-direction: column;
@@ -587,52 +637,15 @@
             transform: scale(0.97);
         }
 
+        /* ====================================================
+           NAVEGACIÓN (oculta - solo para referencia)
+           ==================================================== */
         .navegacion {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 0.8rem;
-            gap: 0.5rem;
-        }
-
-        .navegacion button {
-            background: rgba(212, 175, 55, 0.2);
-            border: none;
-            padding: 6px 14px;
-            border-radius: 50px;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 500;
-            color: var(--gold);
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-            font-size: 0.75rem;
-            flex: 1;
-            min-height: 36px;
-        }
-
-        .navegacion button:hover:not(:disabled) {
-            background: rgba(212, 175, 55, 0.4);
-        }
-        .navegacion button:active:not(:disabled) {
-            transform: scale(0.95);
-        }
-        .navegacion button:disabled {
-            opacity: 0.3;
-            pointer-events: none;
-        }
-
-        .navegacion .indicador {
-            font-size: 0.65rem;
-            color: #E91E63;
-            font-weight: 300;
-            background: rgba(255, 255, 255, 0.5);
-            padding: 4px 12px;
-            border-radius: 30px;
-            border: 1px solid #f8bbd0;
+            display: none; /* Ocultamos los botones manuales */
         }
 
         /* ====================================================
-           ANIMACIONES (mariposas, brillos, estrellas)
+           ANIMACIONES
            ==================================================== */
         .mariposa-efimera {
             position: fixed;
@@ -664,8 +677,14 @@
         }
 
         @keyframes brilloEstrella {
-            0% { opacity: 1; transform: scale(0) rotate(0deg); }
-            100% { opacity: 0; transform: scale(2) rotate(720deg); }
+            0% {
+                opacity: 1;
+                transform: scale(0) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(2) rotate(720deg);
+            }
         }
 
         .mariposa-fondo {
@@ -684,7 +703,7 @@
         #btn-musica {
             position: fixed;
             top: 70px;
-            right: 12px;
+            right: 16px;
             z-index: 300;
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(6px);
@@ -716,7 +735,39 @@
         }
 
         /* ====================================================
-           RESPONSIVE (ajustes para móviles reales)
+           INDICADOR DE PÁGINA (opcional)
+           ==================================================== */
+        .indicador-pagina {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 60;
+            display: flex;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 8px 16px;
+            border-radius: 30px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .indicador-pagina .punto {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transition: background 0.5s ease, transform 0.5s ease;
+        }
+
+        .indicador-pagina .punto.activo {
+            background: var(--gold);
+            transform: scale(1.3);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+        }
+
+        /* ====================================================
+           RESPONSIVE
            ==================================================== */
         @media (max-width: 600px) {
             #phone-frame {
@@ -776,17 +827,25 @@
             .burbuja-flotante .etiqueta {
                 font-size: 0.35rem;
             }
-            .navegacion button {
-                font-size: 0.7rem;
-                padding: 4px 10px;
-                min-height: 32px;
-            }
             #btn-musica {
                 top: 60px;
-                right: 8px;
+                right: 12px;
                 width: 38px;
                 height: 38px;
                 font-size: 1.1rem;
+            }
+            .btn-waze {
+                font-size: 0.85rem;
+                padding: 10px 18px;
+            }
+            .indicador-pagina {
+                bottom: 15px;
+                padding: 6px 12px;
+                gap: 8px;
+            }
+            .indicador-pagina .punto {
+                width: 8px;
+                height: 8px;
             }
         }
 
@@ -833,13 +892,17 @@
             }
             #btn-musica {
                 top: 50px;
-                width: 32px;
-                height: 32px;
-                font-size: 0.9rem;
+                right: 10px;
+                width: 34px;
+                height: 34px;
+                font-size: 1rem;
+            }
+            .btn-waze {
+                font-size: 0.8rem;
+                padding: 8px 14px;
             }
         }
 
-        /* Scroll para páginas */
         .pagina::-webkit-scrollbar {
             width: 4px;
         }
@@ -854,16 +917,18 @@
 </head>
 <body>
 
-    <!-- ===== MÚSICA ===== -->
-    <audio id="musica" src="cancion.mp3" preload="auto"></audio>
-
-    <!-- ===== BOTÓN DE MÚSICA ===== -->
-    <button id="btn-musica" title="Reproducir / Pausar">🔊</button>
-
     <!-- ===== CONTENEDOR TELÉFONO ===== -->
     <div id="phone-frame">
 
-        <!-- CONTADOR INICIAL -->
+        <!-- ===== MÚSICA ===== -->
+        <audio id="musica" src="cancion.mp3" preload="auto"></audio>
+
+        <!-- ===== BOTÓN DE MÚSICA ===== -->
+        <button id="btn-musica" title="Reproducir / Pausar">🔊</button>
+
+        <!-- =========================================================
+        CONTADOR INICIAL
+        ========================================================= -->
         <div id="contador-inicial">
             <div class="burbuja-contador">
                 <span class="numero" id="inicial-meses">00</span>
@@ -887,7 +952,9 @@
             </div>
         </div>
 
-        <!-- SOBRE -->
+        <!-- =========================================================
+        SOBRE CON SOLAPA
+        ========================================================= -->
         <div class="butterfly-flight-path">
             <div class="envelope-wrapper" id="envelopeContainer">
                 <div class="envelope">
@@ -912,37 +979,41 @@
             </div>
         </div>
 
-        <!-- PÁGINAS -->
+        <!-- =========================================================
+        CONTENEDOR DE PÁGINAS (3 hojas)
+        ========================================================= -->
         <div id="paginas">
-            <!-- Página 1 -->
+
+            <!-- Página 1: Bienvenida -->
             <div class="pagina activa" data-index="0">
                 <div>
                     <h2>🌸 Bienvenida</h2>
                     <div class="subtitulo">Celebremos juntos</div>
                     <div class="contenido">
-                        <p style="font-size:1rem; line-height:1.8;">
+                        <p style="font-size:1.1rem; line-height:1.9;">
                             ¡Hola!<br>
                             Te invito a ser parte de un día muy especial:<br>
                             <span class="destacado">mis 15 años</span>
                         </p>
-                        <p style="font-size:0.85rem; color:#E91E63;">
+                        <p style="font-size:0.9rem; color:#E91E63;">
                             ✨ Una tarde llena de magia, mariposas y mucha alegría ✨
                         </p>
-                        <div style="display:flex; justify-content:center; gap:0.5rem; flex-wrap:wrap; margin-top:0.2rem;">
+                        <div style="display:flex; justify-content:center; gap:0.6rem; flex-wrap:wrap; margin-top:0.3rem;">
                             <span style="background:#fce4ec; padding:0.2rem 1rem; border-radius:30px; color:var(--gold); border:1px solid var(--gold);">🦋</span>
                             <span style="background:#ffe0b2; padding:0.2rem 1rem; border-radius:30px; color:var(--gold); border:1px solid var(--gold);">✨</span>
                             <span style="background:#fce4ec; padding:0.2rem 1rem; border-radius:30px; color:var(--gold); border:1px solid var(--gold);">🦋</span>
                         </div>
                     </div>
                 </div>
+                <!-- Navegación oculta -->
                 <div class="navegacion">
                     <button disabled>Anterior</button>
                     <span class="indicador">1 / 3</span>
-                    <button class="btn-siguiente">Siguiente →</button>
+                    <button>Siguiente →</button>
                 </div>
             </div>
 
-            <!-- Página 2 -->
+            <!-- Página 2: El Evento -->
             <div class="pagina" data-index="1">
                 <div>
                     <h2>📅 El Evento</h2>
@@ -958,8 +1029,12 @@
                         </div>
                         <div class="fila-detalle">
                             <span class="icono">📍</span>
-                            <span class="texto"><strong>Lugar:</strong> Salón Comunal, Tibás (por definir)</span>
+                            <span class="texto"><strong>Lugar:</strong> Salón Comunal, Tibás</span>
                         </div>
+                        <!-- Botón Waze -->
+                        <a href="https://maps.app.goo.gl/z2uaZveMDV4zq1E98" target="_blank" class="btn-waze">
+                            🗺️ Ver ubicación en Waze
+                        </a>
                         <div class="protocolo">
                             <p style="font-weight:600; color:var(--gold);">🎩 Protocolo de vestimenta</p>
                             <p>✅ <strong>Formal</strong></p>
@@ -969,13 +1044,13 @@
                     </div>
                 </div>
                 <div class="navegacion">
-                    <button class="btn-anterior">← Anterior</button>
+                    <button>← Anterior</button>
                     <span class="indicador">2 / 3</span>
-                    <button class="btn-siguiente">Siguiente →</button>
+                    <button>Siguiente →</button>
                 </div>
             </div>
 
-            <!-- Página 3 -->
+            <!-- Página 3: Confirmar asistencia -->
             <div class="pagina" data-index="2">
                 <div>
                     <h2>✅ Confirma tu asistencia</h2>
@@ -995,22 +1070,33 @@
                             </select>
                             <button type="submit">Enviar confirmación 🦋</button>
                         </form>
-                        <div id="mensaje-confirmacion" style="text-align:center; margin-top:0.5rem; font-weight:300; color:var(--gold); display:none; font-size:1rem;">
+                        <div id="mensaje-confirmacion" style="text-align:center; margin-top:0.5rem; font-weight:300; color:var(--gold); display:none; font-size:1.1rem;">
                             ¡Gracias! Te esperamos 🎉
                         </div>
                     </div>
                 </div>
                 <div class="navegacion">
-                    <button class="btn-anterior">← Anterior</button>
+                    <button>← Anterior</button>
                     <span class="indicador">3 / 3</span>
                     <button disabled>Fin</button>
                 </div>
             </div>
         </div>
 
+        <!-- =========================================================
+        INDICADOR DE PÁGINA (puntos)
+        ========================================================= -->
+        <div class="indicador-pagina" id="indicadorPaginas">
+            <span class="punto activo" data-index="0"></span>
+            <span class="punto" data-index="1"></span>
+            <span class="punto" data-index="2"></span>
+        </div>
+
     </div> <!-- fin #phone-frame -->
 
-    <!-- ===== CONTADOR FLOTANTE (fuera del frame, fijo) ===== -->
+    <!-- =========================================================
+    CONTADOR FLOTANTE (fijo por encima de las páginas)
+    ========================================================= -->
     <div id="contador-flotante">
         <div class="burbuja-flotante">
             <span class="numero" id="flotante-meses">00</span>
@@ -1035,7 +1121,7 @@
     </div>
 
     <!-- =========================================================
-    JAVASCRIPT (sin cambios relevantes, solo se ajustan referencias)
+    JAVASCRIPT (con navegación automática)
     ========================================================= -->
     <script>
         (function() {
@@ -1050,6 +1136,7 @@
             const audio = document.getElementById('musica');
             const contadorInicial = document.getElementById('contador-inicial');
             const contadorFlotante = document.getElementById('contador-flotante');
+            const indicador = document.getElementById('indicadorPaginas');
 
             let musicaReproduciendo = false;
             let sobreAbierto = false;
@@ -1085,6 +1172,7 @@
                     paginas.classList.add('visible');
                     contadorFlotante.classList.add('visible');
                     btnMusica.classList.add('visible');
+                    document.querySelector('.indicador-pagina').style.display = 'flex';
                 }, 700);
 
                 audio.play().then(() => {
@@ -1110,16 +1198,24 @@
                 document.body.appendChild(flash);
                 setTimeout(() => flash.remove(), 800);
 
-                actualizarPaginas(0);
+                // Iniciar navegación automática
+                iniciarNavegacionAutomatica();
             });
 
             // =========================================================
-            // 4. NAVEGACIÓN ENTRE PÁGINAS
+            // 4. NAVEGACIÓN AUTOMÁTICA (10 segundos por página)
             // =========================================================
             const paginaElements = document.querySelectorAll('.pagina');
             let paginaActual = 0;
+            let intervaloAutomatico = null;
+            let esperandoTransicion = false;
 
             function actualizarPaginas(nuevaIndex) {
+                if (esperandoTransicion) return;
+                if (nuevaIndex < 0 || nuevaIndex >= paginaElements.length) return;
+
+                esperandoTransicion = true;
+
                 paginaElements.forEach((p, i) => {
                     p.classList.remove('activa', 'salida');
                     if (i < nuevaIndex) {
@@ -1129,40 +1225,40 @@
                     }
                 });
 
-                document.querySelectorAll('.indicador').forEach(el => {
-                    el.textContent = `${nuevaIndex + 1} / ${paginaElements.length}`;
+                // Actualizar indicador de puntos
+                const puntos = indicador.querySelectorAll('.punto');
+                puntos.forEach((p, i) => {
+                    p.classList.toggle('activo', i === nuevaIndex);
                 });
 
-                const pagActual = paginaElements[nuevaIndex];
-                const btnAnt = pagActual.querySelector('.btn-anterior');
-                const btnSig = pagActual.querySelector('.btn-siguiente');
-                if (btnAnt) btnAnt.disabled = (nuevaIndex === 0);
-                if (btnSig) btnSig.disabled = (nuevaIndex === paginaElements.length - 1);
-
+                // Lluvia de mariposas al cambiar (excepto primera vez)
                 if (nuevaIndex !== 0) {
-                    lanzarLluviaCompleta(15, 25, 25);
+                    lanzarLluviaCompleta(12, 20, 15);
                 }
+
+                paginaActual = nuevaIndex;
+
+                // Permitir nueva transición después de la animación
+                setTimeout(() => {
+                    esperandoTransicion = false;
+                }, 900);
             }
 
-            document.addEventListener('click', function(e) {
-                const btn = e.target.closest('.btn-siguiente, .btn-anterior');
-                if (!btn) return;
-                const pagina = btn.closest('.pagina');
-                if (!pagina) return;
-                const index = parseInt(pagina.dataset.index);
+            function irPaginaSiguiente() {
+                const siguiente = (paginaActual + 1) % paginaElements.length;
+                actualizarPaginas(siguiente);
+            }
 
-                if (btn.classList.contains('btn-siguiente')) {
-                    if (index < paginaElements.length - 1) {
-                        paginaActual = index + 1;
-                        actualizarPaginas(paginaActual);
-                    }
-                } else if (btn.classList.contains('btn-anterior')) {
-                    if (index > 0) {
-                        paginaActual = index - 1;
-                        actualizarPaginas(paginaActual);
-                    }
+            function iniciarNavegacionAutomatica() {
+                // Mostrar primera página
+                actualizarPaginas(0);
+
+                // Iniciar intervalo de 10 segundos
+                if (intervaloAutomatico) {
+                    clearInterval(intervaloAutomatico);
                 }
-            });
+                intervaloAutomatico = setInterval(irPaginaSiguiente, 10000);
+            }
 
             // =========================================================
             // 5. CUENTA REGRESIVA
@@ -1295,7 +1391,7 @@
             }
 
             // =========================================================
-            // 7. CLIC EN TODA LA PANTALLA
+            // 7. CLIC EN TODA LA PANTALLA (mariposas y brillos)
             // =========================================================
             document.addEventListener('click', function(e) {
                 if (e.target.closest('button')) return;
@@ -1311,7 +1407,7 @@
             // 8. MARIPOSAS DE FONDO
             // =========================================================
             function crearMariposasFondo() {
-                const cant = 12;
+                const cant = 14;
                 const frame = document.getElementById('phone-frame');
                 for (let i = 0; i < cant; i++) {
                     const m = document.createElement('div');
@@ -1347,6 +1443,9 @@
             // =========================================================
             // 10. INICIALIZACIÓN
             // =========================================================
+            // Ocultar indicador de páginas inicialmente
+            document.querySelector('.indicador-pagina').style.display = 'none';
+
             const styleAdicional = document.createElement('style');
             styleAdicional.textContent = `
                     @keyframes flashAnim {
@@ -1360,7 +1459,7 @@
                 `;
             document.head.appendChild(styleAdicional);
 
-            console.log('📱 Modo teléfono activado con imagen de fondo.');
+            console.log('🎉 Invitación con navegación automática cada 10 segundos.');
         })();
     </script>
 
