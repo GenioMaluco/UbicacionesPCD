@@ -8,101 +8,393 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* ===== RESET ===== */
+        /* ====================================================
+           PALETA DE COLORES Y RESET
+           ==================================================== */
+        :root {
+            --salmon: #FF9E9D;
+            --salmon-light: #FFAFA4;
+            --gold: #D4AF37;
+            --gold-gradient: linear-gradient(135deg, #BF953F, #FCF6BA, #D4AF37, #FBF5B7);
+            --bg-color: #FFF5F5;
+            --letter-bg: #FFFFFF;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
+        /* ====================================================
+           FONDO CON IMAGEN (profesional con overlay)
+           ==================================================== */
+            body {
             font-family: 'Poppins', sans-serif;
             height: 100vh;
             overflow: hidden;
-            background: linear-gradient(135deg, #fce4ec 0%, #ffe0b2 40%, #f8bbd0 100%);
-            background-attachment: fixed;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
+            background-image: url('Fondo invitación.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
 
-        /* ===== SOBRE INICIAL ===== */
-        #sobre {
+        /* Overlay semitransparente para mejorar legibilidad */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.25);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ====================================================
+           CONTADOR INICIAL (sobre el sobre) - ARRIBA
+           ==================================================== */
+        #contador-inicial {
             position: absolute;
-            z-index: 100;
+            top: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 150;
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            pointer-events: none;
+            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+            border-radius: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        #contador-inicial.oculto {
+            opacity: 0;
+            transform: translateX(-50%) scale(0.8);
+            pointer-events: none;
+        }
+
+        .burbuja-contador {
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(212, 175, 55, 0.3), rgba(233, 30, 99, 0.15));
+            border-radius: 50%;
+            min-width: 64px;
+            height: 64px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
+            padding: 0 4px;
+            box-shadow: 
+                inset -3px -3px 10px rgba(0,0,0,0.08),
+                inset 3px 3px 10px rgba(255,255,255,0.7),
+                0 4px 15px rgba(212, 175, 55, 0.25),
+                0 0 0 2px rgba(212, 175, 55, 0.4),
+                0 0 0 4px rgba(233, 30, 99, 0.1);
+            border: none;
+            text-align: center;
+            position: relative;
+            animation: flotarBurbuja 3s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        .burbuja-contador::after {
+            content: '';
+            position: absolute;
+            top: 12%;
+            left: 20%;
+            width: 30%;
+            height: 20%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .burbuja-contador:nth-child(2) { animation-delay: 0.5s; }
+        .burbuja-contador:nth-child(3) { animation-delay: 1s; }
+        .burbuja-contador:nth-child(4) { animation-delay: 1.5s; }
+        .burbuja-contador:nth-child(5) { animation-delay: 2s; }
+
+        .burbuja-contador .numero {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1.2;
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+        }
+
+        .burbuja-contador .etiqueta {
+            font-size: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #E91E63;
+            font-weight: 600;
+            opacity: 0.8;
+        }
+
+        /* ====================================================
+           CONTADOR FLOTANTE (fijo por encima de las páginas)
+           ==================================================== */
+        #contador-flotante {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 300;
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
             transition: opacity 0.8s ease, transform 0.8s ease;
             background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(10px);
-            padding: 2.5rem 3rem;
-            border-radius: 40px;
-            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.5), 0 0 0 2px #D4AF37;
-            border: 3px solid rgba(233, 30, 99, 0.3);
+            backdrop-filter: blur(4px);
+            padding: 6px 14px;
+            border-radius: 50px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.15);
         }
 
-        #sobre:hover {
-            transform: scale(1.03);
+        #contador-flotante.visible {
+            opacity: 1;
+            pointer-events: none;
+            transform: translateX(-50%) scale(1);
         }
 
-        #sobre .icono-sobre {
-            font-size: 6rem;
-            margin-bottom: 1rem;
-            filter: drop-shadow(0 8px 20px rgba(212, 175, 55, 0.7));
-            animation: flotar 2.5s ease-in-out infinite;
+        .burbuja-flotante {
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(212, 175, 55, 0.3), rgba(233, 30, 99, 0.15));
+            border-radius: 50%;
+            min-width: 70px;
+            height: 70px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 6px;
+            box-shadow: 
+                inset -3px -3px 10px rgba(0,0,0,0.08),
+                inset 3px 3px 10px rgba(255,255,255,0.7),
+                0 4px 15px rgba(212, 175, 55, 0.25),
+                0 0 0 2px rgba(212, 175, 55, 0.4),
+                0 0 0 4px rgba(233, 30, 99, 0.1);
+            border: none;
+            text-align: center;
+            position: relative;
+            animation: flotarBurbuja 3.5s ease-in-out infinite;
+            transform-origin: center;
         }
 
-        @keyframes flotar {
-            0%,
-            100% {
-                transform: translateY(0) rotate(-2deg);
+        .burbuja-flotante::after {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 18%;
+            width: 28%;
+            height: 18%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .burbuja-flotante:nth-child(2) { animation-delay: 0.4s; }
+        .burbuja-flotante:nth-child(3) { animation-delay: 0.9s; }
+        .burbuja-flotante:nth-child(4) { animation-delay: 1.3s; }
+        .burbuja-flotante:nth-child(5) { animation-delay: 1.8s; }
+
+        .burbuja-flotante .numero {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1.2;
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+        }
+
+        .burbuja-flotante .etiqueta {
+            font-size: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #E91E63;
+            font-weight: 600;
+            opacity: 0.8;
+        }
+
+        @keyframes flotarBurbuja {
+            0%, 100% {
+                transform: translateY(0) scale(1);
             }
             50% {
-                transform: translateY(-12px) rotate(2deg);
+                transform: translateY(-6px) scale(1.02);
             }
         }
 
-        #sobre h2 {
+        /* ====================================================
+           ANIMACIÓN DE ATERRIZAJE DEL SOBRE
+           ==================================================== */
+        .butterfly-flight-path {
+            animation: butterfly-landing 2.8s cubic-bezier(0.25, 1, 0.35, 1) forwards;
+            transform-style: preserve-3d;
+            position: relative;
+            z-index: 100;
+            margin-top: 10px;
+        }
+
+        @keyframes butterfly-landing {
+            0% {
+                transform: translate(-60vw, 60vh) scale(0.2) rotateZ(45deg) rotateY(-60deg) rotateX(20deg);
+                opacity: 0;
+            }
+            25% {
+                transform: translate(-30vw, -15vh) scale(0.5) rotateZ(-20deg) rotateY(50deg) rotateX(-10deg);
+                opacity: 1;
+            }
+            50% {
+                transform: translate(15vw, 20vh) scale(0.7) rotateZ(15deg) rotateY(-40deg) rotateX(15deg);
+            }
+            75% {
+                transform: translate(5vw, -5vh) scale(0.9) rotateZ(-5deg) rotateY(15deg) rotateX(-5deg);
+            }
+            100% {
+                transform: translate(0, 0) scale(1) rotateZ(0) rotateY(0) rotateX(0);
+            }
+        }
+
+        /* ====================================================
+           SOBRE CON SOLAPA SVG
+           ==================================================== */
+        .envelope-wrapper {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            cursor: pointer;
+            perspective: 1200px;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            margin: 0 auto;
+            z-index: 1; /* por encima del overlay */
+        }
+
+        .envelope-wrapper.oculto {
+            opacity: 0;
+            transform: scale(0.5) rotateY(90deg);
+            pointer-events: none;
+        }
+
+        .envelope {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transform-style: preserve-3d;
+        }
+
+        .envelope-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--gold-gradient);
+            border-radius: 12px;
+            z-index: 1;
+        }
+
+        .envelope-front {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            pointer-events: none;
+            filter: drop-shadow(0px -4px 6px rgba(0, 0, 0, 0.08));
+        }
+
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            z-index: 4;
+            transform-origin: top;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.2s;
+            filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.1));
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* ====================================================
+           CARTA DENTRO DEL SOBRE
+           ==================================================== */
+        .letter {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 280px;
+            height: 180px;
+            background-color: var(--letter-bg);
+            border-radius: 8px;
+            z-index: 2;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .letter-text {
+            text-align: center;
+        }
+
+        .gold-text {
+            margin: 0 0 10px 0;
+            background: var(--gold-gradient);
+            -webkit-text-fill-color: transparent;
+            font-size: 1.8rem;
             font-family: 'Dancing Script', cursive;
-            color: #D4AF37;
-            font-size: 3rem;
-            text-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+            font-weight: 700;
         }
 
-        #sobre p {
-            color: #E91E63;
-            font-weight: 300;
-            letter-spacing: 3px;
-            font-size: 1.2rem;
+        .letter-text p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin: 0;
+            -webkit-text-fill-color: #666;
         }
 
-        #sobre .abrir-texto {
-            margin-top: 1.5rem;
-            background: linear-gradient(135deg, #D4AF37, #F5D76E);
-            color: #E91E63;
-            padding: 14px 40px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.5);
-            transition: transform 0.2s;
+        .envelope-wrapper.open .flap {
+            transform: rotateX(180deg);
+            z-index: 1;
         }
 
-        #sobre .abrir-texto:hover {
-            transform: scale(1.05);
+        .envelope-wrapper.open .letter {
+            transform: translateY(-90px);
+            transition-delay: 0.2s;
+            z-index: 5;
         }
 
-        .sobre-oculto {
-            opacity: 0 !important;
-            pointer-events: none !important;
-            transform: scale(0.7) !important;
-        }
-
-        /* ===== CONTENEDOR DE PÁGINAS ===== */
+        /* ====================================================
+           CONTENEDOR DE PÁGINAS (3 hojas)
+           ==================================================== */
         #paginas {
             position: absolute;
             width: 90%;
@@ -111,6 +403,7 @@
             max-height: 700px;
             perspective: 1500px;
             display: none;
+            z-index: 50;
         }
 
         #paginas.visible {
@@ -121,24 +414,25 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(1px);
             border-radius: 30px;
-            padding: 2rem 1.8rem;
+            padding: 1.5rem 1.8rem 1.2rem;
             box-shadow: 0 15px 50px rgba(233, 30, 99, 0.2),
                 inset 0 0 0 2px rgba(212, 175, 55, 0.3);
             border: 1px solid rgba(212, 175, 55, 0.2);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1),
-                opacity 0.6s ease;
+            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1),
+                opacity 0.8s ease;
             backface-visibility: hidden;
             transform-style: preserve-3d;
             opacity: 0;
             transform: rotateY(-90deg) scale(0.9);
             pointer-events: none;
             overflow-y: auto;
+            padding-top: 100px; /* Espacio para el contador fijo */
         }
 
         .pagina.activa {
@@ -154,13 +448,15 @@
             pointer-events: none;
         }
 
-        /* ===== CONTENIDO DE PÁGINAS ===== */
+        /* ====================================================
+           CONTENIDO DE PÁGINAS
+           ==================================================== */
         .pagina h2 {
             font-family: 'Dancing Script', cursive;
-            color: #D4AF37;
-            font-size: 2.8rem;
+            color: var(--gold);
+            font-size: 2.6rem;
             text-align: center;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
             text-shadow: 0 2px 15px rgba(212, 175, 55, 0.3);
         }
 
@@ -169,8 +465,8 @@
             font-weight: 300;
             text-align: center;
             letter-spacing: 2px;
-            font-size: 1.1rem;
-            margin-bottom: 1.2rem;
+            font-size: 1rem;
+            margin-bottom: 1rem;
         }
 
         .pagina .contenido {
@@ -178,20 +474,20 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            gap: 0.8rem;
+            gap: 0.6rem;
         }
 
         .pagina p {
             color: #4a2c2a;
             font-weight: 300;
             line-height: 1.8;
-            font-size: 1rem;
+            font-size: 0.95rem;
             text-align: center;
         }
 
         .pagina .destacado {
             font-weight: 600;
-            color: #D4AF37;
+            color: var(--gold);
         }
 
         .pagina .fila-detalle {
@@ -199,40 +495,39 @@
             align-items: center;
             gap: 0.8rem;
             background: rgba(212, 175, 55, 0.08);
-            padding: 0.7rem 1.2rem;
+            padding: 0.6rem 1rem;
             border-radius: 20px;
-            margin: 0.2rem 0;
-            border-left: 4px solid #D4AF37;
+            margin: 0.15rem 0;
+            border-left: 4px solid var(--gold);
         }
 
         .pagina .fila-detalle .icono {
-            font-size: 1.8rem;
-            width: 2.5rem;
+            font-size: 1.6rem;
+            width: 2.2rem;
             text-align: center;
         }
 
         .pagina .fila-detalle .texto {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #3e2723;
         }
 
         .pagina .fila-detalle .texto strong {
-            color: #D4AF37;
+            color: var(--gold);
             font-weight: 600;
         }
 
-        /* Protocolo */
         .protocolo {
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(233, 30, 99, 0.05));
-            padding: 1rem;
+            padding: 0.8rem;
             border-radius: 20px;
-            border: 1px solid #D4AF37;
+            border: 1px solid var(--gold);
             border-left: 6px solid #E91E63;
         }
 
         .protocolo p {
-            margin: 0.3rem 0;
-            font-size: 0.95rem;
+            margin: 0.2rem 0;
+            font-size: 0.9rem;
         }
 
         .protocolo .resaltado {
@@ -244,23 +539,23 @@
         .form-asistencia {
             display: flex;
             flex-direction: column;
-            gap: 0.8rem;
-            margin-top: 0.3rem;
+            gap: 0.6rem;
+            margin-top: 0.2rem;
         }
 
         .form-asistencia label {
             font-weight: 400;
             color: #5d4037;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         .form-asistencia input,
         .form-asistencia select {
-            padding: 12px 18px;
+            padding: 10px 16px;
             border-radius: 30px;
             border: 2px solid #f8bbd0;
             font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
+            font-size: 0.95rem;
             background: rgba(255, 255, 255, 0.7);
             outline: none;
             transition: border 0.3s, box-shadow 0.3s;
@@ -268,18 +563,18 @@
 
         .form-asistencia input:focus,
         .form-asistencia select:focus {
-            border-color: #D4AF37;
+            border-color: var(--gold);
             box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
         }
 
         .form-asistencia button {
-            padding: 14px;
+            padding: 12px;
             border: none;
             border-radius: 50px;
-            background: linear-gradient(135deg, #D4AF37, #F5D76E);
+            background: var(--gold-gradient);
             color: #E91E63;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1rem;
             cursor: pointer;
             box-shadow: 0 6px 25px rgba(212, 175, 55, 0.4);
             transition: transform 0.2s, box-shadow 0.3s;
@@ -294,28 +589,30 @@
             transform: scale(0.97);
         }
 
-        /* Navegación */
+        /* ====================================================
+           NAVEGACIÓN (efecto pasar página)
+           ==================================================== */
         .navegacion {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 1.2rem;
+            margin-top: 1rem;
             gap: 0.5rem;
         }
 
         .navegacion button {
             background: rgba(212, 175, 55, 0.2);
             border: none;
-            padding: 10px 20px;
+            padding: 8px 16px;
             border-radius: 50px;
             font-family: 'Poppins', sans-serif;
             font-weight: 500;
-            color: #D4AF37;
+            color: var(--gold);
             cursor: pointer;
             transition: background 0.3s, transform 0.2s;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             flex: 1;
-            min-height: 44px;
+            min-height: 40px;
         }
 
         .navegacion button:hover:not(:disabled) {
@@ -332,7 +629,7 @@
         }
 
         .navegacion .indicador {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             color: #E91E63;
             font-weight: 300;
             background: rgba(255, 255, 255, 0.5);
@@ -341,107 +638,9 @@
             border: 1px solid #f8bbd0;
         }
 
-        /* ===== WIDGET CUENTA REGRESIVA (SIEMPRE VISIBLE) ===== */
-        #widget-cuenta {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 200;
-            background: radial-gradient(circle at 30% 30%, #fff0f5, #ffe0b2);
-            border-radius: 50%;
-            padding: 20px 18px;
-            min-width: 130px;
-            min-height: 130px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.5), 0 0 0 3px #D4AF37, 0 0 0 6px rgba(233, 30, 99, 0.2);
-            border: 2px solid #E91E63;
-            transition: transform 0.3s;
-            backdrop-filter: blur(4px);
-            text-align: center;
-            opacity: 0;
-            transform: scale(0.5);
-            pointer-events: none;
-            /* se muestra al abrir el sobre */;
-        }
-
-        #widget-cuenta.visible {
-            opacity: 1;
-            transform: scale(1);
-            pointer-events: all;
-            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        #widget-cuenta .mariposa-deco {
-            position: absolute;
-            font-size: 1.8rem;
-            filter: drop-shadow(0 4px 8px rgba(212, 175, 55, 0.6));
-            animation: orbitar 8s linear infinite;
-        }
-
-        #widget-cuenta .mariposa-deco:nth-child(1) {
-            top: -15px;
-            left: -15px;
-            animation-delay: 0s;
-        }
-        #widget-cuenta .mariposa-deco:nth-child(2) {
-            bottom: -15px;
-            right: -15px;
-            animation-delay: 3s;
-        }
-        #widget-cuenta .mariposa-deco:nth-child(3) {
-            top: -10px;
-            right: -10px;
-            animation-delay: 1.5s;
-            font-size: 1.4rem;
-        }
-        #widget-cuenta .mariposa-deco:nth-child(4) {
-            bottom: -10px;
-            left: -10px;
-            animation-delay: 4.5s;
-            font-size: 1.4rem;
-        }
-
-        @keyframes orbitar {
-            0% {
-                transform: rotate(0deg) translateX(20px) rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg) translateX(20px) rotate(-360deg);
-            }
-        }
-
-        #widget-cuenta .tiempo {
-            font-weight: 700;
-            color: #D4AF37;
-            font-size: 1.8rem;
-            line-height: 1.2;
-            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
-        }
-
-        #widget-cuenta .tiempo small {
-            font-size: 0.7rem;
-            font-weight: 300;
-            color: #E91E63;
-            display: block;
-            margin-top: 2px;
-            letter-spacing: 1px;
-        }
-
-        #widget-cuenta .etiqueta-widget {
-            font-size: 0.55rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #E91E63;
-            font-weight: 300;
-            margin-top: 4px;
-            border-top: 1px solid rgba(212, 175, 55, 0.3);
-            padding-top: 4px;
-        }
-
-        /* ===== MARIPOSAS EFÍMERAS Y CONFETI ===== */
+        /* ====================================================
+           ANIMACIONES: MARIPOSAS, BRILLOS Y ESTRELLAS
+           ==================================================== */
         .mariposa-efimera {
             position: fixed;
             font-size: 2.5rem;
@@ -462,26 +661,29 @@
             }
         }
 
-        .particula-confeti {
+        .brillo-estrella {
             position: fixed;
             pointer-events: none;
             z-index: 998;
-            border-radius: 2px;
-            animation: confetiCaida 2.5s ease-out forwards;
+            border-radius: 50%;
+            background: radial-gradient(circle, #fff, #F5D76E);
+            animation: brilloEstrella 2s ease-out forwards;
         }
 
-        @keyframes confetiCaida {
+        @keyframes brilloEstrella {
             0% {
                 opacity: 1;
-                transform: translateY(0) rotate(0deg) scale(1);
+                transform: scale(0) rotate(0deg);
             }
             100% {
                 opacity: 0;
-                transform: translateY(500px) rotate(720deg) scale(0.3);
+                transform: scale(2) rotate(720deg);
             }
         }
 
-        /* ===== MARIPOSAS DE FONDO ===== */
+        /* ====================================================
+           MARIPOSAS DE FONDO (estáticas)
+           ==================================================== */
         .mariposa-fondo {
             position: absolute;
             font-size: 2rem;
@@ -492,19 +694,21 @@
             opacity: 0.5;
         }
 
-        /* ===== BOTÓN DE MÚSICA ===== */
+        /* ====================================================
+           BOTÓN DE MÚSICA
+           ==================================================== */
         #btn-musica {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 80px;
+            right: 16px;
             z-index: 300;
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(6px);
-            border: 2px solid #D4AF37;
+            border: 2px solid var(--gold);
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 1.6rem;
+            width: 48px;
+            height: 48px;
+            font-size: 1.4rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -527,77 +731,142 @@
             transform: scale(1.1);
         }
 
-        /* ===== RESPONSIVE ===== */
+        /* ====================================================
+           RESPONSIVE
+           ==================================================== */
         @media (max-width: 600px) {
-            #sobre {
-                padding: 1.8rem 1.5rem;
+            .envelope-wrapper {
+                width: 240px;
+                height: 160px;
             }
-            #sobre .icono-sobre {
-                font-size: 4.5rem;
+            .letter {
+                width: 220px;
+                height: 140px;
+                padding: 15px;
             }
-            #sobre h2 {
-                font-size: 2.2rem;
+            .gold-text {
+                font-size: 1.4rem;
             }
+            .letter-text p {
+                font-size: 0.8rem;
+            }
+
             #paginas {
                 width: 95%;
                 height: 80vh;
                 max-height: 650px;
             }
             .pagina {
-                padding: 1.5rem 1rem;
+                padding: 1rem 1rem 0.8rem;
+                padding-top: 85px;
             }
             .pagina h2 {
                 font-size: 2.2rem;
             }
-            #widget-cuenta {
-                bottom: 15px;
-                right: 15px;
-                padding: 16px 14px;
-                min-width: 100px;
-                min-height: 100px;
+            .pagina .subtitulo {
+                font-size: 0.9rem;
             }
-            #widget-cuenta .tiempo {
-                font-size: 1.5rem;
+
+            .burbuja-contador {
+                min-width: 50px;
+                height: 50px;
             }
-            #widget-cuenta .mariposa-deco {
+            .burbuja-contador .numero {
+                font-size: 1.2rem;
+            }
+            .burbuja-contador .etiqueta {
+                font-size: 0.4rem;
+            }
+
+            #contador-flotante {
+                padding: 5px 10px;
+                gap: 0.3rem;
+                top: 6px;
+            }
+            .burbuja-flotante {
+                min-width: 54px;
+                height: 54px;
+            }
+            .burbuja-flotante .numero {
                 font-size: 1.4rem;
             }
+            .burbuja-flotante .etiqueta {
+                font-size: 0.4rem;
+            }
+
             .navegacion button {
-                font-size: 0.8rem;
-                padding: 8px 12px;
+                font-size: 0.75rem;
+                padding: 6px 12px;
+                min-height: 36px;
             }
             .mariposa-efimera {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             #btn-musica {
-                width: 44px;
-                height: 44px;
-                font-size: 1.3rem;
-                top: 12px;
+                width: 42px;
+                height: 42px;
+                font-size: 1.2rem;
+                top: 70px;
                 right: 12px;
             }
         }
 
         @media (max-width: 400px) {
+            .envelope-wrapper {
+                width: 180px;
+                height: 130px;
+            }
+            .letter {
+                width: 160px;
+                height: 110px;
+                padding: 10px;
+            }
+            .gold-text {
+                font-size: 1.2rem;
+            }
+            .letter-text p {
+                font-size: 0.7rem;
+            }
             .pagina h2 {
                 font-size: 1.8rem;
             }
-            #widget-cuenta .tiempo {
-                font-size: 1.2rem;
+            .burbuja-contador {
+                min-width: 40px;
+                height: 40px;
             }
-            #widget-cuenta {
-                min-width: 80px;
-                min-height: 80px;
-                padding: 12px;
+            .burbuja-contador .numero {
+                font-size: 1rem;
+            }
+            .burbuja-flotante {
+                min-width: 44px;
+                height: 44px;
+            }
+            .burbuja-flotante .numero {
+                font-size: 1.1rem;
+            }
+            #contador-flotante {
+                padding: 4px 8px;
+                gap: 0.2rem;
+                top: 4px;
+            }
+            .pagina {
+                padding-top: 75px;
+            }
+            #btn-musica {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+                top: 60px;
+                right: 10px;
             }
         }
 
-        /* Scroll */
+        /* Scroll para páginas */
         .pagina::-webkit-scrollbar {
             width: 4px;
         }
         .pagina::-webkit-scrollbar-thumb {
-            background: #D4AF37;
+            background: var(--gold);
             border-radius: 10px;
         }
         .pagina::-webkit-scrollbar-track {
@@ -613,46 +882,98 @@
     <!-- ===== BOTÓN DE MÚSICA ===== -->
     <button id="btn-musica" title="Reproducir / Pausar">🔊</button>
 
-    <!-- ===== SOBRE INICIAL ===== -->
-    <div id="sobre">
-        <div class="icono-sobre">✉️</div>
-        <h2>¡Abigail!</h2>
-        <p>15 años</p>
-        <div class="abrir-texto">📬 Haz clic para abrir</div>
+    <!-- =========================================================
+    CONTADOR INICIAL (sobre el sobre)
+    ========================================================= -->
+    <div id="contador-inicial">
+        <div class="burbuja-contador">
+            <span class="numero" id="inicial-meses">00</span>
+            <span class="etiqueta">Meses</span>
+        </div>
+        <div class="burbuja-contador">
+            <span class="numero" id="inicial-dias">00</span>
+            <span class="etiqueta">Días</span>
+        </div>
+        <div class="burbuja-contador">
+            <span class="numero" id="inicial-horas">00</span>
+            <span class="etiqueta">Horas</span>
+        </div>
+        <div class="burbuja-contador">
+            <span class="numero" id="inicial-minutos">00</span>
+            <span class="etiqueta">Min</span>
+        </div>
+        <div class="burbuja-contador">
+            <span class="numero" id="inicial-segundos">00</span>
+            <span class="etiqueta">Seg</span>
+        </div>
     </div>
 
-    <!-- ===== CONTENEDOR DE PÁGINAS ===== -->
+    <!-- =========================================================
+    SOBRE CON SOLAPA (punto de entrada)
+    ========================================================= -->
+    <div class="butterfly-flight-path">
+        <div class="envelope-wrapper" id="envelopeContainer">
+            <div class="envelope">
+
+                <div class="envelope-back"></div>
+
+                <div class="letter">
+                    <div class="letter-text">
+                        <h3 class="gold-text">¡Abigail!</h3>
+                        <p>15 años · Haz clic para abrir</p>
+                    </div>
+                </div>
+
+                <div class="envelope-front">
+                    <svg viewBox="0 0 300 200" preserveAspectRatio="none">
+                        <path d="M0,0 L0,200 L300,200 L300,0 L165,115 C155,123 145,123 135,115 Z" fill="var(--salmon)"/>
+                    </svg>
+                </div>
+
+                <div class="flap">
+                    <svg viewBox="0 0 300 120" preserveAspectRatio="none">
+                        <path d="M0,0 L300,0 L165,110 C155,118 145,118 135,110 L0,0 Z" fill="var(--salmon-light)"/>
+                    </svg>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+    CONTENEDOR DE PÁGINAS (3 hojas)
+    ========================================================= -->
     <div id="paginas">
 
-        <!-- Página 1: Portada -->
+        <!-- Página 1: Bienvenida -->
         <div class="pagina activa" data-index="0">
             <div>
                 <h2>🌸 Bienvenida</h2>
                 <div class="subtitulo">Celebremos juntos</div>
                 <div class="contenido">
-                    <p style="font-size:1.2rem; line-height:2;">
+                    <p style="font-size:1.1rem; line-height:1.9;">
                         ¡Hola!<br>
                         Te invito a ser parte de un día muy especial:<br>
                         <span class="destacado">mis 15 años</span>
                     </p>
-                    <p style="font-size:0.95rem; color:#E91E63;">
+                    <p style="font-size:0.9rem; color:#E91E63;">
                         ✨ Una tarde llena de magia, mariposas y mucha alegría ✨
                     </p>
-                    <div style="display:flex; justify-content:center; gap:0.8rem; flex-wrap:wrap; margin-top:0.5rem;">
-                        <span style="background:#fce4ec; padding:0.3rem 1.2rem; border-radius:30px; color:#D4AF37; border:1px solid #D4AF37;">🦋</span>
-                        <span style="background:#ffe0b2; padding:0.3rem 1.2rem; border-radius:30px; color:#D4AF37; border:1px solid #D4AF37;">✨</span>
-                        <span style="background:#fce4ec; padding:0.3rem 1.2rem; border-radius:30px; color:#D4AF37; border:1px solid #D4AF37;">🦋</span>
+                    <div style="display:flex; justify-content:center; gap:0.6rem; flex-wrap:wrap; margin-top:0.3rem;">
+                        <span style="background:#fce4ec; padding:0.2rem 1rem; border-radius:30px; color:var(--gold); border:1px solid var(--gold);">🦋</span>
+                        <span style="background:#ffe0b2; padding:0.2rem 1rem; border-radius:30px; color:var(--gold); border:1px solid var(--gold);">✨</span>
+                        <span style="background:#fce4ec; padding:0.2rem 1rem; border-radius:30px; color:var(--gold); border:1px solid var(--gold);">🦋</span>
                     </div>
                 </div>
             </div>
             <div class="navegacion">
                 <button disabled>Anterior</button>
-                <span class="indicador">1 / 4</span>
+                <span class="indicador">1 / 3</span>
                 <button class="btn-siguiente">Siguiente →</button>
             </div>
         </div>
 
-        <!-- Página 2: Detalles -->
+        <!-- Página 2: El Evento -->
         <div class="pagina" data-index="1">
             <div>
                 <h2>📅 El Evento</h2>
@@ -671,7 +992,7 @@
                         <span class="texto"><strong>Lugar:</strong> Salón Comunal, Tibás (por definir)</span>
                     </div>
                     <div class="protocolo">
-                        <p style="font-weight:600; color:#D4AF37;">🎩 Protocolo de vestimenta</p>
+                        <p style="font-weight:600; color:var(--gold);">🎩 Protocolo de vestimenta</p>
                         <p>✅ <strong>Formal</strong></p>
                         <p>⚪ <strong>Colores permitidos:</strong> Blanco o Negro</p>
                         <p>🌟 Los colores <span class="resaltado">Dorado</span> y <span class="resaltado">Rosado</span> son exclusivos para la cumpleañera.</p>
@@ -680,49 +1001,13 @@
             </div>
             <div class="navegacion">
                 <button class="btn-anterior">← Anterior</button>
-                <span class="indicador">2 / 4</span>
+                <span class="indicador">2 / 3</span>
                 <button class="btn-siguiente">Siguiente →</button>
             </div>
         </div>
 
-        <!-- Página 3: Cuenta regresiva (detallada) -->
+        <!-- Página 3: Confirmar asistencia -->
         <div class="pagina" data-index="2">
-            <div>
-                <h2>⏳ ¡Falta cada vez menos!</h2>
-                <div class="subtitulo">Cuenta regresiva</div>
-                <div class="contenido">
-                    <div style="display:flex; justify-content:center; gap:1.2rem; flex-wrap:wrap; margin:0.5rem 0;">
-                        <div style="background:linear-gradient(135deg, #fce4ec, #ffe0b2); padding:0.8rem 0.5rem; border-radius:20px; min-width:70px; text-align:center; border:2px solid #D4AF37; box-shadow:0 4px 15px rgba(212,175,55,0.2);">
-                            <span style="font-size:2.2rem; font-weight:600; color:#D4AF37; display:block; line-height:1.2;" id="dias-detalle">00</span>
-                            <span style="font-size:0.7rem; text-transform:uppercase; color:#E91E63; letter-spacing:1px;">Días</span>
-                        </div>
-                        <div style="background:linear-gradient(135deg, #fce4ec, #ffe0b2); padding:0.8rem 0.5rem; border-radius:20px; min-width:70px; text-align:center; border:2px solid #D4AF37; box-shadow:0 4px 15px rgba(212,175,55,0.2);">
-                            <span style="font-size:2.2rem; font-weight:600; color:#D4AF37; display:block; line-height:1.2;" id="horas-detalle">00</span>
-                            <span style="font-size:0.7rem; text-transform:uppercase; color:#E91E63; letter-spacing:1px;">Horas</span>
-                        </div>
-                        <div style="background:linear-gradient(135deg, #fce4ec, #ffe0b2); padding:0.8rem 0.5rem; border-radius:20px; min-width:70px; text-align:center; border:2px solid #D4AF37; box-shadow:0 4px 15px rgba(212,175,55,0.2);">
-                            <span style="font-size:2.2rem; font-weight:600; color:#D4AF37; display:block; line-height:1.2;" id="minutos-detalle">00</span>
-                            <span style="font-size:0.7rem; text-transform:uppercase; color:#E91E63; letter-spacing:1px;">Minutos</span>
-                        </div>
-                        <div style="background:linear-gradient(135deg, #fce4ec, #ffe0b2); padding:0.8rem 0.5rem; border-radius:20px; min-width:70px; text-align:center; border:2px solid #D4AF37; box-shadow:0 4px 15px rgba(212,175,55,0.2);">
-                            <span style="font-size:2.2rem; font-weight:600; color:#D4AF37; display:block; line-height:1.2;" id="segundos-detalle">00</span>
-                            <span style="font-size:0.7rem; text-transform:uppercase; color:#E91E63; letter-spacing:1px;">Segundos</span>
-                        </div>
-                    </div>
-                    <p style="font-size:0.9rem; color:#E91E63; font-weight:300;">
-                        <span style="font-weight:600;">🗓️ 11 de enero de 2027 · 4:30 pm</span>
-                    </p>
-                </div>
-            </div>
-            <div class="navegacion">
-                <button class="btn-anterior">← Anterior</button>
-                <span class="indicador">3 / 4</span>
-                <button class="btn-siguiente">Siguiente →</button>
-            </div>
-        </div>
-
-        <!-- Página 4: Confirmación -->
-        <div class="pagina" data-index="3">
             <div>
                 <h2>✅ Confirma tu asistencia</h2>
                 <div class="subtitulo">Cuéntanos si vienes</div>
@@ -744,51 +1029,68 @@
 
                         <button type="submit">Enviar confirmación 🦋</button>
                     </form>
-                    <div id="mensaje-confirmacion" style="text-align:center; margin-top:0.5rem; font-weight:300; color:#D4AF37; display:none; font-size:1.2rem;">
+                    <div id="mensaje-confirmacion" style="text-align:center; margin-top:0.5rem; font-weight:300; color:var(--gold); display:none; font-size:1.1rem;">
                         ¡Gracias! Te esperamos 🎉
                     </div>
                 </div>
             </div>
             <div class="navegacion">
                 <button class="btn-anterior">← Anterior</button>
-                <span class="indicador">4 / 4</span>
+                <span class="indicador">3 / 3</span>
                 <button disabled>Fin</button>
             </div>
         </div>
     </div>
 
-    <!-- ===== WIDGET CUENTA REGRESIVA (flotante) ===== -->
-    <div id="widget-cuenta">
-        <span class="mariposa-deco">🦋</span>
-        <span class="mariposa-deco">🦋</span>
-        <span class="mariposa-deco">🦋</span>
-        <span class="mariposa-deco">🦋</span>
-        <div class="tiempo">
-            <span id="widget-dias">00</span>:<span id="widget-horas">00</span>:<span id="widget-minutos">00</span>:<span id="widget-segundos">00</span>
-            <small>días · horas · mins · segs</small>
+    <!-- =========================================================
+    CONTADOR FLOTANTE (fijo por encima de las páginas)
+    ========================================================= -->
+    <div id="contador-flotante">
+        <div class="burbuja-flotante">
+            <span class="numero" id="flotante-meses">00</span>
+            <span class="etiqueta">Meses</span>
         </div>
-        <div class="etiqueta-widget">¡Falta poco!</div>
+        <div class="burbuja-flotante">
+            <span class="numero" id="flotante-dias">00</span>
+            <span class="etiqueta">Días</span>
+        </div>
+        <div class="burbuja-flotante">
+            <span class="numero" id="flotante-horas">00</span>
+            <span class="etiqueta">Horas</span>
+        </div>
+        <div class="burbuja-flotante">
+            <span class="numero" id="flotante-minutos">00</span>
+            <span class="etiqueta">Min</span>
+        </div>
+        <div class="burbuja-flotante">
+            <span class="numero" id="flotante-segundos">00</span>
+            <span class="etiqueta">Seg</span>
+        </div>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- ===== JAVASCRIPT ===== -->
+    <!-- =========================================================
+    JAVASCRIPT
+    ========================================================= -->
     <script>
         (function() {
             'use strict';
 
-            // ============================================================
+            // =========================================================
             // 1. ELEMENTOS DOM
-            // ============================================================
-            const sobre = document.getElementById('sobre');
+            // =========================================================
+            const envelopeWrapper = document.getElementById('envelopeContainer');
             const paginas = document.getElementById('paginas');
             const btnMusica = document.getElementById('btn-musica');
             const audio = document.getElementById('musica');
+            const contadorInicial = document.getElementById('contador-inicial');
+            const contadorFlotante = document.getElementById('contador-flotante');
 
-            // ============================================================
-            // 2. MÚSICA
-            // ============================================================
             let musicaReproduciendo = false;
+            let sobreAbierto = false;
 
+            // =========================================================
+            // 2. MÚSICA
+            // =========================================================
             btnMusica.addEventListener('click', function(e) {
                 e.stopPropagation();
                 if (audio.paused) {
@@ -802,58 +1104,52 @@
                 }
             });
 
-            // ============================================================
+            // =========================================================
             // 3. APERTURA DEL SOBRE
-            // ============================================================
-            sobre.addEventListener('click', function() {
-                // Ocultar sobre
-                this.classList.add('sobre-oculto');
-                paginas.classList.add('visible');
+            // =========================================================
+            envelopeWrapper.addEventListener('click', function() {
+                if (sobreAbierto) return;
+                sobreAbierto = true;
 
-                // Mostrar widget cuenta regresiva
-                document.getElementById('widget-cuenta').classList.add('visible');
+                this.classList.add('open');
 
-                // Mostrar botón de música
-                btnMusica.classList.add('visible');
+                setTimeout(() => {
+                    this.classList.add('oculto');
+                    contadorInicial.classList.add('oculto');
+                    paginas.classList.add('visible');
+                    contadorFlotante.classList.add('visible');
+                    btnMusica.classList.add('visible');
+                }, 700);
 
-                // Iniciar música (si el navegador lo permite)
                 audio.play().then(() => {
                     btnMusica.textContent = '🔊';
                     musicaReproduciendo = true;
                 }).catch(() => {
-                    // Autoplay bloqueado, el usuario deberá hacer clic en el botón
                     btnMusica.textContent = '🔇';
                     musicaReproduciendo = false;
                 });
 
-                // ANIMACIÓN: Confeti + destello al abrir
-                lanzarConfeti(40, ['#D4AF37', '#E91E63', '#F8BBD0', '#F5D76E']);
-                lanzarMariposas(14);
+                lanzarLluviaCompleta(20, 30, 30);
 
-                // Efecto de destello (flash)
                 const flash = document.createElement('div');
                 flash.style.position = 'fixed';
                 flash.style.top = '0';
                 flash.style.left = '0';
                 flash.style.width = '100%';
                 flash.style.height = '100%';
-                flash.style.background = 'rgba(212, 175, 55, 0.3)';
+                flash.style.background = 'rgba(212, 175, 55, 0.25)';
                 flash.style.pointerEvents = 'none';
                 flash.style.zIndex = '9999';
-                flash.style.animation = 'flashAnim 0.6s ease-out forwards';
+                flash.style.animation = 'flashAnim 0.7s ease-out forwards';
                 document.body.appendChild(flash);
-                setTimeout(() => flash.remove(), 700);
+                setTimeout(() => flash.remove(), 800);
 
-                // Iniciar cuenta regresiva (widget y detalle)
-                iniciarCuentaRegresiva();
-
-                // Ajustar navegación inicial
                 actualizarPaginas(0);
             });
 
-            // ============================================================
+            // =========================================================
             // 4. NAVEGACIÓN ENTRE PÁGINAS
-            // ============================================================
+            // =========================================================
             const paginaElements = document.querySelectorAll('.pagina');
             let paginaActual = 0;
 
@@ -867,26 +1163,21 @@
                     }
                 });
 
-                // Actualizar indicadores
                 document.querySelectorAll('.indicador').forEach(el => {
                     el.textContent = `${nuevaIndex + 1} / ${paginaElements.length}`;
                 });
 
-                // Botones
                 const pagActual = paginaElements[nuevaIndex];
                 const btnAnt = pagActual.querySelector('.btn-anterior');
                 const btnSig = pagActual.querySelector('.btn-siguiente');
                 if (btnAnt) btnAnt.disabled = (nuevaIndex === 0);
                 if (btnSig) btnSig.disabled = (nuevaIndex === paginaElements.length - 1);
 
-                // ANIMACIÓN AL PASAR PÁGINA (excepto la primera)
                 if (nuevaIndex !== 0) {
-                    lanzarMariposas(12);
-                    lanzarConfeti(25, ['#D4AF37', '#E91E63', '#F8BBD0', '#F5D76E']);
+                    lanzarLluviaCompleta(15, 25, 25);
                 }
             }
 
-            // Delegación de eventos en botones de navegación
             document.addEventListener('click', function(e) {
                 const btn = e.target.closest('.btn-siguiente, .btn-anterior');
                 if (!btn) return;
@@ -907,9 +1198,9 @@
                 }
             });
 
-            // ============================================================
-            // 5. CUENTA REGRESIVA (widget + detalle)
-            // ============================================================
+            // =========================================================
+            // 5. CUENTA REGRESIVA (ACTIVA DESDE EL PRIMER MOMENTO)
+            // =========================================================
             let intervaloCuenta;
 
             function iniciarCuentaRegresiva() {
@@ -920,47 +1211,62 @@
                     const diff = fechaEvento - ahora;
 
                     if (diff <= 0) {
-                        // Mostrar ceros y detener
-                        const ceros = { d: '00', h: '00', m: '00', s: '00' };
-                        actualizarElementos(ceros.d, ceros.h, ceros.m, ceros.s);
+                        const ceros = { meses: '00', dias: '00', horas: '00', min: '00', seg: '00' };
+                        actualizarElementos(ceros);
                         clearInterval(intervaloCuenta);
                         return;
                     }
 
-                    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-                    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                    const s = Math.floor((diff % (1000 * 60)) / 1000);
+                    const totalSegundos = Math.floor(diff / 1000);
+                    const meses = Math.floor(totalSegundos / (30 * 24 * 3600));
+                    const restoMeses = totalSegundos % (30 * 24 * 3600);
+                    const dias = Math.floor(restoMeses / (24 * 3600));
+                    const restoDias = restoMeses % (24 * 3600);
+                    const horas = Math.floor(restoDias / 3600);
+                    const restoHoras = restoDias % 3600;
+                    const minutos = Math.floor(restoHoras / 60);
+                    const segundos = restoHoras % 60;
 
-                    const dStr = String(d).padStart(2, '0');
-                    const hStr = String(h).padStart(2, '0');
-                    const mStr = String(m).padStart(2, '0');
-                    const sStr = String(s).padStart(2, '0');
+                    const valores = {
+                        meses: String(meses).padStart(2, '0'),
+                        dias: String(dias).padStart(2, '0'),
+                        horas: String(horas).padStart(2, '0'),
+                        min: String(minutos).padStart(2, '0'),
+                        seg: String(segundos).padStart(2, '0')
+                    };
 
-                    actualizarElementos(dStr, hStr, mStr, sStr);
+                    actualizarElementos(valores);
                 }
 
-                function actualizarElementos(d, h, m, s) {
-                    // Widget
-                    document.getElementById('widget-dias').textContent = d;
-                    document.getElementById('widget-horas').textContent = h;
-                    document.getElementById('widget-minutos').textContent = m;
-                    document.getElementById('widget-segundos').textContent = s;
+                function actualizarElementos(v) {
+                    document.getElementById('inicial-meses').textContent = v.meses;
+                    document.getElementById('inicial-dias').textContent = v.dias;
+                    document.getElementById('inicial-horas').textContent = v.horas;
+                    document.getElementById('inicial-minutos').textContent = v.min;
+                    document.getElementById('inicial-segundos').textContent = v.seg;
 
-                    // Detalle (página 3)
-                    document.getElementById('dias-detalle').textContent = d;
-                    document.getElementById('horas-detalle').textContent = h;
-                    document.getElementById('minutos-detalle').textContent = m;
-                    document.getElementById('segundos-detalle').textContent = s;
+                    document.getElementById('flotante-meses').textContent = v.meses;
+                    document.getElementById('flotante-dias').textContent = v.dias;
+                    document.getElementById('flotante-horas').textContent = v.horas;
+                    document.getElementById('flotante-minutos').textContent = v.min;
+                    document.getElementById('flotante-segundos').textContent = v.seg;
                 }
 
                 actualizar();
                 intervaloCuenta = setInterval(actualizar, 1000);
             }
 
-            // ============================================================
-            // 6. ANIMACIONES: MARIPOSAS EFÍMERAS
-            // ============================================================
+            iniciarCuentaRegresiva();
+
+            // =========================================================
+            // 6. ANIMACIONES
+            // =========================================================
+            function lanzarLluviaCompleta(cantMariposas = 15, cantBrillos = 25, cantEstrellas = 20) {
+                lanzarMariposas(cantMariposas);
+                lanzarBrillos(cantBrillos);
+                lanzarEstrellas(cantEstrellas);
+            }
+
             function lanzarMariposas(cantidad = 10) {
                 const emojis = ['🦋', '🦋', '🦋', '🦋', '🦋', '✨', '🌸'];
                 for (let i = 0; i < cantidad; i++) {
@@ -982,33 +1288,62 @@
                 }
             }
 
-            // ============================================================
-            // 7. ANIMACIONES: CONFETI
-            // ============================================================
-            function lanzarConfeti(cantidad = 30, colores = ['#D4AF37', '#E91E63']) {
+            function lanzarBrillos(cantidad = 20) {
+                const colores = ['#D4AF37', '#E91E63', '#F8BBD0', '#FFD700', '#FFF'];
                 for (let i = 0; i < cantidad; i++) {
-                    const confeti = document.createElement('div');
-                    confeti.className = 'particula-confeti';
-                    const size = 6 + Math.random() * 10;
-                    confeti.style.width = size + 'px';
-                    confeti.style.height = size * 0.6 + 'px';
-                    confeti.style.background = colores[Math.floor(Math.random() * colores.length)];
-                    confeti.style.left = Math.random() * window.innerWidth + 'px';
-                    confeti.style.top = '-10px';
-                    const rotacion = Math.random() * 360;
-                    confeti.style.transform = `rotate(${rotacion}deg)`;
+                    const brillo = document.createElement('div');
+                    brillo.className = 'brillo-estrella';
+                    const size = 6 + Math.random() * 12;
+                    brillo.style.width = size + 'px';
+                    brillo.style.height = size + 'px';
+                    brillo.style.background = colores[Math.floor(Math.random() * colores.length)];
+                    brillo.style.left = Math.random() * window.innerWidth + 'px';
+                    brillo.style.top = Math.random() * window.innerHeight + 'px';
                     const duracion = 1.5 + Math.random() * 2;
-                    confeti.style.animationDuration = duracion + 's';
-                    // Añadir retardo aleatorio
-                    confeti.style.animationDelay = Math.random() * 0.8 + 's';
-                    document.body.appendChild(confeti);
-                    setTimeout(() => confeti.remove(), duracion * 1000 + 1000);
+                    brillo.style.animationDuration = duracion + 's';
+                    brillo.style.animationDelay = Math.random() * 0.8 + 's';
+                    document.body.appendChild(brillo);
+                    setTimeout(() => brillo.remove(), duracion * 1000 + 1000);
                 }
             }
 
-            // ============================================================
-            // 8. MARIPOSAS DE FONDO (estáticas)
-            // ============================================================
+            function lanzarEstrellas(cantidad = 15) {
+                for (let i = 0; i < cantidad; i++) {
+                    const estrella = document.createElement('div');
+                    estrella.className = 'mariposa-efimera';
+                    estrella.textContent = '⭐';
+                    const x = Math.random() * window.innerWidth;
+                    const y = Math.random() * window.innerHeight;
+                    estrella.style.left = x + 'px';
+                    estrella.style.top = y + 'px';
+                    const tx = (Math.random() - 0.5) * 500;
+                    const ty = (Math.random() - 0.5) * 500;
+                    estrella.style.setProperty('--tx', tx + 'px');
+                    estrella.style.setProperty('--ty', ty + 'px');
+                    const size = 1.5 + Math.random() * 2;
+                    estrella.style.fontSize = size + 'rem';
+                    estrella.style.filter = 'drop-shadow(0 0 15px rgba(255,215,0,0.9))';
+                    document.body.appendChild(estrella);
+                    setTimeout(() => estrella.remove(), 3000);
+                }
+            }
+
+            // =========================================================
+            // 7. CLIC EN TODA LA PANTALLA - MARIPOSAS Y BRILLOS
+            // =========================================================
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('button')) return;
+                lanzarLluviaCompleta(8, 15, 10);
+            });
+
+            document.addEventListener('touchstart', function(e) {
+                if (e.target.closest('button')) return;
+                lanzarLluviaCompleta(8, 15, 10);
+            });
+
+            // =========================================================
+            // 8. MARIPOSAS DE FONDO
+            // =========================================================
             function crearMariposasFondo() {
                 const cant = 16;
                 for (let i = 0; i < cant; i++) {
@@ -1027,9 +1362,9 @@
             }
             crearMariposasFondo();
 
-            // ============================================================
-            // 9. FORMULARIO DE CONFIRMACIÓN
-            // ============================================================
+            // =========================================================
+            // 9. FORMULARIO
+            // =========================================================
             document.getElementById('form-confirmacion').addEventListener('submit', function(e) {
                 e.preventDefault();
                 const nombre = document.getElementById('nombre').value.trim();
@@ -1039,33 +1374,26 @@
                 }
                 this.style.display = 'none';
                 document.getElementById('mensaje-confirmacion').style.display = 'block';
-                lanzarMariposas(20);
-                lanzarConfeti(40, ['#D4AF37', '#E91E63', '#F8BBD0', '#F5D76E']);
-                // Aquí podrías enviar los datos a un servidor
+                lanzarLluviaCompleta(25, 40, 30);
             });
 
-            // ============================================================
-            // 10. INICIALIZACIÓN (primera página visible)
-            // ============================================================
-            // La primera página ya tiene clase 'activa', pero aseguramos
-            // que los indicadores estén correctos.
-            setTimeout(() => {
-                actualizarPaginas(0);
-            }, 100);
-
-            // ============================================================
-            // 11. ESTILO DE ANIMACIÓN FLASH (inyectado)
-            // ============================================================
-            const styleFlash = document.createElement('style');
-            styleFlash.textContent = `
+            // =========================================================
+            // 10. INICIALIZACIÓN
+            // =========================================================
+            const styleAdicional = document.createElement('style');
+            styleAdicional.textContent = `
                     @keyframes flashAnim {
                         0% { opacity: 0.8; }
                         100% { opacity: 0; }
                     }
+                    @keyframes flotar {
+                        0%, 100% { transform: translateY(0) rotate(-2deg); }
+                        50% { transform: translateY(-12px) rotate(2deg); }
+                    }
                 `;
-            document.head.appendChild(styleFlash);
+            document.head.appendChild(styleAdicional);
 
-            console.log('🎉 Invitación lista con widget de cuenta regresiva, música y animaciones JS.');
+            console.log('🎉 Invitación con imagen de fondo profesional.');
         })();
     </script>
 

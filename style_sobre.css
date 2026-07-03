@@ -1,0 +1,158 @@
+:root {
+    /* Paleta de Colores Solicitada */
+    --salmon: #FF9E9D;          /* Rosa Salmón base */
+    --salmon-light: #FFAFA4;    /* Salmón claro para contraste en la solapa */
+    --gold: #D4AF37;            /* Dorado premium */
+    --gold-gradient: linear-gradient(135deg, #BF953F, #FCF6BA, #D4AF37, #FBF5B7);
+    --bg-color: #FFF5F5;        /* Fondo general suave */
+    --letter-bg: #FFFFFF;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden; /* Evita scroll durante el vuelo */
+}
+
+/* =========================================
+   ANIMACIÓN DE MARIPOSA (VUELO Y ATERRIZAJE)
+   ========================================= */
+.butterfly-flight-path {
+    animation: butterfly-landing 2.8s cubic-bezier(0.25, 1, 0.35, 1) forwards;
+    transform-style: preserve-3d;
+}
+
+@keyframes butterfly-landing {
+    0% {
+        transform: translate(-60vw, 60vh) scale(0.2) rotateZ(45deg) rotateY(-60deg) rotateX(20deg);
+        opacity: 0;
+    }
+    25% {
+        transform: translate(-30vw, -15vh) scale(0.5) rotateZ(-20deg) rotateY(50deg) rotateX(-10deg);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(15vw, 20vh) scale(0.7) rotateZ(15deg) rotateY(-40deg) rotateX(15deg);
+    }
+    75% {
+        transform: translate(5vw, -5vh) scale(0.9) rotateZ(-5deg) rotateY(15deg) rotateX(-5deg);
+    }
+    100% {
+        transform: translate(0, 0) scale(1) rotateZ(0) rotateY(0) rotateX(0);
+    }
+}
+
+/* =========================================
+   ESTRUCTURA DEL SOBRE (Líneas Suaves)
+   ========================================= */
+.envelope-wrapper {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    cursor: pointer;
+    perspective: 1200px; /* Profundidad para el efecto 3D al abrir */
+}
+
+.envelope {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px; /* Esquinas exteriores suaves */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    transform-style: preserve-3d;
+}
+
+.envelope-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--gold-gradient); /* Interior dorado */
+    border-radius: 12px;
+    z-index: 1;
+}
+
+.envelope-front {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 3;
+    pointer-events: none; /* Para que el clic pase al contenedor */
+    filter: drop-shadow(0px -4px 6px rgba(0,0,0,0.08)); /* Sombra suave interna */
+}
+
+.flap {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 120px;
+    z-index: 4;
+    transform-origin: top;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.2s;
+    filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.1));
+}
+
+svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* =========================================
+   LA CARTA
+   ========================================= */
+.letter {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 280px;
+    height: 180px;
+    background-color: var(--letter-bg);
+    border-radius: 8px;
+    z-index: 2; /* Entre la parte trasera y el frente */
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.letter-text {
+    text-align: center;
+}
+
+.gold-text {
+    margin: 0 0 10px 0;
+    background: var(--gold-gradient);
+    -webkit-text-fill-color: transparent;
+    font-size: 1.5rem;
+}
+
+.letter-text p {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* =========================================
+   ESTADOS DE INTERACCIÓN (Abrir)
+   ========================================= */
+.envelope-wrapper.open .flap {
+    transform: rotateX(180deg);
+    z-index: 1; /* Pasa atrás de la carta */
+}
+
+.envelope-wrapper.open .letter {
+    transform: translateY(-90px); /* Desliza la carta hacia arriba */
+    transition-delay: 0.2s;
+    z-index: 5; /* Sube por encima de todo */
+}
