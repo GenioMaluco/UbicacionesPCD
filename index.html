@@ -2,42 +2,1072 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Invitación de Cumpleaños!</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Invitación 15 años - Abigail</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(135deg, #fce4ec 0%, #ffe0b2 40%, #f8bbd0 100%);
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* ===== SOBRE INICIAL ===== */
+        #sobre {
+            position: absolute;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem 3rem;
+            border-radius: 40px;
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.5), 0 0 0 2px #D4AF37;
+            border: 3px solid rgba(233, 30, 99, 0.3);
+        }
+
+        #sobre:hover {
+            transform: scale(1.03);
+        }
+
+        #sobre .icono-sobre {
+            font-size: 6rem;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 8px 20px rgba(212, 175, 55, 0.7));
+            animation: flotar 2.5s ease-in-out infinite;
+        }
+
+        @keyframes flotar {
+            0%,
+            100% {
+                transform: translateY(0) rotate(-2deg);
+            }
+            50% {
+                transform: translateY(-12px) rotate(2deg);
+            }
+        }
+
+        #sobre h2 {
+            font-family: 'Dancing Script', cursive;
+            color: #D4AF37;
+            font-size: 3rem;
+            text-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        #sobre p {
+            color: #E91E63;
+            font-weight: 300;
+            letter-spacing: 3px;
+            font-size: 1.2rem;
+        }
+
+        #sobre .abrir-texto {
+            margin-top: 1.5rem;
+            background: linear-gradient(135deg, #D4AF37, #F5D76E);
+            color: #E91E63;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.5);
+            transition: transform 0.2s;
+        }
+
+        #sobre .abrir-texto:hover {
+            transform: scale(1.05);
+        }
+
+        .sobre-oculto {
+            opacity: 0 !important;
+            pointer-events: none !important;
+            transform: scale(0.7) !important;
+        }
+
+        /* ===== CONTENEDOR DE PÁGINAS ===== */
+        #paginas {
+            position: absolute;
+            width: 90%;
+            max-width: 550px;
+            height: 78vh;
+            max-height: 700px;
+            perspective: 1500px;
+            display: none;
+        }
+
+        #paginas.visible {
+            display: block;
+        }
+
+        .pagina {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px);
+            border-radius: 30px;
+            padding: 2rem 1.8rem;
+            box-shadow: 0 15px 50px rgba(233, 30, 99, 0.2),
+                inset 0 0 0 2px rgba(212, 175, 55, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+                opacity 0.6s ease;
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
+            opacity: 0;
+            transform: rotateY(-90deg) scale(0.9);
+            pointer-events: none;
+            overflow-y: auto;
+        }
+
+        .pagina.activa {
+            opacity: 1;
+            transform: rotateY(0deg) scale(1);
+            pointer-events: all;
+            z-index: 10;
+        }
+
+        .pagina.salida {
+            opacity: 0;
+            transform: rotateY(90deg) scale(0.9);
+            pointer-events: none;
+        }
+
+        /* ===== CONTENIDO DE PÁGINAS ===== */
+        .pagina h2 {
+            font-family: 'Dancing Script', cursive;
+            color: #D4AF37;
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 0.3rem;
+            text-shadow: 0 2px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .pagina .subtitulo {
+            color: #E91E63;
+            font-weight: 300;
+            text-align: center;
+            letter-spacing: 2px;
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .pagina .contenido {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        .pagina p {
+            color: #4a2c2a;
+            font-weight: 300;
+            line-height: 1.8;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .pagina .destacado {
+            font-weight: 600;
+            color: #D4AF37;
+        }
+
+        .pagina .fila-detalle {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: rgba(212, 175, 55, 0.08);
+            padding: 0.7rem 1.2rem;
+            border-radius: 20px;
+            margin: 0.2rem 0;
+            border-left: 4px solid #D4AF37;
+        }
+
+        .pagina .fila-detalle .icono {
+            font-size: 1.8rem;
+            width: 2.5rem;
+            text-align: center;
+        }
+
+        .pagina .fila-detalle .texto {
+            font-size: 0.95rem;
+            color: #3e2723;
+        }
+
+        .pagina .fila-detalle .texto strong {
+            color: #D4AF37;
+            font-weight: 600;
+        }
+
+        /* Protocolo */
+        .protocolo {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(233, 30, 99, 0.05));
+            padding: 1rem;
+            border-radius: 20px;
+            border: 1px solid #D4AF37;
+            border-left: 6px solid #E91E63;
+        }
+
+        .protocolo p {
+            margin: 0.3rem 0;
+            font-size: 0.95rem;
+        }
+
+        .protocolo .resaltado {
+            color: #E91E63;
+            font-weight: 600;
+        }
+
+        /* Formulario */
+        .form-asistencia {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-top: 0.3rem;
+        }
+
+        .form-asistencia label {
+            font-weight: 400;
+            color: #5d4037;
+            font-size: 0.95rem;
+        }
+
+        .form-asistencia input,
+        .form-asistencia select {
+            padding: 12px 18px;
+            border-radius: 30px;
+            border: 2px solid #f8bbd0;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.7);
+            outline: none;
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+
+        .form-asistencia input:focus,
+        .form-asistencia select:focus {
+            border-color: #D4AF37;
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
+        }
+
+        .form-asistencia button {
+            padding: 14px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #D4AF37, #F5D76E);
+            color: #E91E63;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.4);
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+
+        .form-asistencia button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 35px rgba(212, 175, 55, 0.6);
+        }
+
+        .form-asistencia button:active {
+            transform: scale(0.97);
+        }
+
+        /* Navegación */
+        .navegacion {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.2rem;
+            gap: 0.5rem;
+        }
+
+        .navegacion button {
+            background: rgba(212, 175, 55, 0.2);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            color: #D4AF37;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            font-size: 0.9rem;
+            flex: 1;
+            min-height: 44px;
+        }
+
+        .navegacion button:hover:not(:disabled) {
+            background: rgba(212, 175, 55, 0.4);
+        }
+
+        .navegacion button:active:not(:disabled) {
+            transform: scale(0.95);
+        }
+
+        .navegacion button:disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .navegacion .indicador {
+            font-size: 0.8rem;
+            color: #E91E63;
+            font-weight: 300;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 4px 12px;
+            border-radius: 30px;
+            border: 1px solid #f8bbd0;
+        }
+
+        /* ===== WIDGET CUENTA REGRESIVA (SIEMPRE VISIBLE) ===== */
+        #widget-cuenta {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 200;
+            background: radial-gradient(circle at 30% 30%, #fff0f5, #ffe0b2);
+            border-radius: 50%;
+            padding: 20px 18px;
+            min-width: 130px;
+            min-height: 130px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.5), 0 0 0 3px #D4AF37, 0 0 0 6px rgba(233, 30, 99, 0.2);
+            border: 2px solid #E91E63;
+            transition: transform 0.3s;
+            backdrop-filter: blur(4px);
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.5);
+            pointer-events: none;
+            /* se muestra al abrir el sobre */;
+        }
+
+        #widget-cuenta.visible {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: all;
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        #widget-cuenta .mariposa-deco {
+            position: absolute;
+            font-size: 1.8rem;
+            filter: drop-shadow(0 4px 8px rgba(212, 175, 55, 0.6));
+            animation: orbitar 8s linear infinite;
+        }
+
+        #widget-cuenta .mariposa-deco:nth-child(1) {
+            top: -15px;
+            left: -15px;
+            animation-delay: 0s;
+        }
+        #widget-cuenta .mariposa-deco:nth-child(2) {
+            bottom: -15px;
+            right: -15px;
+            animation-delay: 3s;
+        }
+        #widget-cuenta .mariposa-deco:nth-child(3) {
+            top: -10px;
+            right: -10px;
+            animation-delay: 1.5s;
+            font-size: 1.4rem;
+        }
+        #widget-cuenta .mariposa-deco:nth-child(4) {
+            bottom: -10px;
+            left: -10px;
+            animation-delay: 4.5s;
+            font-size: 1.4rem;
+        }
+
+        @keyframes orbitar {
+            0% {
+                transform: rotate(0deg) translateX(20px) rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg) translateX(20px) rotate(-360deg);
+            }
+        }
+
+        #widget-cuenta .tiempo {
+            font-weight: 700;
+            color: #D4AF37;
+            font-size: 1.8rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+        }
+
+        #widget-cuenta .tiempo small {
+            font-size: 0.7rem;
+            font-weight: 300;
+            color: #E91E63;
+            display: block;
+            margin-top: 2px;
+            letter-spacing: 1px;
+        }
+
+        #widget-cuenta .etiqueta-widget {
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #E91E63;
+            font-weight: 300;
+            margin-top: 4px;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            padding-top: 4px;
+        }
+
+        /* ===== MARIPOSAS EFÍMERAS Y CONFETI ===== */
+        .mariposa-efimera {
+            position: fixed;
+            font-size: 2.5rem;
+            pointer-events: none;
+            z-index: 999;
+            animation: vueloEfimero 3s ease-out forwards;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.9)) sepia(0.2) saturate(1.6) hue-rotate(340deg);
+        }
+
+        @keyframes vueloEfimero {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0.2) rotate(720deg);
+            }
+        }
+
+        .particula-confeti {
+            position: fixed;
+            pointer-events: none;
+            z-index: 998;
+            border-radius: 2px;
+            animation: confetiCaida 2.5s ease-out forwards;
+        }
+
+        @keyframes confetiCaida {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(500px) rotate(720deg) scale(0.3);
+            }
+        }
+
+        /* ===== MARIPOSAS DE FONDO ===== */
+        .mariposa-fondo {
+            position: absolute;
+            font-size: 2rem;
+            z-index: 0;
+            user-select: none;
+            pointer-events: none;
+            filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.5)) sepia(0.2) saturate(1.3) hue-rotate(340deg);
+            opacity: 0.5;
+        }
+
+        /* ===== BOTÓN DE MÚSICA ===== */
+        #btn-musica {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 300;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(6px);
+            border: 2px solid #D4AF37;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+            transition: transform 0.2s, background 0.3s;
+            opacity: 0;
+            transform: scale(0.5);
+            pointer-events: none;
+        }
+
+        #btn-musica.visible {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: all;
+        }
+
+        #btn-musica:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: scale(1.1);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            #sobre {
+                padding: 1.8rem 1.5rem;
+            }
+            #sobre .icono-sobre {
+                font-size: 4.5rem;
+            }
+            #sobre h2 {
+                font-size: 2.2rem;
+            }
+            #paginas {
+                width: 95%;
+                height: 80vh;
+                max-height: 650px;
+            }
+            .pagina {
+                padding: 1.5rem 1rem;
+            }
+            .pagina h2 {
+                font-size: 2.2rem;
+            }
+            #widget-cuenta {
+                bottom: 15px;
+                right: 15px;
+                padding: 16px 14px;
+                min-width: 100px;
+                min-height: 100px;
+            }
+            #widget-cuenta .tiempo {
+                font-size: 1.5rem;
+            }
+            #widget-cuenta .mariposa-deco {
+                font-size: 1.4rem;
+            }
+            .navegacion button {
+                font-size: 0.8rem;
+                padding: 8px 12px;
+            }
+            .mariposa-efimera {
+                font-size: 2rem;
+            }
+            #btn-musica {
+                width: 44px;
+                height: 44px;
+                font-size: 1.3rem;
+                top: 12px;
+                right: 12px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .pagina h2 {
+                font-size: 1.8rem;
+            }
+            #widget-cuenta .tiempo {
+                font-size: 1.2rem;
+            }
+            #widget-cuenta {
+                min-width: 80px;
+                min-height: 80px;
+                padding: 12px;
+            }
+        }
+
+        /* Scroll */
+        .pagina::-webkit-scrollbar {
+            width: 4px;
+        }
+        .pagina::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 10px;
+        }
+        .pagina::-webkit-scrollbar-track {
+            background: transparent;
+        }
+    </style>
 </head>
 <body>
 
+    <!-- ===== MÚSICA ===== -->
     <audio id="musica" src="cancion.mp3" preload="auto"></audio>
 
-    <div id="pantalla-inicio">
-        <h1>¡Tienes una invitación especial!</h1>
-        <button id="btn-abrir">Abrir Invitación 🦋</button>
+    <!-- ===== BOTÓN DE MÚSICA ===== -->
+    <button id="btn-musica" title="Reproducir / Pausar">🔊</button>
+
+    <!-- ===== SOBRE INICIAL ===== -->
+    <div id="sobre">
+        <div class="icono-sobre">✉️</div>
+        <h2>¡Abigail!</h2>
+        <p>15 años</p>
+        <div class="abrir-texto">📬 Haz clic para abrir</div>
     </div>
 
-    <div id="invitacion" class="oculto">
-        <div class="contenedor-texto">
-            <h2>¡Feliz Cumpleaños!</h2>
-            <p>Te invito a celebrar mi fiesta llena de magia y mariposas.</p>
-            <p><strong>Fecha:</strong> [Fecha]</p>
-            <p><strong>Lugar:</strong> [Lugar]</p>
-            <p><strong>Hora:</strong> [Hora]</p>
+    <!-- ===== CONTENEDOR DE PÁGINAS ===== -->
+    <div id="paginas">
+
+        <!-- Página 1: Portada -->
+        <div class="pagina activa" data-index="0">
+            <div>
+                <h2>🌸 Bienvenida</h2>
+                <div class="subtitulo">Celebremos juntos</div>
+                <div class="contenido">
+                    <p style="font-size:1.2rem; line-height:2;">
+                        ¡Hola!<br>
+                        Te invito a ser parte de un día muy especial:<br>
+                        <span class="destacado">mis 15 años</span>
+                    </p>
+                    <p style="font-size:0.95rem; color:#E91E63;">
+                        ✨ Una tarde llena de magia, mariposas y mucha alegría ✨
+                    </p>
+                    <div style="display:flex; justify-content:center; gap:0.8rem; flex-wrap:wrap; margin-top:0.5rem;">
+                        <span style="background:#fce4ec; padding:0.3rem 1.2rem; border-radius:30px; color:#D4AF37; border:1px solid #D4AF37;">🦋</span>
+                        <span style="background:#ffe0b2; padding:0.3rem 1.2rem; border-radius:30px; color:#D4AF37; border:1px solid #D4AF37;">✨</span>
+                        <span style="background:#fce4ec; padding:0.3rem 1.2rem; border-radius:30px; color:#D4AF37; border:1px solid #D4AF37;">🦋</span>
+                    </div>
+                </div>
+            </div>
+            <div class="navegacion">
+                <button disabled>Anterior</button>
+                <span class="indicador">1 / 4</span>
+                <button class="btn-siguiente">Siguiente →</button>
+            </div>
         </div>
 
-        <div class="mariposa m1">🦋</div>
-        <div class="mariposa m2">🦋</div>
-        <div class="mariposa m3">🦋</div>
-        <div class="mariposa m4">🦋</div>
-        <div class="mariposa m5">🦋</div>
-        <div class="mariposa m6">🦋</div>
-        <div class="mariposa m6">🦋</div>
-        <div class="mariposa m8">🦋</div>
-        <div class="mariposa m9">🦋</div>
-        <div class="mariposa m10">🦋</div>
-        <div class="mariposa m11">🦋</div>
-        <div class="mariposa m12">🦋</div>
+        <!-- Página 2: Detalles -->
+        <div class="pagina" data-index="1">
+            <div>
+                <h2>📅 El Evento</h2>
+                <div class="subtitulo">No faltes</div>
+                <div class="contenido">
+                    <div class="fila-detalle">
+                        <span class="icono">📆</span>
+                        <span class="texto"><strong>Fecha:</strong> 11 de enero de 2027</span>
+                    </div>
+                    <div class="fila-detalle">
+                        <span class="icono">⏰</span>
+                        <span class="texto"><strong>Hora:</strong> 4:30 pm</span>
+                    </div>
+                    <div class="fila-detalle">
+                        <span class="icono">📍</span>
+                        <span class="texto"><strong>Lugar:</strong> Salón Comunal, Tibás (por definir)</span>
+                    </div>
+                    <div class="protocolo">
+                        <p style="font-weight:600; color:#D4AF37;">🎩 Protocolo de vestimenta</p>
+                        <p>✅ <strong>Formal</strong></p>
+                        <p>⚪ <strong>Colores permitidos:</strong> Blanco o Negro</p>
+                        <p>🌟 Los colores <span class="resaltado">Dorado</span> y <span class="resaltado">Rosado</span> son exclusivos para la cumpleañera.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="navegacion">
+                <button class="btn-anterior">← Anterior</button>
+                <span class="indicador">2 / 4</span>
+                <button class="btn-siguiente">Siguiente →</button>
+            </div>
+        </div>
+
+        <!-- Página 3: Cuenta regresiva (detallada) -->
+        <div class="pagina" data-index="2">
+            <div>
+                <h2>⏳ ¡Falta cada vez menos!</h2>
+                <div class="subtitulo">Cuenta regresiva</div>
+                <div class="contenido">
+                    <div style="display:flex; justify-content:center; gap:1.2rem; flex-wrap:wrap; margin:0.5rem 0;">
+                        <div style="background:linear-gradient(135deg, #fce4ec, #ffe0b2); padding:0.8rem 0.5rem; border-radius:20px; min-width:70px; text-align:center; border:2px solid #D4AF37; box-shadow:0 4px 15px rgba(212,175,55,0.2);">
+                            <span style="font-size:2.2rem; font-weight:600; color:#D4AF37; display:block; line-height:1.2;" id="dias-detalle">00</span>
+                            <span style="font-size:0.7rem; text-transform:uppercase; color:#E91E63; letter-spacing:1px;">Días</span>
+                        </div>
+                        <div style="background:linear-gradient(135deg, #fce4ec, #ffe0b2); padding:0.8rem 0.5rem; border-radius:20px; min-width:70px; text-align:center; border:2px solid #D4AF37; box-shadow:0 4px 15px rgba(212,175,55,0.2);">
+                            <span style="font-size:2.2rem; font-weight:600; color:#D4AF37; display:block; line-height:1.2;" id="horas-detalle">00</span>
+                            <span style="font-size:0.7rem; text-transform:uppercase; color:#E91E63; letter-spacing:1px;">Horas</span>
+                        </div>
+                        <div style="background:linear-gradient(135deg, #fce4ec, #ffe0b2); padding:0.8rem 0.5rem; border-radius:20px; min-width:70px; text-align:center; border:2px solid #D4AF37; box-shadow:0 4px 15px rgba(212,175,55,0.2);">
+                            <span style="font-size:2.2rem; font-weight:600; color:#D4AF37; display:block; line-height:1.2;" id="minutos-detalle">00</span>
+                            <span style="font-size:0.7rem; text-transform:uppercase; color:#E91E63; letter-spacing:1px;">Minutos</span>
+                        </div>
+                        <div style="background:linear-gradient(135deg, #fce4ec, #ffe0b2); padding:0.8rem 0.5rem; border-radius:20px; min-width:70px; text-align:center; border:2px solid #D4AF37; box-shadow:0 4px 15px rgba(212,175,55,0.2);">
+                            <span style="font-size:2.2rem; font-weight:600; color:#D4AF37; display:block; line-height:1.2;" id="segundos-detalle">00</span>
+                            <span style="font-size:0.7rem; text-transform:uppercase; color:#E91E63; letter-spacing:1px;">Segundos</span>
+                        </div>
+                    </div>
+                    <p style="font-size:0.9rem; color:#E91E63; font-weight:300;">
+                        <span style="font-weight:600;">🗓️ 11 de enero de 2027 · 4:30 pm</span>
+                    </p>
+                </div>
+            </div>
+            <div class="navegacion">
+                <button class="btn-anterior">← Anterior</button>
+                <span class="indicador">3 / 4</span>
+                <button class="btn-siguiente">Siguiente →</button>
+            </div>
+        </div>
+
+        <!-- Página 4: Confirmación -->
+        <div class="pagina" data-index="3">
+            <div>
+                <h2>✅ Confirma tu asistencia</h2>
+                <div class="subtitulo">Cuéntanos si vienes</div>
+                <div class="contenido">
+                    <form class="form-asistencia" id="form-confirmacion">
+                        <label for="nombre">Tu nombre</label>
+                        <input type="text" id="nombre" placeholder="Ej: María Pérez" required>
+
+                        <label for="email">Correo electrónico (opcional)</label>
+                        <input type="email" id="email" placeholder="tucorreo@ejemplo.com">
+
+                        <label for="cantidad">¿Cuántas personas vendrán contigo? (máx. 3)</label>
+                        <select id="cantidad">
+                            <option value="1">1 (solo yo)</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4 (incluyéndome)</option>
+                        </select>
+
+                        <button type="submit">Enviar confirmación 🦋</button>
+                    </form>
+                    <div id="mensaje-confirmacion" style="text-align:center; margin-top:0.5rem; font-weight:300; color:#D4AF37; display:none; font-size:1.2rem;">
+                        ¡Gracias! Te esperamos 🎉
+                    </div>
+                </div>
+            </div>
+            <div class="navegacion">
+                <button class="btn-anterior">← Anterior</button>
+                <span class="indicador">4 / 4</span>
+                <button disabled>Fin</button>
+            </div>
+        </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- ===== WIDGET CUENTA REGRESIVA (flotante) ===== -->
+    <div id="widget-cuenta">
+        <span class="mariposa-deco">🦋</span>
+        <span class="mariposa-deco">🦋</span>
+        <span class="mariposa-deco">🦋</span>
+        <span class="mariposa-deco">🦋</span>
+        <div class="tiempo">
+            <span id="widget-dias">00</span>:<span id="widget-horas">00</span>:<span id="widget-minutos">00</span>:<span id="widget-segundos">00</span>
+            <small>días · horas · mins · segs</small>
+        </div>
+        <div class="etiqueta-widget">¡Falta poco!</div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================================================
+            // 1. ELEMENTOS DOM
+            // ============================================================
+            const sobre = document.getElementById('sobre');
+            const paginas = document.getElementById('paginas');
+            const btnMusica = document.getElementById('btn-musica');
+            const audio = document.getElementById('musica');
+
+            // ============================================================
+            // 2. MÚSICA
+            // ============================================================
+            let musicaReproduciendo = false;
+
+            btnMusica.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (audio.paused) {
+                    audio.play().catch(() => {});
+                    btnMusica.textContent = '🔊';
+                    musicaReproduciendo = true;
+                } else {
+                    audio.pause();
+                    btnMusica.textContent = '🔇';
+                    musicaReproduciendo = false;
+                }
+            });
+
+            // ============================================================
+            // 3. APERTURA DEL SOBRE
+            // ============================================================
+            sobre.addEventListener('click', function() {
+                // Ocultar sobre
+                this.classList.add('sobre-oculto');
+                paginas.classList.add('visible');
+
+                // Mostrar widget cuenta regresiva
+                document.getElementById('widget-cuenta').classList.add('visible');
+
+                // Mostrar botón de música
+                btnMusica.classList.add('visible');
+
+                // Iniciar música (si el navegador lo permite)
+                audio.play().then(() => {
+                    btnMusica.textContent = '🔊';
+                    musicaReproduciendo = true;
+                }).catch(() => {
+                    // Autoplay bloqueado, el usuario deberá hacer clic en el botón
+                    btnMusica.textContent = '🔇';
+                    musicaReproduciendo = false;
+                });
+
+                // ANIMACIÓN: Confeti + destello al abrir
+                lanzarConfeti(40, ['#D4AF37', '#E91E63', '#F8BBD0', '#F5D76E']);
+                lanzarMariposas(14);
+
+                // Efecto de destello (flash)
+                const flash = document.createElement('div');
+                flash.style.position = 'fixed';
+                flash.style.top = '0';
+                flash.style.left = '0';
+                flash.style.width = '100%';
+                flash.style.height = '100%';
+                flash.style.background = 'rgba(212, 175, 55, 0.3)';
+                flash.style.pointerEvents = 'none';
+                flash.style.zIndex = '9999';
+                flash.style.animation = 'flashAnim 0.6s ease-out forwards';
+                document.body.appendChild(flash);
+                setTimeout(() => flash.remove(), 700);
+
+                // Iniciar cuenta regresiva (widget y detalle)
+                iniciarCuentaRegresiva();
+
+                // Ajustar navegación inicial
+                actualizarPaginas(0);
+            });
+
+            // ============================================================
+            // 4. NAVEGACIÓN ENTRE PÁGINAS
+            // ============================================================
+            const paginaElements = document.querySelectorAll('.pagina');
+            let paginaActual = 0;
+
+            function actualizarPaginas(nuevaIndex) {
+                paginaElements.forEach((p, i) => {
+                    p.classList.remove('activa', 'salida');
+                    if (i < nuevaIndex) {
+                        p.classList.add('salida');
+                    } else if (i === nuevaIndex) {
+                        p.classList.add('activa');
+                    }
+                });
+
+                // Actualizar indicadores
+                document.querySelectorAll('.indicador').forEach(el => {
+                    el.textContent = `${nuevaIndex + 1} / ${paginaElements.length}`;
+                });
+
+                // Botones
+                const pagActual = paginaElements[nuevaIndex];
+                const btnAnt = pagActual.querySelector('.btn-anterior');
+                const btnSig = pagActual.querySelector('.btn-siguiente');
+                if (btnAnt) btnAnt.disabled = (nuevaIndex === 0);
+                if (btnSig) btnSig.disabled = (nuevaIndex === paginaElements.length - 1);
+
+                // ANIMACIÓN AL PASAR PÁGINA (excepto la primera)
+                if (nuevaIndex !== 0) {
+                    lanzarMariposas(12);
+                    lanzarConfeti(25, ['#D4AF37', '#E91E63', '#F8BBD0', '#F5D76E']);
+                }
+            }
+
+            // Delegación de eventos en botones de navegación
+            document.addEventListener('click', function(e) {
+                const btn = e.target.closest('.btn-siguiente, .btn-anterior');
+                if (!btn) return;
+                const pagina = btn.closest('.pagina');
+                if (!pagina) return;
+                const index = parseInt(pagina.dataset.index);
+
+                if (btn.classList.contains('btn-siguiente')) {
+                    if (index < paginaElements.length - 1) {
+                        paginaActual = index + 1;
+                        actualizarPaginas(paginaActual);
+                    }
+                } else if (btn.classList.contains('btn-anterior')) {
+                    if (index > 0) {
+                        paginaActual = index - 1;
+                        actualizarPaginas(paginaActual);
+                    }
+                }
+            });
+
+            // ============================================================
+            // 5. CUENTA REGRESIVA (widget + detalle)
+            // ============================================================
+            let intervaloCuenta;
+
+            function iniciarCuentaRegresiva() {
+                const fechaEvento = new Date('2027-01-11T16:30:00').getTime();
+
+                function actualizar() {
+                    const ahora = Date.now();
+                    const diff = fechaEvento - ahora;
+
+                    if (diff <= 0) {
+                        // Mostrar ceros y detener
+                        const ceros = { d: '00', h: '00', m: '00', s: '00' };
+                        actualizarElementos(ceros.d, ceros.h, ceros.m, ceros.s);
+                        clearInterval(intervaloCuenta);
+                        return;
+                    }
+
+                    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+                    const dStr = String(d).padStart(2, '0');
+                    const hStr = String(h).padStart(2, '0');
+                    const mStr = String(m).padStart(2, '0');
+                    const sStr = String(s).padStart(2, '0');
+
+                    actualizarElementos(dStr, hStr, mStr, sStr);
+                }
+
+                function actualizarElementos(d, h, m, s) {
+                    // Widget
+                    document.getElementById('widget-dias').textContent = d;
+                    document.getElementById('widget-horas').textContent = h;
+                    document.getElementById('widget-minutos').textContent = m;
+                    document.getElementById('widget-segundos').textContent = s;
+
+                    // Detalle (página 3)
+                    document.getElementById('dias-detalle').textContent = d;
+                    document.getElementById('horas-detalle').textContent = h;
+                    document.getElementById('minutos-detalle').textContent = m;
+                    document.getElementById('segundos-detalle').textContent = s;
+                }
+
+                actualizar();
+                intervaloCuenta = setInterval(actualizar, 1000);
+            }
+
+            // ============================================================
+            // 6. ANIMACIONES: MARIPOSAS EFÍMERAS
+            // ============================================================
+            function lanzarMariposas(cantidad = 10) {
+                const emojis = ['🦋', '🦋', '🦋', '🦋', '🦋', '✨', '🌸'];
+                for (let i = 0; i < cantidad; i++) {
+                    const m = document.createElement('div');
+                    m.className = 'mariposa-efimera';
+                    m.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    const x = Math.random() * window.innerWidth;
+                    const y = Math.random() * window.innerHeight;
+                    m.style.left = x + 'px';
+                    m.style.top = y + 'px';
+                    const tx = (Math.random() - 0.5) * 700;
+                    const ty = (Math.random() - 0.5) * 700;
+                    m.style.setProperty('--tx', tx + 'px');
+                    m.style.setProperty('--ty', ty + 'px');
+                    const size = 1.8 + Math.random() * 2.2;
+                    m.style.fontSize = size + 'rem';
+                    document.body.appendChild(m);
+                    setTimeout(() => m.remove(), 3000);
+                }
+            }
+
+            // ============================================================
+            // 7. ANIMACIONES: CONFETI
+            // ============================================================
+            function lanzarConfeti(cantidad = 30, colores = ['#D4AF37', '#E91E63']) {
+                for (let i = 0; i < cantidad; i++) {
+                    const confeti = document.createElement('div');
+                    confeti.className = 'particula-confeti';
+                    const size = 6 + Math.random() * 10;
+                    confeti.style.width = size + 'px';
+                    confeti.style.height = size * 0.6 + 'px';
+                    confeti.style.background = colores[Math.floor(Math.random() * colores.length)];
+                    confeti.style.left = Math.random() * window.innerWidth + 'px';
+                    confeti.style.top = '-10px';
+                    const rotacion = Math.random() * 360;
+                    confeti.style.transform = `rotate(${rotacion}deg)`;
+                    const duracion = 1.5 + Math.random() * 2;
+                    confeti.style.animationDuration = duracion + 's';
+                    // Añadir retardo aleatorio
+                    confeti.style.animationDelay = Math.random() * 0.8 + 's';
+                    document.body.appendChild(confeti);
+                    setTimeout(() => confeti.remove(), duracion * 1000 + 1000);
+                }
+            }
+
+            // ============================================================
+            // 8. MARIPOSAS DE FONDO (estáticas)
+            // ============================================================
+            function crearMariposasFondo() {
+                const cant = 16;
+                for (let i = 0; i < cant; i++) {
+                    const m = document.createElement('div');
+                    m.className = 'mariposa-fondo';
+                    m.textContent = '🦋';
+                    m.style.left = Math.random() * 100 + '%';
+                    m.style.top = Math.random() * 100 + '%';
+                    m.style.fontSize = (1.2 + Math.random() * 2) + 'rem';
+                    m.style.opacity = 0.2 + Math.random() * 0.4;
+                    m.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    m.style.animation = `flotar ${6 + Math.random() * 10}s ease-in-out infinite`;
+                    m.style.animationDelay = (Math.random() * 6) + 's';
+                    document.body.appendChild(m);
+                }
+            }
+            crearMariposasFondo();
+
+            // ============================================================
+            // 9. FORMULARIO DE CONFIRMACIÓN
+            // ============================================================
+            document.getElementById('form-confirmacion').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const nombre = document.getElementById('nombre').value.trim();
+                if (!nombre) {
+                    alert('Por favor, ingresa tu nombre.');
+                    return;
+                }
+                this.style.display = 'none';
+                document.getElementById('mensaje-confirmacion').style.display = 'block';
+                lanzarMariposas(20);
+                lanzarConfeti(40, ['#D4AF37', '#E91E63', '#F8BBD0', '#F5D76E']);
+                // Aquí podrías enviar los datos a un servidor
+            });
+
+            // ============================================================
+            // 10. INICIALIZACIÓN (primera página visible)
+            // ============================================================
+            // La primera página ya tiene clase 'activa', pero aseguramos
+            // que los indicadores estén correctos.
+            setTimeout(() => {
+                actualizarPaginas(0);
+            }, 100);
+
+            // ============================================================
+            // 11. ESTILO DE ANIMACIÓN FLASH (inyectado)
+            // ============================================================
+            const styleFlash = document.createElement('style');
+            styleFlash.textContent = `
+                    @keyframes flashAnim {
+                        0% { opacity: 0.8; }
+                        100% { opacity: 0; }
+                    }
+                `;
+            document.head.appendChild(styleFlash);
+
+            console.log('🎉 Invitación lista con widget de cuenta regresiva, música y animaciones JS.');
+        })();
+    </script>
+
 </body>
 </html>
