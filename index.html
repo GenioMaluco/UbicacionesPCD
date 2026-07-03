@@ -9,70 +9,66 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         /* ====================================================
-           PALETA DE COLORES Y RESET
+           RESET Y ESTRUCTURA DE TELÉFONO
            ==================================================== */
-        :root {
-            --salmon: #FF9E9D;
-            --salmon-light: #FFAFA4;
-            --gold: #D4AF37;
-            --gold-gradient: linear-gradient(135deg, #BF953F, #FCF6BA, #D4AF37, #FBF5B7);
-            --bg-color: #FFF5F5;
-            --letter-bg: #FFFFFF;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* ====================================================
-           FONDO CON IMAGEN (profesional con overlay)
-           ==================================================== */
-            body {
-            font-family: 'Poppins', sans-serif;
-            height: 100vh;
-            overflow: hidden;
+        :root {
+            --salmon: #FF9E9D;
+            --salmon-light: #FFAFA4;
+            --gold: #D4AF37;
+            --gold-gradient: linear-gradient(135deg, #BF953F, #FCF6BA, #D4AF37, #FBF5B7);
+        }
+
+        body {
+            background: #2c2c2c; /* marco oscuro */
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
-            background-image: url('fondo_invitacion.png');
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
         }
 
-        /* Overlay semitransparente para mejorar legibilidad */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
+        #phone-frame {
+            max-width: 420px;
             width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.25);
-            z-index: 0;
-            pointer-events: none;
+            height: 100vh;
+            max-height: 850px; /* límite para que no sea demasiado alto */
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            background-color: #fce4ec; /* fallback */
+            background-image: url('fondo_invitacion.png');
+            background-size: cover;     /* o 100% 100% si quieres estirar */
+            background-position: center;
+            background-repeat: no-repeat;
+            box-shadow: 0 0 40px rgba(0,0,0,0.7);
+            border-radius: 20px; /* esquinas redondeadas para efecto celular */
         }
 
         /* ====================================================
-           CONTADOR INICIAL (sobre el sobre) - ARRIBA
+           CONTADOR INICIAL (sobre el sobre)
            ==================================================== */
         #contador-inicial {
             position: absolute;
-            top: 2px;
+            top: 4px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 150;
             display: flex;
-            gap: 0.4rem;
+            gap: 0.3rem;
             flex-wrap: wrap;
             justify-content: center;
             opacity: 1;
             transition: opacity 0.8s ease, transform 0.8s ease;
             pointer-events: none;
-            padding: 4px 10px;
+            padding: 4px 8px;
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(4px);
             border-radius: 40px;
@@ -88,8 +84,8 @@
         .burbuja-contador {
             background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(212, 175, 55, 0.3), rgba(233, 30, 99, 0.15));
             border-radius: 50%;
-            min-width: 64px;
-            height: 64px;
+            min-width: 54px;
+            height: 54px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -127,7 +123,7 @@
         .burbuja-contador:nth-child(5) { animation-delay: 2s; }
 
         .burbuja-contador .numero {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--gold);
             line-height: 1.2;
@@ -135,7 +131,7 @@
         }
 
         .burbuja-contador .etiqueta {
-            font-size: 0.5rem;
+            font-size: 0.45rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             color: #E91E63;
@@ -153,7 +149,7 @@
             transform: translateX(-50%);
             z-index: 300;
             display: flex;
-            gap: 0.4rem;
+            gap: 0.3rem;
             flex-wrap: wrap;
             justify-content: center;
             opacity: 0;
@@ -161,7 +157,7 @@
             transition: opacity 0.8s ease, transform 0.8s ease;
             background: rgba(255, 255, 255, 0.25);
             backdrop-filter: blur(4px);
-            padding: 6px 14px;
+            padding: 5px 12px;
             border-radius: 50px;
             border: 1px solid rgba(212, 175, 55, 0.3);
             box-shadow: 0 4px 20px rgba(212, 175, 55, 0.15);
@@ -176,13 +172,13 @@
         .burbuja-flotante {
             background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(212, 175, 55, 0.3), rgba(233, 30, 99, 0.15));
             border-radius: 50%;
-            min-width: 70px;
-            height: 70px;
+            min-width: 58px;
+            height: 58px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 0 6px;
+            padding: 0 4px;
             box-shadow: 
                 inset -3px -3px 10px rgba(0,0,0,0.08),
                 inset 3px 3px 10px rgba(255,255,255,0.7),
@@ -215,7 +211,7 @@
         .burbuja-flotante:nth-child(5) { animation-delay: 1.8s; }
 
         .burbuja-flotante .numero {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--gold);
             line-height: 1.2;
@@ -223,7 +219,7 @@
         }
 
         .burbuja-flotante .etiqueta {
-            font-size: 0.5rem;
+            font-size: 0.4rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             color: #E91E63;
@@ -232,12 +228,8 @@
         }
 
         @keyframes flotarBurbuja {
-            0%, 100% {
-                transform: translateY(0) scale(1);
-            }
-            50% {
-                transform: translateY(-6px) scale(1.02);
-            }
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-6px) scale(1.02); }
         }
 
         /* ====================================================
@@ -249,22 +241,26 @@
             position: relative;
             z-index: 100;
             margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
         }
 
         @keyframes butterfly-landing {
             0% {
-                transform: translate(-60vw, 60vh) scale(0.2) rotateZ(45deg) rotateY(-60deg) rotateX(20deg);
+                transform: translate(-30vw, 30vh) scale(0.2) rotateZ(45deg) rotateY(-60deg) rotateX(20deg);
                 opacity: 0;
             }
             25% {
-                transform: translate(-30vw, -15vh) scale(0.5) rotateZ(-20deg) rotateY(50deg) rotateX(-10deg);
+                transform: translate(-15vw, -10vh) scale(0.5) rotateZ(-20deg) rotateY(50deg) rotateX(-10deg);
                 opacity: 1;
             }
             50% {
-                transform: translate(15vw, 20vh) scale(0.7) rotateZ(15deg) rotateY(-40deg) rotateX(15deg);
+                transform: translate(8vw, 10vh) scale(0.7) rotateZ(15deg) rotateY(-40deg) rotateX(15deg);
             }
             75% {
-                transform: translate(5vw, -5vh) scale(0.9) rotateZ(-5deg) rotateY(15deg) rotateX(-5deg);
+                transform: translate(2vw, -3vh) scale(0.9) rotateZ(-5deg) rotateY(15deg) rotateX(-5deg);
             }
             100% {
                 transform: translate(0, 0) scale(1) rotateZ(0) rotateY(0) rotateX(0);
@@ -276,13 +272,13 @@
            ==================================================== */
         .envelope-wrapper {
             position: relative;
-            width: 300px;
-            height: 200px;
+            width: 280px;
+            height: 180px;
             cursor: pointer;
             perspective: 1200px;
             transition: opacity 0.8s ease, transform 0.8s ease;
             margin: 0 auto;
-            z-index: 1; /* por encima del overlay */
+            z-index: 1;
         }
 
         .envelope-wrapper.oculto {
@@ -345,14 +341,14 @@
             position: absolute;
             bottom: 10px;
             left: 10px;
-            width: 280px;
-            height: 180px;
-            background-color: var(--letter-bg);
+            width: 260px;
+            height: 160px;
+            background-color: #FFFFFF;
             border-radius: 8px;
             z-index: 2;
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            padding: 20px;
+            padding: 18px;
             box-sizing: border-box;
             display: flex;
             justify-content: center;
@@ -387,7 +383,7 @@
         }
 
         .envelope-wrapper.open .letter {
-            transform: translateY(-90px);
+            transform: translateY(-80px);
             transition-delay: 0.2s;
             z-index: 5;
         }
@@ -398,12 +394,15 @@
         #paginas {
             position: absolute;
             width: 90%;
-            max-width: 550px;
+            max-width: 380px;
             height: 78vh;
-            max-height: 700px;
+            max-height: 650px;
             perspective: 1500px;
             display: none;
             z-index: 50;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
         #paginas.visible {
@@ -414,10 +413,10 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(1px);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(4px);
             border-radius: 30px;
-            padding: 1.5rem 1.8rem 1.2rem;
+            padding: 1.2rem 1.2rem 1rem;
             box-shadow: 0 15px 50px rgba(233, 30, 99, 0.2),
                 inset 0 0 0 2px rgba(212, 175, 55, 0.3);
             border: 1px solid rgba(212, 175, 55, 0.2);
@@ -432,7 +431,7 @@
             transform: rotateY(-90deg) scale(0.9);
             pointer-events: none;
             overflow-y: auto;
-            padding-top: 100px; /* Espacio para el contador fijo */
+            padding-top: 80px; /* espacio para el contador fijo */
         }
 
         .pagina.activa {
@@ -454,7 +453,7 @@
         .pagina h2 {
             font-family: 'Dancing Script', cursive;
             color: var(--gold);
-            font-size: 2.6rem;
+            font-size: 2.4rem;
             text-align: center;
             margin-bottom: 0.2rem;
             text-shadow: 0 2px 15px rgba(212, 175, 55, 0.3);
@@ -465,8 +464,8 @@
             font-weight: 300;
             text-align: center;
             letter-spacing: 2px;
-            font-size: 1rem;
-            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
         }
 
         .pagina .contenido {
@@ -474,14 +473,14 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            gap: 0.6rem;
+            gap: 0.5rem;
         }
 
         .pagina p {
             color: #4a2c2a;
             font-weight: 300;
             line-height: 1.8;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             text-align: center;
         }
 
@@ -493,22 +492,22 @@
         .pagina .fila-detalle {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 0.6rem;
             background: rgba(212, 175, 55, 0.08);
-            padding: 0.6rem 1rem;
+            padding: 0.5rem 0.8rem;
             border-radius: 20px;
-            margin: 0.15rem 0;
+            margin: 0.1rem 0;
             border-left: 4px solid var(--gold);
         }
 
         .pagina .fila-detalle .icono {
-            font-size: 1.6rem;
-            width: 2.2rem;
+            font-size: 1.4rem;
+            width: 2rem;
             text-align: center;
         }
 
         .pagina .fila-detalle .texto {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #3e2723;
         }
 
@@ -519,7 +518,7 @@
 
         .protocolo {
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(233, 30, 99, 0.05));
-            padding: 0.8rem;
+            padding: 0.6rem;
             border-radius: 20px;
             border: 1px solid var(--gold);
             border-left: 6px solid #E91E63;
@@ -527,7 +526,7 @@
 
         .protocolo p {
             margin: 0.2rem 0;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .protocolo .resaltado {
@@ -535,27 +534,26 @@
             font-weight: 600;
         }
 
-        /* Formulario */
         .form-asistencia {
             display: flex;
             flex-direction: column;
-            gap: 0.6rem;
+            gap: 0.5rem;
             margin-top: 0.2rem;
         }
 
         .form-asistencia label {
             font-weight: 400;
             color: #5d4037;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .form-asistencia input,
         .form-asistencia select {
-            padding: 10px 16px;
+            padding: 8px 14px;
             border-radius: 30px;
             border: 2px solid #f8bbd0;
             font-family: 'Poppins', sans-serif;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             background: rgba(255, 255, 255, 0.7);
             outline: none;
             transition: border 0.3s, box-shadow 0.3s;
@@ -568,13 +566,13 @@
         }
 
         .form-asistencia button {
-            padding: 12px;
+            padding: 10px;
             border: none;
             border-radius: 50px;
             background: var(--gold-gradient);
             color: #E91E63;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.95rem;
             cursor: pointer;
             box-shadow: 0 6px 25px rgba(212, 175, 55, 0.4);
             transition: transform 0.2s, box-shadow 0.3s;
@@ -589,47 +587,42 @@
             transform: scale(0.97);
         }
 
-        /* ====================================================
-           NAVEGACIÓN (efecto pasar página)
-           ==================================================== */
         .navegacion {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 1rem;
+            margin-top: 0.8rem;
             gap: 0.5rem;
         }
 
         .navegacion button {
             background: rgba(212, 175, 55, 0.2);
             border: none;
-            padding: 8px 16px;
+            padding: 6px 14px;
             border-radius: 50px;
             font-family: 'Poppins', sans-serif;
             font-weight: 500;
             color: var(--gold);
             cursor: pointer;
             transition: background 0.3s, transform 0.2s;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             flex: 1;
-            min-height: 40px;
+            min-height: 36px;
         }
 
         .navegacion button:hover:not(:disabled) {
             background: rgba(212, 175, 55, 0.4);
         }
-
         .navegacion button:active:not(:disabled) {
             transform: scale(0.95);
         }
-
         .navegacion button:disabled {
             opacity: 0.3;
             pointer-events: none;
         }
 
         .navegacion .indicador {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: #E91E63;
             font-weight: 300;
             background: rgba(255, 255, 255, 0.5);
@@ -639,11 +632,11 @@
         }
 
         /* ====================================================
-           ANIMACIONES: MARIPOSAS, BRILLOS Y ESTRELLAS
+           ANIMACIONES (mariposas, brillos, estrellas)
            ==================================================== */
         .mariposa-efimera {
             position: fixed;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             pointer-events: none;
             z-index: 999;
             animation: vueloEfimero 3s ease-out forwards;
@@ -671,27 +664,18 @@
         }
 
         @keyframes brilloEstrella {
-            0% {
-                opacity: 1;
-                transform: scale(0) rotate(0deg);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(2) rotate(720deg);
-            }
+            0% { opacity: 1; transform: scale(0) rotate(0deg); }
+            100% { opacity: 0; transform: scale(2) rotate(720deg); }
         }
 
-        /* ====================================================
-           MARIPOSAS DE FONDO (estáticas)
-           ==================================================== */
         .mariposa-fondo {
             position: absolute;
-            font-size: 2rem;
+            font-size: 1.8rem;
             z-index: 0;
             user-select: none;
             pointer-events: none;
             filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.5)) sepia(0.2) saturate(1.3) hue-rotate(340deg);
-            opacity: 0.5;
+            opacity: 0.4;
         }
 
         /* ====================================================
@@ -699,16 +683,16 @@
            ==================================================== */
         #btn-musica {
             position: fixed;
-            top: 80px;
-            right: 16px;
+            top: 70px;
+            right: 12px;
             z-index: 300;
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(6px);
             border: 2px solid var(--gold);
             border-radius: 50%;
-            width: 48px;
-            height: 48px;
-            font-size: 1.4rem;
+            width: 44px;
+            height: 44px;
+            font-size: 1.3rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -732,9 +716,15 @@
         }
 
         /* ====================================================
-           RESPONSIVE
+           RESPONSIVE (ajustes para móviles reales)
            ==================================================== */
         @media (max-width: 600px) {
+            #phone-frame {
+                max-width: 100%;
+                height: 100vh;
+                border-radius: 0;
+                box-shadow: none;
+            }
             .envelope-wrapper {
                 width: 240px;
                 height: 160px;
@@ -750,64 +740,53 @@
             .letter-text p {
                 font-size: 0.8rem;
             }
-
             #paginas {
-                width: 95%;
-                height: 80vh;
-                max-height: 650px;
+                max-width: 95%;
+                padding-top: 10px;
             }
             .pagina {
                 padding: 1rem 1rem 0.8rem;
-                padding-top: 85px;
+                padding-top: 70px;
             }
             .pagina h2 {
-                font-size: 2.2rem;
+                font-size: 2rem;
             }
-            .pagina .subtitulo {
-                font-size: 0.9rem;
-            }
-
             .burbuja-contador {
-                min-width: 50px;
-                height: 50px;
+                min-width: 44px;
+                height: 44px;
             }
             .burbuja-contador .numero {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
             .burbuja-contador .etiqueta {
                 font-size: 0.4rem;
             }
-
             #contador-flotante {
-                padding: 5px 10px;
-                gap: 0.3rem;
+                padding: 4px 8px;
+                gap: 0.2rem;
                 top: 6px;
             }
             .burbuja-flotante {
-                min-width: 54px;
-                height: 54px;
+                min-width: 44px;
+                height: 44px;
             }
             .burbuja-flotante .numero {
-                font-size: 1.4rem;
+                font-size: 1.2rem;
             }
             .burbuja-flotante .etiqueta {
-                font-size: 0.4rem;
+                font-size: 0.35rem;
             }
-
             .navegacion button {
-                font-size: 0.75rem;
-                padding: 6px 12px;
-                min-height: 36px;
-            }
-            .mariposa-efimera {
-                font-size: 1.8rem;
+                font-size: 0.7rem;
+                padding: 4px 10px;
+                min-height: 32px;
             }
             #btn-musica {
-                width: 42px;
-                height: 42px;
-                font-size: 1.2rem;
-                top: 70px;
-                right: 12px;
+                top: 60px;
+                right: 8px;
+                width: 38px;
+                height: 38px;
+                font-size: 1.1rem;
             }
         }
 
@@ -831,33 +810,32 @@
                 font-size: 1.8rem;
             }
             .burbuja-contador {
-                min-width: 40px;
-                height: 40px;
+                min-width: 38px;
+                height: 38px;
             }
             .burbuja-contador .numero {
-                font-size: 1rem;
+                font-size: 0.9rem;
             }
             .burbuja-flotante {
-                min-width: 44px;
-                height: 44px;
+                min-width: 36px;
+                height: 36px;
             }
             .burbuja-flotante .numero {
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
             #contador-flotante {
-                padding: 4px 8px;
-                gap: 0.2rem;
+                padding: 3px 6px;
+                gap: 0.15rem;
                 top: 4px;
             }
             .pagina {
-                padding-top: 75px;
+                padding-top: 60px;
             }
             #btn-musica {
-                width: 36px;
-                height: 36px;
-                font-size: 1rem;
-                top: 60px;
-                right: 10px;
+                top: 50px;
+                width: 32px;
+                height: 32px;
+                font-size: 0.9rem;
             }
         }
 
@@ -882,169 +860,157 @@
     <!-- ===== BOTÓN DE MÚSICA ===== -->
     <button id="btn-musica" title="Reproducir / Pausar">🔊</button>
 
-    <!-- =========================================================
-    CONTADOR INICIAL (sobre el sobre)
-    ========================================================= -->
-    <div id="contador-inicial">
-        <div class="burbuja-contador">
-            <span class="numero" id="inicial-meses">00</span>
-            <span class="etiqueta">Meses</span>
-        </div>
-        <div class="burbuja-contador">
-            <span class="numero" id="inicial-dias">00</span>
-            <span class="etiqueta">Días</span>
-        </div>
-        <div class="burbuja-contador">
-            <span class="numero" id="inicial-horas">00</span>
-            <span class="etiqueta">Horas</span>
-        </div>
-        <div class="burbuja-contador">
-            <span class="numero" id="inicial-minutos">00</span>
-            <span class="etiqueta">Min</span>
-        </div>
-        <div class="burbuja-contador">
-            <span class="numero" id="inicial-segundos">00</span>
-            <span class="etiqueta">Seg</span>
-        </div>
-    </div>
+    <!-- ===== CONTENEDOR TELÉFONO ===== -->
+    <div id="phone-frame">
 
-    <!-- =========================================================
-    SOBRE CON SOLAPA (punto de entrada)
-    ========================================================= -->
-    <div class="butterfly-flight-path">
-        <div class="envelope-wrapper" id="envelopeContainer">
-            <div class="envelope">
-
-                <div class="envelope-back"></div>
-
-                <div class="letter">
-                    <div class="letter-text">
-                        <h3 class="gold-text">¡Abigail!</h3>
-                        <p>15 años · Haz clic para abrir</p>
-                    </div>
-                </div>
-
-                <div class="envelope-front">
-                    <svg viewBox="0 0 300 200" preserveAspectRatio="none">
-                        <path d="M0,0 L0,200 L300,200 L300,0 L165,115 C155,123 145,123 135,115 Z" fill="var(--salmon)"/>
-                    </svg>
-                </div>
-
-                <div class="flap">
-                    <svg viewBox="0 0 300 120" preserveAspectRatio="none">
-                        <path d="M0,0 L300,0 L165,110 C155,118 145,118 135,110 L0,0 Z" fill="var(--salmon-light)"/>
-                    </svg>
-                </div>
-
+        <!-- CONTADOR INICIAL -->
+        <div id="contador-inicial">
+            <div class="burbuja-contador">
+                <span class="numero" id="inicial-meses">00</span>
+                <span class="etiqueta">Meses</span>
+            </div>
+            <div class="burbuja-contador">
+                <span class="numero" id="inicial-dias">00</span>
+                <span class="etiqueta">Días</span>
+            </div>
+            <div class="burbuja-contador">
+                <span class="numero" id="inicial-horas">00</span>
+                <span class="etiqueta">Horas</span>
+            </div>
+            <div class="burbuja-contador">
+                <span class="numero" id="inicial-minutos">00</span>
+                <span class="etiqueta">Min</span>
+            </div>
+            <div class="burbuja-contador">
+                <span class="numero" id="inicial-segundos">00</span>
+                <span class="etiqueta">Seg</span>
             </div>
         </div>
-    </div>
 
-    <!-- =========================================================
-    CONTENEDOR DE PÁGINAS (3 hojas)
-    ========================================================= -->
-    <div id="paginas">
-
-        <!-- Página 1: Bienvenida -->
-        <div class="pagina activa" data-index="0">
-            <div>
-                <h2>🌸 Bienvenida</h2>
-                <div class="subtitulo">Celebremos juntos</div>
-                <div class="contenido">
-                    <p style="font-size:1.1rem; line-height:1.9;">
-                        ¡Hola!<br>
-                        Te invito a ser parte de un día muy especial:<br>
-                        <span class="destacado">mis 15 años</span>
-                    </p>
-                    <p style="font-size:0.9rem; color:#E91E63;">
-                        ✨ Una tarde llena de magia, mariposas y mucha alegría ✨
-                    </p>
-                    <div style="display:flex; justify-content:center; gap:0.6rem; flex-wrap:wrap; margin-top:0.3rem;">
-                        <span style="background:#fce4ec; padding:0.2rem 1rem; border-radius:30px; color:var(--gold); border:1px solid var(--gold);">🦋</span>
-                        <span style="background:#ffe0b2; padding:0.2rem 1rem; border-radius:30px; color:var(--gold); border:1px solid var(--gold);">✨</span>
-                        <span style="background:#fce4ec; padding:0.2rem 1rem; border-radius:30px; color:var(--gold); border:1px solid var(--gold);">🦋</span>
+        <!-- SOBRE -->
+        <div class="butterfly-flight-path">
+            <div class="envelope-wrapper" id="envelopeContainer">
+                <div class="envelope">
+                    <div class="envelope-back"></div>
+                    <div class="letter">
+                        <div class="letter-text">
+                            <h3 class="gold-text">¡Abigail!</h3>
+                            <p>15 años · Haz clic para abrir</p>
+                        </div>
+                    </div>
+                    <div class="envelope-front">
+                        <svg viewBox="0 0 300 200" preserveAspectRatio="none">
+                            <path d="M0,0 L0,200 L300,200 L300,0 L165,115 C155,123 145,123 135,115 Z" fill="var(--salmon)"/>
+                        </svg>
+                    </div>
+                    <div class="flap">
+                        <svg viewBox="0 0 300 120" preserveAspectRatio="none">
+                            <path d="M0,0 L300,0 L165,110 C155,118 145,118 135,110 L0,0 Z" fill="var(--salmon-light)"/>
+                        </svg>
                     </div>
                 </div>
             </div>
-            <div class="navegacion">
-                <button disabled>Anterior</button>
-                <span class="indicador">1 / 3</span>
-                <button class="btn-siguiente">Siguiente →</button>
-            </div>
         </div>
 
-        <!-- Página 2: El Evento -->
-        <div class="pagina" data-index="1">
-            <div>
-                <h2>📅 El Evento</h2>
-                <div class="subtitulo">No faltes</div>
-                <div class="contenido">
-                    <div class="fila-detalle">
-                        <span class="icono">📆</span>
-                        <span class="texto"><strong>Fecha:</strong> 11 de enero de 2027</span>
-                    </div>
-                    <div class="fila-detalle">
-                        <span class="icono">⏰</span>
-                        <span class="texto"><strong>Hora:</strong> 4:30 pm</span>
-                    </div>
-                    <div class="fila-detalle">
-                        <span class="icono">📍</span>
-                        <span class="texto"><strong>Lugar:</strong> Salón Comunal, Tibás (por definir)</span>
-                    </div>
-                    <div class="protocolo">
-                        <p style="font-weight:600; color:var(--gold);">🎩 Protocolo de vestimenta</p>
-                        <p>✅ <strong>Formal</strong></p>
-                        <p>⚪ <strong>Colores permitidos:</strong> Blanco o Negro</p>
-                        <p>🌟 Los colores <span class="resaltado">Dorado</span> y <span class="resaltado">Rosado</span> son exclusivos para la cumpleañera.</p>
+        <!-- PÁGINAS -->
+        <div id="paginas">
+            <!-- Página 1 -->
+            <div class="pagina activa" data-index="0">
+                <div>
+                    <h2>🌸 Bienvenida</h2>
+                    <div class="subtitulo">Celebremos juntos</div>
+                    <div class="contenido">
+                        <p style="font-size:1rem; line-height:1.8;">
+                            ¡Hola!<br>
+                            Te invito a ser parte de un día muy especial:<br>
+                            <span class="destacado">mis 15 años</span>
+                        </p>
+                        <p style="font-size:0.85rem; color:#E91E63;">
+                            ✨ Una tarde llena de magia, mariposas y mucha alegría ✨
+                        </p>
+                        <div style="display:flex; justify-content:center; gap:0.5rem; flex-wrap:wrap; margin-top:0.2rem;">
+                            <span style="background:#fce4ec; padding:0.2rem 1rem; border-radius:30px; color:var(--gold); border:1px solid var(--gold);">🦋</span>
+                            <span style="background:#ffe0b2; padding:0.2rem 1rem; border-radius:30px; color:var(--gold); border:1px solid var(--gold);">✨</span>
+                            <span style="background:#fce4ec; padding:0.2rem 1rem; border-radius:30px; color:var(--gold); border:1px solid var(--gold);">🦋</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="navegacion">
-                <button class="btn-anterior">← Anterior</button>
-                <span class="indicador">2 / 3</span>
-                <button class="btn-siguiente">Siguiente →</button>
-            </div>
-        </div>
-
-        <!-- Página 3: Confirmar asistencia -->
-        <div class="pagina" data-index="2">
-            <div>
-                <h2>✅ Confirma tu asistencia</h2>
-                <div class="subtitulo">Cuéntanos si vienes</div>
-                <div class="contenido">
-                    <form class="form-asistencia" id="form-confirmacion">
-                        <label for="nombre">Tu nombre</label>
-                        <input type="text" id="nombre" placeholder="Ej: María Pérez" required>
-
-                        <label for="email">Correo electrónico (opcional)</label>
-                        <input type="email" id="email" placeholder="tucorreo@ejemplo.com">
-
-                        <label for="cantidad">¿Cuántas personas vendrán contigo? (máx. 3)</label>
-                        <select id="cantidad">
-                            <option value="1">1 (solo yo)</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4 (incluyéndome)</option>
-                        </select>
-
-                        <button type="submit">Enviar confirmación 🦋</button>
-                    </form>
-                    <div id="mensaje-confirmacion" style="text-align:center; margin-top:0.5rem; font-weight:300; color:var(--gold); display:none; font-size:1.1rem;">
-                        ¡Gracias! Te esperamos 🎉
-                    </div>
+                <div class="navegacion">
+                    <button disabled>Anterior</button>
+                    <span class="indicador">1 / 3</span>
+                    <button class="btn-siguiente">Siguiente →</button>
                 </div>
             </div>
-            <div class="navegacion">
-                <button class="btn-anterior">← Anterior</button>
-                <span class="indicador">3 / 3</span>
-                <button disabled>Fin</button>
+
+            <!-- Página 2 -->
+            <div class="pagina" data-index="1">
+                <div>
+                    <h2>📅 El Evento</h2>
+                    <div class="subtitulo">No faltes</div>
+                    <div class="contenido">
+                        <div class="fila-detalle">
+                            <span class="icono">📆</span>
+                            <span class="texto"><strong>Fecha:</strong> 11 de enero de 2027</span>
+                        </div>
+                        <div class="fila-detalle">
+                            <span class="icono">⏰</span>
+                            <span class="texto"><strong>Hora:</strong> 4:30 pm</span>
+                        </div>
+                        <div class="fila-detalle">
+                            <span class="icono">📍</span>
+                            <span class="texto"><strong>Lugar:</strong> Salón Comunal, Tibás (por definir)</span>
+                        </div>
+                        <div class="protocolo">
+                            <p style="font-weight:600; color:var(--gold);">🎩 Protocolo de vestimenta</p>
+                            <p>✅ <strong>Formal</strong></p>
+                            <p>⚪ <strong>Colores permitidos:</strong> Blanco o Negro</p>
+                            <p>🌟 Los colores <span class="resaltado">Dorado</span> y <span class="resaltado">Rosado</span> son exclusivos para la cumpleañera.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="navegacion">
+                    <button class="btn-anterior">← Anterior</button>
+                    <span class="indicador">2 / 3</span>
+                    <button class="btn-siguiente">Siguiente →</button>
+                </div>
+            </div>
+
+            <!-- Página 3 -->
+            <div class="pagina" data-index="2">
+                <div>
+                    <h2>✅ Confirma tu asistencia</h2>
+                    <div class="subtitulo">Cuéntanos si vienes</div>
+                    <div class="contenido">
+                        <form class="form-asistencia" id="form-confirmacion">
+                            <label for="nombre">Tu nombre</label>
+                            <input type="text" id="nombre" placeholder="Ej: María Pérez" required>
+                            <label for="email">Correo electrónico (opcional)</label>
+                            <input type="email" id="email" placeholder="tucorreo@ejemplo.com">
+                            <label for="cantidad">¿Cuántas personas vendrán contigo? (máx. 3)</label>
+                            <select id="cantidad">
+                                <option value="1">1 (solo yo)</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4 (incluyéndome)</option>
+                            </select>
+                            <button type="submit">Enviar confirmación 🦋</button>
+                        </form>
+                        <div id="mensaje-confirmacion" style="text-align:center; margin-top:0.5rem; font-weight:300; color:var(--gold); display:none; font-size:1rem;">
+                            ¡Gracias! Te esperamos 🎉
+                        </div>
+                    </div>
+                </div>
+                <div class="navegacion">
+                    <button class="btn-anterior">← Anterior</button>
+                    <span class="indicador">3 / 3</span>
+                    <button disabled>Fin</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- =========================================================
-    CONTADOR FLOTANTE (fijo por encima de las páginas)
-    ========================================================= -->
+    </div> <!-- fin #phone-frame -->
+
+    <!-- ===== CONTADOR FLOTANTE (fuera del frame, fijo) ===== -->
     <div id="contador-flotante">
         <div class="burbuja-flotante">
             <span class="numero" id="flotante-meses">00</span>
@@ -1069,7 +1035,7 @@
     </div>
 
     <!-- =========================================================
-    JAVASCRIPT
+    JAVASCRIPT (sin cambios relevantes, solo se ajustan referencias)
     ========================================================= -->
     <script>
         (function() {
@@ -1199,7 +1165,7 @@
             });
 
             // =========================================================
-            // 5. CUENTA REGRESIVA (ACTIVA DESDE EL PRIMER MOMENTO)
+            // 5. CUENTA REGRESIVA
             // =========================================================
             let intervaloCuenta;
 
@@ -1329,7 +1295,7 @@
             }
 
             // =========================================================
-            // 7. CLIC EN TODA LA PANTALLA - MARIPOSAS Y BRILLOS
+            // 7. CLIC EN TODA LA PANTALLA
             // =========================================================
             document.addEventListener('click', function(e) {
                 if (e.target.closest('button')) return;
@@ -1345,19 +1311,20 @@
             // 8. MARIPOSAS DE FONDO
             // =========================================================
             function crearMariposasFondo() {
-                const cant = 16;
+                const cant = 12;
+                const frame = document.getElementById('phone-frame');
                 for (let i = 0; i < cant; i++) {
                     const m = document.createElement('div');
                     m.className = 'mariposa-fondo';
                     m.textContent = '🦋';
                     m.style.left = Math.random() * 100 + '%';
                     m.style.top = Math.random() * 100 + '%';
-                    m.style.fontSize = (1.2 + Math.random() * 2) + 'rem';
-                    m.style.opacity = 0.2 + Math.random() * 0.4;
+                    m.style.fontSize = (1.2 + Math.random() * 1.8) + 'rem';
+                    m.style.opacity = 0.2 + Math.random() * 0.3;
                     m.style.transform = `rotate(${Math.random() * 360}deg)`;
-                    m.style.animation = `flotar ${6 + Math.random() * 10}s ease-in-out infinite`;
+                    m.style.animation = `flotar ${6 + Math.random() * 8}s ease-in-out infinite`;
                     m.style.animationDelay = (Math.random() * 6) + 's';
-                    document.body.appendChild(m);
+                    frame.appendChild(m);
                 }
             }
             crearMariposasFondo();
@@ -1393,7 +1360,7 @@
                 `;
             document.head.appendChild(styleAdicional);
 
-            console.log('🎉 Invitación con imagen de fondo profesional.');
+            console.log('📱 Modo teléfono activado con imagen de fondo.');
         })();
     </script>
 
