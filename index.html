@@ -2,1466 +2,874 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Invitación 15 años - Abigail</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#fffaf8">
+    <meta name="description" content="Invitación a los quince años de Abiail, el sábado 16 de enero de 2027.">
+    <title>Mis 15 años · Abiail</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ====================================================
-           PALETA DE COLORES Y RESET
-           ==================================================== */
         :root {
-            --salmon: #FF9E9D;
-            --salmon-light: #FFAFA4;
-            --gold: #D4AF37;
-            --gold-gradient: linear-gradient(135deg, #BF953F, #FCF6BA, #D4AF37, #FBF5B7);
-            --bg-color: #FFF5F5;
-            --letter-bg: #FFFFFF;
+            color-scheme: light;
+            --ink: #392d38;
+            --muted: #847580;
+            --rose: #bd6683;
+            --rose-dark: #94445f;
+            --rose-light: #f8e8ed;
+            --gold: #b28a50;
+            --paper: #fffaf8;
+            --white: #fff;
+            --line: #eadde1;
+            --serif: "Times New Roman", Times, serif;
+            --script: "Dancing Script", "Brush Script MT", cursive;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
         }
 
-        /* ====================================================
-           FONDO DEL BODY (marco oscuro) Y CONTENEDOR TELÉFONO
-           ==================================================== */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 2rem;
+            background: var(--paper);
+        }
+
         body {
-            font-family: 'Poppins', sans-serif;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #1a1a1a;
+            min-width: 320px;
             margin: 0;
+            color: var(--ink);
+            background:
+                radial-gradient(ellipse at 50% 0%, rgba(248, 232, 237, 0.65), transparent 34rem),
+                var(--paper);
+            font-family: var(--serif);
+            font-size: 1.1rem;
+            line-height: 1.65;
         }
 
-        #phone-frame {
-            max-width: 420px;
-            width: 100%;
-            height: 100vh;
-            max-height: 850px;
+        button,
+        input {
+            font: inherit;
+        }
+
+        button,
+        a,
+        input {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible {
+            outline: 3px solid rgba(189, 102, 131, 0.55);
+            outline-offset: 4px;
+        }
+
+        .invitation {
+            width: min(100% - 2rem, 760px);
             margin: 0 auto;
-            position: relative;
-            overflow: hidden;
-            background-image: url('fondo_invitacion.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
-            border-radius: 30px;
-            background-color: #fce4ec;
         }
 
-        #phone-frame::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        /* ====================================================
-           CONTADOR INICIAL
-           ==================================================== */
-        #contador-inicial {
-            position: absolute;
-            top: 4px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 150;
-            display: flex;
-            gap: 0.3rem;
-            flex-wrap: wrap;
-            justify-content: center;
-            opacity: 1;
-            transition: opacity 0.8s ease, transform 0.8s ease;
-            pointer-events: none;
-            padding: 4px 8px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(4px);
-            border-radius: 40px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        #contador-inicial.oculto {
-            opacity: 0;
-            transform: translateX(-50%) scale(0.8);
-            pointer-events: none;
-        }
-
-        .burbuja-contador {
-            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(212, 175, 55, 0.3), rgba(233, 30, 99, 0.15));
-            border-radius: 50%;
-            min-width: 54px;
-            height: 54px;
+        .hero {
+            min-height: min(850px, 100svh);
+            padding: clamp(4rem, 11vh, 7rem) 0 4rem;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 0 4px;
-            box-shadow: 
-                inset -3px -3px 10px rgba(0,0,0,0.08),
-                inset 3px 3px 10px rgba(255,255,255,0.7),
-                0 4px 15px rgba(212, 175, 55, 0.25),
-                0 0 0 2px rgba(212, 175, 55, 0.4),
-                0 0 0 4px rgba(233, 30, 99, 0.1);
-            border: none;
             text-align: center;
-            position: relative;
-            animation: flotarBurbuja 3s ease-in-out infinite;
-            transform-origin: center;
         }
 
-        .burbuja-contador::after {
-            content: '';
-            position: absolute;
-            top: 12%;
-            left: 20%;
-            width: 30%;
-            height: 20%;
-            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
-            border-radius: 50%;
-            opacity: 0.7;
-            pointer-events: none;
+        .hero-butterfly {
+            display: block;
+            margin: 0 0 0.8rem;
+            font-family: sans-serif;
+            font-size: clamp(6rem, 24vw, 10rem);
+            line-height: 1;
+            filter: drop-shadow(0 12px 18px rgba(160, 94, 126, 0.18));
+            animation: butterfly-float 4s ease-in-out infinite;
         }
 
-        .burbuja-contador:nth-child(2) { animation-delay: 0.5s; }
-        .burbuja-contador:nth-child(3) { animation-delay: 1s; }
-        .burbuja-contador:nth-child(4) { animation-delay: 1.5s; }
-        .burbuja-contador:nth-child(5) { animation-delay: 2s; }
-
-        .burbuja-contador .numero {
-            font-size: 1.3rem;
-            font-weight: 700;
+        .eyebrow {
+            margin: 0 0 0.2rem;
             color: var(--gold);
-            line-height: 1.2;
-            text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
-        }
-
-        .burbuja-contador .etiqueta {
-            font-size: 0.45rem;
+            font-family: var(--serif);
+            font-size: 0.82rem;
+            letter-spacing: 0.22em;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #E91E63;
+        }
+
+        h1,
+        h2,
+        .script {
+            font-family: var(--script);
             font-weight: 600;
-            opacity: 0.8;
         }
 
-        /* ====================================================
-           CONTADOR FLOTANTE (fijo por encima de las páginas)
-           ==================================================== */
-        #contador-flotante {
-            position: fixed;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 300;
-            display: flex;
-            gap: 0.3rem;
-            flex-wrap: wrap;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.8s ease, transform 0.8s ease;
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(4px);
-            padding: 5px 12px;
-            border-radius: 50px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.15);
+        h1 {
+            margin: 0;
+            color: var(--rose-dark);
+            font-size: clamp(4.4rem, 17vw, 7rem);
+            line-height: 1.05;
         }
 
-        #contador-flotante.visible {
-            opacity: 1;
-            pointer-events: none;
-            transform: translateX(-50%) scale(1);
+        .hero-date {
+            margin: 0.55rem 0 1.8rem;
+            color: var(--muted);
+            font-size: 1rem;
+            letter-spacing: 0.12em;
         }
 
-        .burbuja-flotante {
-            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(212, 175, 55, 0.3), rgba(233, 30, 99, 0.15));
-            border-radius: 50%;
-            min-width: 58px;
-            height: 58px;
-            display: flex;
-            flex-direction: column;
+        .music-player {
+            width: min(100%, 420px);
+            padding: 1rem 1.15rem;
+            display: grid;
+            grid-template-columns: 3rem minmax(0, 1fr);
             align-items: center;
-            justify-content: center;
-            padding: 0 4px;
-            box-shadow: 
-                inset -3px -3px 10px rgba(0,0,0,0.08),
-                inset 3px 3px 10px rgba(255,255,255,0.7),
-                0 4px 15px rgba(212, 175, 55, 0.25),
-                0 0 0 2px rgba(212, 175, 55, 0.4),
-                0 0 0 4px rgba(233, 30, 99, 0.1);
-            border: none;
-            text-align: center;
-            position: relative;
-            animation: flotarBurbuja 3.5s ease-in-out infinite;
-            transform-origin: center;
+            gap: 0.8rem;
+            border: 1px solid rgba(189, 102, 131, 0.15);
+            border-radius: 1.25rem;
+            background: rgba(255, 255, 255, 0.86);
+            box-shadow: 0 12px 35px rgba(93, 58, 73, 0.08);
+            text-align: left;
         }
 
-        .burbuja-flotante::after {
-            content: '';
-            position: absolute;
-            top: 10%;
-            left: 18%;
-            width: 28%;
-            height: 18%;
-            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+        .play-button {
+            width: 3rem;
+            height: 3rem;
+            padding: 0;
+            display: grid;
+            place-items: center;
+            border: 0;
             border-radius: 50%;
-            opacity: 0.7;
-            pointer-events: none;
-        }
-
-        .burbuja-flotante:nth-child(2) { animation-delay: 0.4s; }
-        .burbuja-flotante:nth-child(3) { animation-delay: 0.9s; }
-        .burbuja-flotante:nth-child(4) { animation-delay: 1.3s; }
-        .burbuja-flotante:nth-child(5) { animation-delay: 1.8s; }
-
-        .burbuja-flotante .numero {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--gold);
-            line-height: 1.2;
-            text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
-        }
-
-        .burbuja-flotante .etiqueta {
-            font-size: 0.4rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #E91E63;
-            font-weight: 600;
-            opacity: 0.8;
-        }
-
-        @keyframes flotarBurbuja {
-            0%, 100% {
-                transform: translateY(0) scale(1);
-            }
-            50% {
-                transform: translateY(-6px) scale(1.02);
-            }
-        }
-
-        /* ====================================================
-           ANIMACIÓN DE ATERRIZAJE DEL SOBRE
-           ==================================================== */
-        .butterfly-flight-path {
-            animation: butterfly-landing 2.8s cubic-bezier(0.25, 1, 0.35, 1) forwards;
-            transform-style: preserve-3d;
-            position: relative;
-            z-index: 100;
-            margin-top: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-        }
-
-        @keyframes butterfly-landing {
-            0% {
-                transform: translate(-30vw, 30vh) scale(0.2) rotateZ(45deg) rotateY(-60deg) rotateX(20deg);
-                opacity: 0;
-            }
-            25% {
-                transform: translate(-15vw, -10vh) scale(0.5) rotateZ(-20deg) rotateY(50deg) rotateX(-10deg);
-                opacity: 1;
-            }
-            50% {
-                transform: translate(8vw, 10vh) scale(0.7) rotateZ(15deg) rotateY(-40deg) rotateX(15deg);
-            }
-            75% {
-                transform: translate(2vw, -3vh) scale(0.9) rotateZ(-5deg) rotateY(15deg) rotateX(-5deg);
-            }
-            100% {
-                transform: translate(0, 0) scale(1) rotateZ(0) rotateY(0) rotateX(0);
-            }
-        }
-
-        /* ====================================================
-           SOBRE CON SOLAPA SVG
-           ==================================================== */
-        .envelope-wrapper {
-            position: relative;
-            width: 280px;
-            height: 180px;
+            color: var(--white);
+            background: var(--rose);
             cursor: pointer;
-            perspective: 1200px;
-            transition: opacity 0.8s ease, transform 0.8s ease;
-            margin: 0 auto;
-            z-index: 1;
+            font-family: Arial, sans-serif;
+            font-size: 1.2rem;
+            transition: background 160ms ease, transform 160ms ease;
         }
 
-        .envelope-wrapper.oculto {
-            opacity: 0;
-            transform: scale(0.5) rotateY(90deg);
-            pointer-events: none;
+        .play-button:hover {
+            transform: scale(1.06);
+            background: var(--rose-dark);
         }
 
-        .envelope {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            transform-style: preserve-3d;
-        }
-
-        .envelope-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: var(--gold-gradient);
-            border-radius: 12px;
-            z-index: 1;
-        }
-
-        .envelope-front {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 3;
-            pointer-events: none;
-            filter: drop-shadow(0px -4px 6px rgba(0, 0, 0, 0.08));
-        }
-
-        .flap {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 120px;
-            z-index: 4;
-            transform-origin: top;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.2s;
-            filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.1));
-        }
-
-        svg {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-
-        /* ====================================================
-           CARTA DENTRO DEL SOBRE
-           ==================================================== */
-        .letter {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            width: 260px;
-            height: 160px;
-            background-color: var(--letter-bg);
-            border-radius: 8px;
-            z-index: 2;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            padding: 18px;
-            box-sizing: border-box;
+        .track-heading {
             display: flex;
-            justify-content: center;
             align-items: center;
-            flex-direction: column;
-        }
-
-        .letter-text {
-            text-align: center;
-        }
-
-        .gold-text {
-            margin: 0 0 10px 0;
-            background: var(--gold-gradient);
-            -webkit-text-fill-color: transparent;
-            font-size: 1.8rem;
-            font-family: 'Dancing Script', cursive;
-            font-weight: 700;
-        }
-
-        .letter-text p {
-            color: #666;
-            font-size: 0.9rem;
-            line-height: 1.4;
-            margin: 0;
-            -webkit-text-fill-color: #666;
-        }
-
-        .envelope-wrapper.open .flap {
-            transform: rotateX(180deg);
-            z-index: 1;
-        }
-
-        .envelope-wrapper.open .letter {
-            transform: translateY(-80px);
-            transition-delay: 0.2s;
-            z-index: 5;
-        }
-
-        /* ====================================================
-           CONTENEDOR DE PÁGINAS (3 hojas)
-           ==================================================== */
-        #paginas {
-            position: absolute;
-            width: 90%;
-            max-width: 380px;
-            height: 78vh;
-            max-height: 650px;
-            perspective: 1500px;
-            display: none;
-            z-index: 50;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        #paginas.visible {
-            display: block;
-        }
-
-        .pagina {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(4px);
-            border-radius: 30px;
-            padding: 1.2rem 1.2rem 1rem;
-            box-shadow: 0 15px 50px rgba(233, 30, 99, 0.2),
-                inset 0 0 0 2px rgba(212, 175, 55, 0.3);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            display: flex;
-            flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1),
-                opacity 0.8s ease;
-            backface-visibility: hidden;
-            transform-style: preserve-3d;
-            opacity: 0;
-            transform: rotateY(-90deg) scale(0.9);
-            pointer-events: none;
-            overflow-y: auto;
-            padding-top: 80px;
-        }
-
-        .pagina.activa {
-            opacity: 1;
-            transform: rotateY(0deg) scale(1);
-            pointer-events: all;
-            z-index: 10;
-        }
-
-        .pagina.salida {
-            opacity: 0;
-            transform: rotateY(90deg) scale(0.9);
-            pointer-events: none;
-        }
-
-        /* ====================================================
-           CONTENIDO DE PÁGINAS
-           ==================================================== */
-        .pagina h2 {
-            font-family: 'Dancing Script', cursive;
-            color: var(--gold);
-            font-size: 2.4rem;
-            text-align: center;
+            gap: 0.75rem;
             margin-bottom: 0.2rem;
-            text-shadow: 0 2px 15px rgba(212, 175, 55, 0.3);
         }
 
-        .pagina .subtitulo {
-            color: #E91E63;
-            font-weight: 300;
-            text-align: center;
-            letter-spacing: 2px;
-            font-size: 0.9rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .pagina .contenido {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .pagina p {
-            color: #4a2c2a;
-            font-weight: 300;
-            line-height: 1.8;
-            font-size: 0.9rem;
-            text-align: center;
-        }
-
-        .pagina .destacado {
+        .track-title {
+            overflow: hidden;
+            color: var(--ink);
+            font-family: Arial, sans-serif;
+            font-size: 0.86rem;
             font-weight: 600;
-            color: var(--gold);
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
-        .pagina .fila-detalle {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            background: rgba(212, 175, 55, 0.08);
-            padding: 0.5rem 0.8rem;
-            border-radius: 20px;
-            margin: 0.1rem 0;
-            border-left: 4px solid var(--gold);
+        .track-status,
+        .track-time {
+            color: var(--muted);
+            font-family: Arial, sans-serif;
+            font-size: 0.72rem;
         }
 
-        .pagina .fila-detalle .icono {
-            font-size: 1.4rem;
-            width: 2rem;
-            text-align: center;
-        }
-
-        .pagina .fila-detalle .texto {
-            font-size: 0.85rem;
-            color: #3e2723;
-        }
-
-        .pagina .fila-detalle .texto strong {
-            color: var(--gold);
-            font-weight: 600;
-        }
-
-        .protocolo {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(233, 30, 99, 0.05));
-            padding: 0.6rem;
-            border-radius: 20px;
-            border: 1px solid var(--gold);
-            border-left: 6px solid #E91E63;
-        }
-
-        .protocolo p {
-            margin: 0.2rem 0;
-            font-size: 0.85rem;
-        }
-
-        .protocolo .resaltado {
-            color: #E91E63;
-            font-weight: 600;
-        }
-
-        /* Botón Waze */
-        .btn-waze {
-            display: inline-block;
-            background: linear-gradient(135deg, #D4AF37, #F5D76E);
-            color: #E91E63;
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-decoration: none;
-            text-align: center;
-            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.4);
-            transition: transform 0.2s, box-shadow 0.3s;
-            margin-top: 0.5rem;
-            border: none;
-            cursor: pointer;
+        .track-progress {
             width: 100%;
+            height: 0.3rem;
+            margin: 0.25rem 0 0;
+            display: block;
+            accent-color: var(--rose);
+            cursor: pointer;
         }
 
-        .btn-waze:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 35px rgba(212, 175, 55, 0.6);
-        }
-
-        .btn-waze:active {
-            transform: scale(0.97);
-        }
-
-        /* Formulario */
-        .form-asistencia {
+        .track-time {
+            margin-top: 0.1rem;
             display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin-top: 0.2rem;
+            justify-content: space-between;
         }
 
-        .form-asistencia label {
-            font-weight: 400;
-            color: #5d4037;
+        .music-message {
+            grid-column: 1 / -1;
+            min-height: 0;
+            margin: 0;
+            color: var(--rose-dark);
+            font-size: 0.88rem;
+            line-height: 1.4;
+            text-align: left;
+        }
+
+        .music-message:empty {
+            display: none;
+        }
+
+        .intro-copy {
+            max-width: 590px;
+            margin: 2rem auto 0;
+            font-family: var(--serif);
+            font-size: clamp(1.12rem, 4.5vw, 1.35rem);
+            line-height: 1.75;
+        }
+
+        .intro-copy p {
+            margin: 0;
+        }
+
+        .intro-copy .script {
+            margin-top: 0.3rem;
+            color: var(--rose-dark);
+            font-size: clamp(3.1rem, 12vw, 4.3rem);
+            line-height: 1.2;
+        }
+
+        .scroll-cue {
+            margin-top: 1.8rem;
+            color: var(--gold);
+            font-size: 0.9rem;
+            letter-spacing: 0.12em;
+        }
+
+        .scroll-cue span {
+            display: block;
+            font-family: Arial, sans-serif;
+            font-size: 1.4rem;
+            line-height: 1.2;
+        }
+
+        .section {
+            position: relative;
+            margin: 0 auto;
+            padding: clamp(3.25rem, 9vw, 5rem) clamp(1rem, 5vw, 2.75rem);
+            border-top: 1px solid var(--line);
+            text-align: center;
+        }
+
+        .section-icon {
+            margin: 0 0 0.4rem;
+            font-family: sans-serif;
+            font-size: 2rem;
+            line-height: 1.2;
+        }
+
+        .section h2 {
+            margin: 0;
+            color: var(--rose-dark);
+            font-size: clamp(2.7rem, 9vw, 3.5rem);
+            line-height: 1.2;
+        }
+
+        .section-lead {
+            margin: 0.45rem 0 1.8rem;
+            color: var(--muted);
+            font-size: 1rem;
+        }
+
+        .calendar-card {
+            width: min(100%, 390px);
+            margin: 0 auto;
+            padding: 1.35rem clamp(1rem, 5vw, 2rem) 1.5rem;
+            border: 1px solid var(--line);
+            border-radius: 1.5rem;
+            background: var(--white);
+            box-shadow: 0 14px 38px rgba(93, 58, 73, 0.06);
+        }
+
+        .calendar-month {
+            margin: 0 0 1rem;
+            color: var(--rose-dark);
+            font-family: var(--serif);
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+            gap: 0.28rem;
+            align-items: center;
+        }
+
+        .calendar-weekday,
+        .calendar-day {
+            min-width: 0;
+            display: grid;
+            place-items: center;
+        }
+
+        .calendar-weekday {
+            min-height: 2rem;
+            color: var(--muted);
+            font-family: Arial, sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .calendar-day {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            color: var(--ink);
+            font-family: Arial, sans-serif;
+            font-size: 0.92rem;
+        }
+
+        .calendar-day.empty {
+            visibility: hidden;
+        }
+
+        .calendar-day.event-day {
+            color: var(--white);
+            background: var(--rose);
+            box-shadow: 0 4px 14px rgba(189, 102, 131, 0.28);
+            font-weight: 700;
+        }
+
+        .calendar-butterfly {
+            position: absolute;
+            top: -0.65rem;
+            right: -0.65rem;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        .date-caption {
+            margin: 1.25rem 0 0;
+            color: var(--rose-dark);
+            font-family: var(--serif);
+            font-size: 1.18rem;
+            font-weight: 700;
+        }
+
+        .countdown {
+            width: min(100%, 560px);
+            margin: 2rem auto 0;
+        }
+
+        .countdown-label {
+            margin: 0 0 0.85rem;
+            color: var(--muted);
+            font-size: 1rem;
+        }
+
+        .countdown-units {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: clamp(0.45rem, 3vw, 1rem);
+        }
+
+        .countdown-unit {
+            padding: 0.75rem 0.3rem;
+            border: 1px solid var(--line);
+            border-radius: 1rem;
+            background: var(--white);
+        }
+
+        .countdown-value {
+            display: block;
+            color: var(--rose-dark);
+            font-family: Arial, sans-serif;
+            font-size: clamp(1.45rem, 7vw, 2.2rem);
+            font-variant-numeric: tabular-nums;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .countdown-unit span:last-child {
+            color: var(--muted);
             font-size: 0.85rem;
         }
 
-        .form-asistencia input,
-        .form-asistencia select {
-            padding: 8px 14px;
-            border-radius: 30px;
-            border: 2px solid #f8bbd0;
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.9rem;
-            background: rgba(255, 255, 255, 0.7);
-            outline: none;
-            transition: border 0.3s, box-shadow 0.3s;
-        }
-
-        .form-asistencia input:focus,
-        .form-asistencia select:focus {
-            border-color: var(--gold);
-            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
-        }
-
-        .form-asistencia button {
-            padding: 10px;
-            border: none;
-            border-radius: 50px;
-            background: var(--gold-gradient);
-            color: #E91E63;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.4);
-            transition: transform 0.2s, box-shadow 0.3s;
-        }
-
-        .form-asistencia button:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 35px rgba(212, 175, 55, 0.6);
-        }
-
-        .form-asistencia button:active {
-            transform: scale(0.97);
-        }
-
-        /* ====================================================
-           NAVEGACIÓN (oculta - solo para referencia)
-           ==================================================== */
-        .navegacion {
-            display: none; /* Ocultamos los botones manuales */
-        }
-
-        /* ====================================================
-           ANIMACIONES
-           ==================================================== */
-        .mariposa-efimera {
-            position: fixed;
-            font-size: 2.2rem;
-            pointer-events: none;
-            z-index: 999;
-            animation: vueloEfimero 3s ease-out forwards;
-            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.9)) sepia(0.2) saturate(1.6) hue-rotate(340deg);
-        }
-
-        @keyframes vueloEfimero {
-            0% {
-                opacity: 1;
-                transform: translate(0, 0) scale(1) rotate(0deg);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(var(--tx), var(--ty)) scale(0.2) rotate(720deg);
-            }
-        }
-
-        .brillo-estrella {
-            position: fixed;
-            pointer-events: none;
-            z-index: 998;
-            border-radius: 50%;
-            background: radial-gradient(circle, #fff, #F5D76E);
-            animation: brilloEstrella 2s ease-out forwards;
-        }
-
-        @keyframes brilloEstrella {
-            0% {
-                opacity: 1;
-                transform: scale(0) rotate(0deg);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(2) rotate(720deg);
-            }
-        }
-
-        .mariposa-fondo {
-            position: absolute;
-            font-size: 1.8rem;
-            z-index: 0;
-            user-select: none;
-            pointer-events: none;
-            filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.5)) sepia(0.2) saturate(1.3) hue-rotate(340deg);
-            opacity: 0.4;
-        }
-
-        /* ====================================================
-           BOTÓN DE MÚSICA
-           ==================================================== */
-        #btn-musica {
-            position: fixed;
-            top: 70px;
-            right: 16px;
-            z-index: 300;
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(6px);
-            border: 2px solid var(--gold);
-            border-radius: 50%;
-            width: 44px;
-            height: 44px;
-            font-size: 1.3rem;
+        .location-icons {
             display: flex;
-            align-items: center;
             justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
-            transition: transform 0.2s, background 0.3s;
-            opacity: 0;
-            transform: scale(0.5);
-            pointer-events: none;
+            gap: 1rem;
+            margin: 1.25rem 0 0;
         }
 
-        #btn-musica.visible {
-            opacity: 1;
-            transform: scale(1);
-            pointer-events: all;
+        .location-option {
+            min-width: 118px;
+            padding: 1rem 1.25rem 0.8rem;
+            border: 1px solid var(--line);
+            border-radius: 1.2rem;
+            background: var(--white);
         }
 
-        #btn-musica:hover {
-            background: rgba(255, 255, 255, 0.9);
-            transform: scale(1.1);
+        .location-option span {
+            display: block;
         }
 
-        /* ====================================================
-           INDICADOR DE PÁGINA (opcional)
-           ==================================================== */
-        .indicador-pagina {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 60;
+        .location-icon {
+            font-family: sans-serif;
+            font-size: 2rem;
+            line-height: 1.3;
+        }
+
+        .location-name {
+            color: var(--muted);
+            font-family: Arial, sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .location-note {
+            margin: 1rem 0 0;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .dress-card {
+            width: min(100%, 510px);
+            margin: 0 auto;
+            padding: 1.6rem 1.25rem;
+            border: 1px solid var(--line);
+            border-radius: 1.4rem;
+            background: var(--white);
+        }
+
+        .dress-card > p {
+            margin: 0;
+        }
+
+        .dress-colors {
+            margin: 1.2rem 0;
             display: flex;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.3);
-            padding: 8px 16px;
-            border-radius: 30px;
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            justify-content: center;
+            gap: 0.8rem;
         }
 
-        .indicador-pagina .punto {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            transition: background 0.5s ease, transform 0.5s ease;
+        .dress-color {
+            min-width: 110px;
+            padding: 0.7rem 1.1rem;
+            border: 1px solid #d9d2d4;
+            border-radius: 999px;
+            font-family: Arial, sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
         }
 
-        .indicador-pagina .punto.activo {
-            background: var(--gold);
-            transform: scale(1.3);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+        .dress-color.black {
+            color: var(--white);
+            background: #29252a;
         }
 
-        /* ====================================================
-           RESPONSIVE
-           ==================================================== */
-        @media (max-width: 600px) {
-            #phone-frame {
-                max-width: 100%;
-                height: 100vh;
-                border-radius: 0;
-                box-shadow: none;
-            }
-            .envelope-wrapper {
-                width: 240px;
-                height: 160px;
-            }
-            .letter {
-                width: 220px;
-                height: 140px;
-                padding: 15px;
-            }
-            .gold-text {
-                font-size: 1.4rem;
-            }
-            .letter-text p {
-                font-size: 0.8rem;
-            }
-            #paginas {
-                max-width: 95%;
-                padding-top: 10px;
-            }
-            .pagina {
-                padding: 1rem 1rem 0.8rem;
-                padding-top: 70px;
-            }
-            .pagina h2 {
-                font-size: 2rem;
-            }
-            .burbuja-contador {
-                min-width: 44px;
-                height: 44px;
-            }
-            .burbuja-contador .numero {
-                font-size: 1.1rem;
-            }
-            .burbuja-contador .etiqueta {
-                font-size: 0.4rem;
-            }
-            #contador-flotante {
-                padding: 4px 8px;
-                gap: 0.2rem;
-                top: 6px;
-            }
-            .burbuja-flotante {
-                min-width: 44px;
-                height: 44px;
-            }
-            .burbuja-flotante .numero {
-                font-size: 1.2rem;
-            }
-            .burbuja-flotante .etiqueta {
-                font-size: 0.35rem;
-            }
-            #btn-musica {
-                top: 60px;
-                right: 12px;
-                width: 38px;
-                height: 38px;
-                font-size: 1.1rem;
-            }
-            .btn-waze {
-                font-size: 0.85rem;
-                padding: 10px 18px;
-            }
-            .indicador-pagina {
-                bottom: 15px;
-                padding: 6px 12px;
-                gap: 8px;
-            }
-            .indicador-pagina .punto {
-                width: 8px;
-                height: 8px;
-            }
+        .dress-color.white {
+            color: var(--ink);
+            background: var(--white);
         }
 
-        @media (max-width: 400px) {
-            .envelope-wrapper {
-                width: 180px;
-                height: 130px;
+        .reserved-color {
+            color: var(--rose-dark);
+            font-weight: 700;
+        }
+
+        .rsvp-form {
+            width: min(100%, 440px);
+            margin: 0 auto;
+            display: grid;
+            gap: 0.55rem;
+            text-align: left;
+        }
+
+        .rsvp-form label {
+            margin-top: 0.55rem;
+            color: var(--ink);
+            font-size: 0.98rem;
+        }
+
+        .rsvp-form input {
+            width: 100%;
+            min-height: 3rem;
+            padding: 0.7rem 0.9rem;
+            border: 1px solid #d9cbd0;
+            border-radius: 0.75rem;
+            color: var(--ink);
+            background: var(--white);
+            font-family: Arial, sans-serif;
+            font-size: 1rem;
+        }
+
+        .rsvp-form input::placeholder {
+            color: #a49aa0;
+        }
+
+        .submit-button {
+            min-height: 3.1rem;
+            margin-top: 0.9rem;
+            border: 0;
+            border-radius: 999px;
+            color: var(--white);
+            background: var(--rose);
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+            font-size: 0.98rem;
+            font-weight: 700;
+            transition: background 160ms ease, transform 160ms ease;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-1px);
+            background: var(--rose-dark);
+        }
+
+        .form-message {
+            min-height: 1.5rem;
+            margin: 0.5rem 0 0;
+            color: var(--rose-dark);
+            font-size: 0.94rem;
+            text-align: center;
+        }
+
+        .closing {
+            padding-bottom: 4.5rem;
+        }
+
+        .closing-copy {
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .closing-copy p {
+            margin: 0.65rem 0;
+        }
+
+        .closing .script {
+            margin-top: 1.5rem;
+            color: var(--rose-dark);
+            font-size: clamp(2.7rem, 9vw, 3.5rem);
+        }
+
+        .closing-butterflies {
+            margin-top: 1.4rem;
+            font-family: sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 0.65rem;
+        }
+
+        @keyframes butterfly-float {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50% { transform: translateY(-12px) rotate(3deg); }
+        }
+
+        @media (max-width: 420px) {
+            .invitation {
+                width: min(100% - 1.25rem, 760px);
             }
-            .letter {
-                width: 160px;
-                height: 110px;
-                padding: 10px;
+
+            .hero {
+                min-height: 100svh;
+                padding-top: 3.25rem;
             }
-            .gold-text {
-                font-size: 1.2rem;
+
+            .calendar-card {
+                padding-inline: 0.8rem;
             }
-            .letter-text p {
-                font-size: 0.7rem;
+
+            .calendar-grid {
+                gap: 0.12rem;
             }
-            .pagina h2 {
-                font-size: 1.8rem;
+
+            .location-icons {
+                gap: 0.6rem;
             }
-            .burbuja-contador {
-                min-width: 38px;
-                height: 38px;
-            }
-            .burbuja-contador .numero {
-                font-size: 0.9rem;
-            }
-            .burbuja-flotante {
-                min-width: 36px;
-                height: 36px;
-            }
-            .burbuja-flotante .numero {
-                font-size: 1rem;
-            }
-            #contador-flotante {
-                padding: 3px 6px;
-                gap: 0.15rem;
-                top: 4px;
-            }
-            .pagina {
-                padding-top: 60px;
-            }
-            #btn-musica {
-                top: 50px;
-                right: 10px;
-                width: 34px;
-                height: 34px;
-                font-size: 1rem;
-            }
-            .btn-waze {
-                font-size: 0.8rem;
-                padding: 8px 14px;
+
+            .location-option {
+                min-width: 105px;
             }
         }
 
-        .pagina::-webkit-scrollbar {
-            width: 4px;
-        }
-        .pagina::-webkit-scrollbar-thumb {
-            background: var(--gold);
-            border-radius: 10px;
-        }
-        .pagina::-webkit-scrollbar-track {
-            background: transparent;
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
 <body>
+    <main class="invitation">
+        <section class="hero" aria-labelledby="invitation-title">
+            <span class="hero-butterfly" aria-hidden="true">🦋</span>
+            <p class="eyebrow">Una celebración muy especial</p>
+            <h1 id="invitation-title">Abiail</h1>
+            <p class="hero-date">SÁBADO · 16 DE ENERO DE 2027</p>
 
-    <!-- ===== CONTENEDOR TELÉFONO ===== -->
-    <div id="phone-frame">
-
-        <!-- ===== MÚSICA ===== -->
-        <audio id="musica" src="cancion.mp3" preload="auto"></audio>
-
-        <!-- ===== BOTÓN DE MÚSICA ===== -->
-        <button id="btn-musica" title="Reproducir / Pausar">🔊</button>
-
-        <!-- =========================================================
-        CONTADOR INICIAL
-        ========================================================= -->
-        <div id="contador-inicial">
-            <div class="burbuja-contador">
-                <span class="numero" id="inicial-meses">00</span>
-                <span class="etiqueta">Meses</span>
-            </div>
-            <div class="burbuja-contador">
-                <span class="numero" id="inicial-dias">00</span>
-                <span class="etiqueta">Días</span>
-            </div>
-            <div class="burbuja-contador">
-                <span class="numero" id="inicial-horas">00</span>
-                <span class="etiqueta">Horas</span>
-            </div>
-            <div class="burbuja-contador">
-                <span class="numero" id="inicial-minutos">00</span>
-                <span class="etiqueta">Min</span>
-            </div>
-            <div class="burbuja-contador">
-                <span class="numero" id="inicial-segundos">00</span>
-                <span class="etiqueta">Seg</span>
-            </div>
-        </div>
-
-        <!-- =========================================================
-        SOBRE CON SOLAPA
-        ========================================================= -->
-        <div class="butterfly-flight-path">
-            <div class="envelope-wrapper" id="envelopeContainer">
-                <div class="envelope">
-                    <div class="envelope-back"></div>
-                    <div class="letter">
-                        <div class="letter-text">
-                            <h3 class="gold-text">¡Abigail!</h3>
-                            <p>15 años · Haz clic para abrir</p>
-                        </div>
-                    </div>
-                    <div class="envelope-front">
-                        <svg viewBox="0 0 300 200" preserveAspectRatio="none">
-                            <path d="M0,0 L0,200 L300,200 L300,0 L165,115 C155,123 145,123 135,115 Z" fill="var(--salmon)"/>
-                        </svg>
-                    </div>
-                    <div class="flap">
-                        <svg viewBox="0 0 300 120" preserveAspectRatio="none">
-                            <path d="M0,0 L300,0 L165,110 C155,118 145,118 135,110 L0,0 Z" fill="var(--salmon-light)"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- =========================================================
-        CONTENEDOR DE PÁGINAS (3 hojas)
-        ========================================================= -->
-        <div id="paginas">
-
-            <!-- Página 1: Bienvenida -->
-            <div class="pagina activa" data-index="0">
+            <div class="music-player" aria-label="Reproductor de música">
+                <button class="play-button" id="play-button" type="button" aria-label="Reproducir música" aria-pressed="false">
+                    <span id="play-icon" aria-hidden="true">▶</span>
+                </button>
                 <div>
-                    <h2>🌸 Bienvenida</h2>
-                    <div class="subtitulo">Celebremos juntos</div>
-                    <div class="contenido">
-                        <p style="font-size:1.1rem; line-height:1.9;">
-                            ¡Hola!<br>
-                            Te invito a ser parte de un día muy especial:<br>
-                            <span class="destacado">mis 15 años</span>
-                        </p>
-                        <p style="font-size:0.9rem; color:#E91E63;">
-                            ✨ Una tarde llena de magia, mariposas y mucha alegría ✨
-                        </p>
-                        <div style="display:flex; justify-content:center; gap:0.6rem; flex-wrap:wrap; margin-top:0.3rem;">
-                            <span style="background:#fce4ec; padding:0.2rem 1rem; border-radius:30px; color:var(--gold); border:1px solid var(--gold);">🦋</span>
-                            <span style="background:#ffe0b2; padding:0.2rem 1rem; border-radius:30px; color:var(--gold); border:1px solid var(--gold);">✨</span>
-                            <span style="background:#fce4ec; padding:0.2rem 1rem; border-radius:30px; color:var(--gold); border:1px solid var(--gold);">🦋</span>
-                        </div>
+                    <div class="track-heading">
+                        <span class="track-title">Una canción para este día</span>
+                        <span class="track-status" id="track-status">En pausa</span>
+                    </div>
+                    <input class="track-progress" id="track-progress" type="range" min="0" max="100" value="0" step="0.1" aria-label="Posición de la canción">
+                    <div class="track-time">
+                        <span id="elapsed-time">0:00</span>
+                        <span id="duration-time">0:00</span>
                     </div>
                 </div>
-                <!-- Navegación oculta -->
-                <div class="navegacion">
-                    <button disabled>Anterior</button>
-                    <span class="indicador">1 / 3</span>
-                    <button>Siguiente →</button>
+                <p class="music-message" id="music-message" role="status" aria-live="polite"></p>
+            </div>
+            <audio id="song" src="cancion.mp3" preload="metadata"></audio>
+
+            <div class="intro-copy">
+                <p>Hay momentos inolvidables que se atesoran para siempre. Por esta razón, quiero que compartas conmigo este día tan especial.</p>
+                <p class="script">Mis 15 años</p>
+            </div>
+            <a class="scroll-cue" href="#fecha">
+                Desliza para descubrir
+                <span aria-hidden="true">⌄</span>
+            </a>
+        </section>
+
+        <section class="section" id="fecha" aria-labelledby="date-title">
+            <p class="section-icon" aria-hidden="true">📅</p>
+            <h2 id="date-title">Aparta la fecha</h2>
+            <p class="section-lead">Me encantará celebrar contigo</p>
+
+            <div class="calendar-card">
+                <p class="calendar-month">Enero · 2027</p>
+                <div class="calendar-grid" role="grid" aria-label="Calendario de enero de 2027">
+                    <span class="calendar-weekday" role="columnheader">L</span>
+                    <span class="calendar-weekday" role="columnheader">M</span>
+                    <span class="calendar-weekday" role="columnheader">M</span>
+                    <span class="calendar-weekday" role="columnheader">J</span>
+                    <span class="calendar-weekday" role="columnheader">V</span>
+                    <span class="calendar-weekday" role="columnheader">S</span>
+                    <span class="calendar-weekday" role="columnheader">D</span>
+                    <span class="calendar-day empty" role="gridcell" aria-hidden="true"></span>
+                    <span class="calendar-day empty" role="gridcell" aria-hidden="true"></span>
+                    <span class="calendar-day empty" role="gridcell" aria-hidden="true"></span>
+                    <span class="calendar-day empty" role="gridcell" aria-hidden="true"></span>
+                    <span class="calendar-day" role="gridcell">1</span>
+                    <span class="calendar-day" role="gridcell">2</span>
+                    <span class="calendar-day" role="gridcell">3</span>
+                    <span class="calendar-day" role="gridcell">4</span>
+                    <span class="calendar-day" role="gridcell">5</span>
+                    <span class="calendar-day" role="gridcell">6</span>
+                    <span class="calendar-day" role="gridcell">7</span>
+                    <span class="calendar-day" role="gridcell">8</span>
+                    <span class="calendar-day" role="gridcell">9</span>
+                    <span class="calendar-day" role="gridcell">10</span>
+                    <span class="calendar-day" role="gridcell">11</span>
+                    <span class="calendar-day" role="gridcell">12</span>
+                    <span class="calendar-day" role="gridcell">13</span>
+                    <span class="calendar-day" role="gridcell">14</span>
+                    <span class="calendar-day" role="gridcell">15</span>
+                    <span class="calendar-day event-day" role="gridcell" aria-label="Sábado 16 de enero de 2027, día del evento" aria-current="date">
+                        16
+                        <span class="calendar-butterfly" aria-hidden="true">🦋</span>
+                    </span>
+                    <span class="calendar-day" role="gridcell">17</span>
+                    <span class="calendar-day" role="gridcell">18</span>
+                    <span class="calendar-day" role="gridcell">19</span>
+                    <span class="calendar-day" role="gridcell">20</span>
+                    <span class="calendar-day" role="gridcell">21</span>
+                    <span class="calendar-day" role="gridcell">22</span>
+                    <span class="calendar-day" role="gridcell">23</span>
+                    <span class="calendar-day" role="gridcell">24</span>
+                    <span class="calendar-day" role="gridcell">25</span>
+                    <span class="calendar-day" role="gridcell">26</span>
+                    <span class="calendar-day" role="gridcell">27</span>
+                    <span class="calendar-day" role="gridcell">28</span>
+                    <span class="calendar-day" role="gridcell">29</span>
+                    <span class="calendar-day" role="gridcell">30</span>
+                    <span class="calendar-day" role="gridcell">31</span>
                 </div>
+                <p class="date-caption">Sábado 16 de enero de 2027</p>
             </div>
 
-            <!-- Página 2: El Evento -->
-            <div class="pagina" data-index="1">
-                <div>
-                    <h2>📅 El Evento</h2>
-                    <div class="subtitulo">No faltes</div>
-                    <div class="contenido">
-                        <div class="fila-detalle">
-                            <span class="icono">📆</span>
-                            <span class="texto"><strong>Fecha:</strong> 11 de enero de 2027</span>
-                        </div>
-                        <div class="fila-detalle">
-                            <span class="icono">⏰</span>
-                            <span class="texto"><strong>Hora:</strong> 4:30 pm</span>
-                        </div>
-                        <div class="fila-detalle">
-                            <span class="icono">📍</span>
-                            <span class="texto"><strong>Lugar:</strong> Salón Comunal, Tibás</span>
-                        </div>
-                        <!-- Botón Waze -->
-                        <a href="https://maps.app.goo.gl/z2uaZveMDV4zq1E98" target="_blank" class="btn-waze">
-                            🗺️ Ver ubicación en Waze
-                        </a>
-                        <div class="protocolo">
-                            <p style="font-weight:600; color:var(--gold);">🎩 Protocolo de vestimenta</p>
-                            <p>✅ <strong>Formal</strong></p>
-                            <p>⚪ <strong>Colores permitidos:</strong> Blanco o Negro</p>
-                            <p>🌟 Los colores <span class="resaltado">Dorado</span> y <span class="resaltado">Rosado</span> son exclusivos para la cumpleañera.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="navegacion">
-                    <button>← Anterior</button>
-                    <span class="indicador">2 / 3</span>
-                    <button>Siguiente →</button>
+            <div class="countdown" aria-label="Cuenta regresiva para la fecha del evento">
+                <p class="countdown-label">Faltan</p>
+                <div class="countdown-units">
+                    <div class="countdown-unit"><span class="countdown-value" id="days">000</span><span>Días</span></div>
+                    <div class="countdown-unit"><span class="countdown-value" id="hours">00</span><span>Horas</span></div>
+                    <div class="countdown-unit"><span class="countdown-value" id="minutes">00</span><span>Minutos</span></div>
+                    <div class="countdown-unit"><span class="countdown-value" id="seconds">00</span><span>Segundos</span></div>
                 </div>
             </div>
+        </section>
 
-            <!-- Página 3: Confirmar asistencia -->
-            <div class="pagina" data-index="2">
-                <div>
-                    <h2>✅ Confirma tu asistencia</h2>
-                    <div class="subtitulo">Cuéntanos si vienes</div>
-                    <div class="contenido">
-                        <form class="form-asistencia" id="form-confirmacion">
-                            <label for="nombre">Tu nombre</label>
-                            <input type="text" id="nombre" placeholder="Ej: María Pérez" required>
-                            <label for="email">Correo electrónico (opcional)</label>
-                            <input type="email" id="email" placeholder="tucorreo@ejemplo.com">
-                            <label for="cantidad">¿Cuántas personas vendrán contigo? (máx. 3)</label>
-                            <select id="cantidad">
-                                <option value="1">1 (solo yo)</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4 (incluyéndome)</option>
-                            </select>
-                            <button type="submit">Enviar confirmación 🦋</button>
-                        </form>
-                        <div id="mensaje-confirmacion" style="text-align:center; margin-top:0.5rem; font-weight:300; color:var(--gold); display:none; font-size:1.1rem;">
-                            ¡Gracias! Te esperamos 🎉
-                        </div>
-                    </div>
+        <section class="section" id="ubicacion" aria-labelledby="location-title">
+            <p class="section-icon" aria-hidden="true">📍</p>
+            <h2 id="location-title">Cómo llegar</h2>
+            <p class="section-lead">Pronto compartiré la ubicación</p>
+            <div class="location-icons" aria-label="Opciones de navegación próximamente disponibles">
+                <div class="location-option" aria-label="Waze, enlace próximamente">
+                    <span class="location-icon" aria-hidden="true">🚘</span>
+                    <span class="location-name">Waze</span>
                 </div>
-                <div class="navegacion">
-                    <button>← Anterior</button>
-                    <span class="indicador">3 / 3</span>
-                    <button disabled>Fin</button>
+                <div class="location-option" aria-label="Uber, enlace próximamente">
+                    <span class="location-icon" aria-hidden="true">🚕</span>
+                    <span class="location-name">Uber</span>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- =========================================================
-        INDICADOR DE PÁGINA (puntos)
-        ========================================================= -->
-        <div class="indicador-pagina" id="indicadorPaginas">
-            <span class="punto activo" data-index="0"></span>
-            <span class="punto" data-index="1"></span>
-            <span class="punto" data-index="2"></span>
-        </div>
+        <section class="section" aria-labelledby="dress-title">
+            <p class="section-icon" aria-hidden="true">👗</p>
+            <h2 id="dress-title">Código de vestimenta</h2>
+            <p class="section-lead">Celebremos con estos colores</p>
+            <div class="dress-card">
+                <p>Te invito a venir de:</p>
+                <div class="dress-colors" aria-label="Colores permitidos: negro y blanco">
+                    <span class="dress-color black">Negro</span>
+                    <span class="dress-color white">Blanco</span>
+                </div>
+                <p>El color <span class="reserved-color">rosado</span> está reservado para la cumpleañera.</p>
+            </div>
+        </section>
 
-    </div> <!-- fin #phone-frame -->
+        <section class="section" id="confirmacion" aria-labelledby="rsvp-title">
+            <p class="section-icon" aria-hidden="true">💌</p>
+            <h2 id="rsvp-title">Confirma tu asistencia</h2>
+            <p class="section-lead">Será muy especial contar contigo</p>
+            <form class="rsvp-form" id="rsvp-form">
+                <label for="guest-name">Nombre</label>
+                <input id="guest-name" name="name" type="text" autocomplete="name" placeholder="Tu nombre completo" required>
+                <label for="guest-email">Correo electrónico</label>
+                <input id="guest-email" name="email" type="email" autocomplete="email" placeholder="tu@correo.com" required>
+                <button class="submit-button" type="submit">Confirmar asistencia</button>
+                <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+            </form>
+        </section>
 
-    <!-- =========================================================
-    CONTADOR FLOTANTE (fijo por encima de las páginas)
-    ========================================================= -->
-    <div id="contador-flotante">
-        <div class="burbuja-flotante">
-            <span class="numero" id="flotante-meses">00</span>
-            <span class="etiqueta">Meses</span>
-        </div>
-        <div class="burbuja-flotante">
-            <span class="numero" id="flotante-dias">00</span>
-            <span class="etiqueta">Días</span>
-        </div>
-        <div class="burbuja-flotante">
-            <span class="numero" id="flotante-horas">00</span>
-            <span class="etiqueta">Horas</span>
-        </div>
-        <div class="burbuja-flotante">
-            <span class="numero" id="flotante-minutos">00</span>
-            <span class="etiqueta">Min</span>
-        </div>
-        <div class="burbuja-flotante">
-            <span class="numero" id="flotante-segundos">00</span>
-            <span class="etiqueta">Seg</span>
-        </div>
-    </div>
+        <section class="section closing" aria-label="Agradecimiento">
+            <p class="section-icon" aria-hidden="true">✨</p>
+            <div class="closing-copy">
+                <p>Espero que puedas compartir este día tan especial. Tu presencia hará mi día inolvidable.</p>
+                <p>Si además deseas regalarme algo, te lo agradeceré muchísimo en efectivo.</p>
+                <p class="script">Con cariño, Abiail</p>
+            </div>
+            <p class="closing-butterflies" aria-hidden="true">🦋 ✨ 🦋</p>
+        </section>
+    </main>
 
-    <!-- =========================================================
-    JAVASCRIPT (con navegación automática)
-    ========================================================= -->
     <script>
-        (function() {
-            'use strict';
+        (() => {
+            "use strict";
 
-            // =========================================================
-            // 1. ELEMENTOS DOM
-            // =========================================================
-            const envelopeWrapper = document.getElementById('envelopeContainer');
-            const paginas = document.getElementById('paginas');
-            const btnMusica = document.getElementById('btn-musica');
-            const audio = document.getElementById('musica');
-            const contadorInicial = document.getElementById('contador-inicial');
-            const contadorFlotante = document.getElementById('contador-flotante');
-            const indicador = document.getElementById('indicadorPaginas');
+            const eventDate = new Date(2027, 0, 16, 0, 0, 0);
+            const countdownFields = {
+                days: document.getElementById("days"),
+                hours: document.getElementById("hours"),
+                minutes: document.getElementById("minutes"),
+                seconds: document.getElementById("seconds")
+            };
 
-            let musicaReproduciendo = false;
-            let sobreAbierto = false;
+            function updateCountdown() {
+                const remaining = Math.max(0, eventDate.getTime() - Date.now());
+                const totalSeconds = Math.floor(remaining / 1000);
+                const values = {
+                    days: Math.floor(totalSeconds / 86400),
+                    hours: Math.floor((totalSeconds % 86400) / 3600),
+                    minutes: Math.floor((totalSeconds % 3600) / 60),
+                    seconds: totalSeconds % 60
+                };
 
-            // =========================================================
-            // 2. MÚSICA
-            // =========================================================
-            btnMusica.addEventListener('click', function(e) {
-                e.stopPropagation();
+                Object.entries(values).forEach(([unit, value]) => {
+                    countdownFields[unit].textContent = String(value).padStart(unit === "days" ? 3 : 2, "0");
+                });
+            }
+
+            updateCountdown();
+            window.setInterval(updateCountdown, 1000);
+
+            const audio = document.getElementById("song");
+            const playButton = document.getElementById("play-button");
+            const playIcon = document.getElementById("play-icon");
+            const trackStatus = document.getElementById("track-status");
+            const trackProgress = document.getElementById("track-progress");
+            const elapsedTime = document.getElementById("elapsed-time");
+            const durationTime = document.getElementById("duration-time");
+            const musicMessage = document.getElementById("music-message");
+
+            function formatTime(seconds) {
+                if (!Number.isFinite(seconds) || seconds < 0) return "0:00";
+                const minutes = Math.floor(seconds / 60);
+                const remainder = Math.floor(seconds % 60).toString().padStart(2, "0");
+                return `${minutes}:${remainder}`;
+            }
+
+            function updateAudioProgress() {
+                elapsedTime.textContent = formatTime(audio.currentTime);
+                if (Number.isFinite(audio.duration) && audio.duration > 0) {
+                    durationTime.textContent = formatTime(audio.duration);
+                    trackProgress.value = String((audio.currentTime / audio.duration) * 100);
+                } else {
+                    durationTime.textContent = "0:00";
+                    trackProgress.value = "0";
+                }
+            }
+
+            function updatePlaybackState() {
+                const playing = !audio.paused;
+                playIcon.textContent = playing ? "Ⅱ" : "▶";
+                playButton.setAttribute("aria-label", playing ? "Pausar música" : "Reproducir música");
+                playButton.setAttribute("aria-pressed", String(playing));
+                trackStatus.textContent = playing ? "Reproduciendo" : "En pausa";
+            }
+
+            playButton.addEventListener("click", async () => {
+                musicMessage.textContent = "";
                 if (audio.paused) {
-                    audio.play().catch(() => {});
-                    btnMusica.textContent = '🔊';
-                    musicaReproduciendo = true;
+                    try {
+                        await audio.play();
+                    } catch {
+                        musicMessage.textContent = "No se pudo reproducir la canción. Comprueba que cancion.mp3 esté disponible.";
+                        updatePlaybackState();
+                    }
                 } else {
                     audio.pause();
-                    btnMusica.textContent = '🔇';
-                    musicaReproduciendo = false;
                 }
             });
 
-            // =========================================================
-            // 3. APERTURA DEL SOBRE
-            // =========================================================
-            envelopeWrapper.addEventListener('click', function() {
-                if (sobreAbierto) return;
-                sobreAbierto = true;
-
-                this.classList.add('open');
-
-                setTimeout(() => {
-                    this.classList.add('oculto');
-                    contadorInicial.classList.add('oculto');
-                    paginas.classList.add('visible');
-                    contadorFlotante.classList.add('visible');
-                    btnMusica.classList.add('visible');
-                    document.querySelector('.indicador-pagina').style.display = 'flex';
-                }, 700);
-
-                audio.play().then(() => {
-                    btnMusica.textContent = '🔊';
-                    musicaReproduciendo = true;
-                }).catch(() => {
-                    btnMusica.textContent = '🔇';
-                    musicaReproduciendo = false;
-                });
-
-                lanzarLluviaCompleta(20, 30, 30);
-
-                const flash = document.createElement('div');
-                flash.style.position = 'fixed';
-                flash.style.top = '0';
-                flash.style.left = '0';
-                flash.style.width = '100%';
-                flash.style.height = '100%';
-                flash.style.background = 'rgba(212, 175, 55, 0.25)';
-                flash.style.pointerEvents = 'none';
-                flash.style.zIndex = '9999';
-                flash.style.animation = 'flashAnim 0.7s ease-out forwards';
-                document.body.appendChild(flash);
-                setTimeout(() => flash.remove(), 800);
-
-                // Iniciar navegación automática
-                iniciarNavegacionAutomatica();
+            audio.addEventListener("play", updatePlaybackState);
+            audio.addEventListener("pause", updatePlaybackState);
+            audio.addEventListener("ended", updatePlaybackState);
+            audio.addEventListener("loadedmetadata", updateAudioProgress);
+            audio.addEventListener("timeupdate", updateAudioProgress);
+            audio.addEventListener("error", () => {
+                musicMessage.textContent = "No se pudo cargar la canción. Comprueba que cancion.mp3 esté disponible.";
+                trackStatus.textContent = "No disponible";
+                updatePlaybackState();
             });
 
-            // =========================================================
-            // 4. NAVEGACIÓN AUTOMÁTICA (10 segundos por página)
-            // =========================================================
-            const paginaElements = document.querySelectorAll('.pagina');
-            let paginaActual = 0;
-            let intervaloAutomatico = null;
-            let esperandoTransicion = false;
-
-            function actualizarPaginas(nuevaIndex) {
-                if (esperandoTransicion) return;
-                if (nuevaIndex < 0 || nuevaIndex >= paginaElements.length) return;
-
-                esperandoTransicion = true;
-
-                paginaElements.forEach((p, i) => {
-                    p.classList.remove('activa', 'salida');
-                    if (i < nuevaIndex) {
-                        p.classList.add('salida');
-                    } else if (i === nuevaIndex) {
-                        p.classList.add('activa');
-                    }
-                });
-
-                // Actualizar indicador de puntos
-                const puntos = indicador.querySelectorAll('.punto');
-                puntos.forEach((p, i) => {
-                    p.classList.toggle('activo', i === nuevaIndex);
-                });
-
-                // Lluvia de mariposas al cambiar (excepto primera vez)
-                if (nuevaIndex !== 0) {
-                    lanzarLluviaCompleta(12, 20, 15);
+            trackProgress.addEventListener("input", () => {
+                if (Number.isFinite(audio.duration) && audio.duration > 0) {
+                    audio.currentTime = (Number(trackProgress.value) / 100) * audio.duration;
                 }
-
-                paginaActual = nuevaIndex;
-
-                // Permitir nueva transición después de la animación
-                setTimeout(() => {
-                    esperandoTransicion = false;
-                }, 900);
-            }
-
-            function irPaginaSiguiente() {
-                const siguiente = (paginaActual + 1) % paginaElements.length;
-                actualizarPaginas(siguiente);
-            }
-
-            function iniciarNavegacionAutomatica() {
-                // Mostrar primera página
-                actualizarPaginas(0);
-
-                // Iniciar intervalo de 10 segundos
-                if (intervaloAutomatico) {
-                    clearInterval(intervaloAutomatico);
-                }
-                intervaloAutomatico = setInterval(irPaginaSiguiente, 10000);
-            }
-
-            // =========================================================
-            // 5. CUENTA REGRESIVA
-            // =========================================================
-            let intervaloCuenta;
-
-            function iniciarCuentaRegresiva() {
-                const fechaEvento = new Date('2027-01-11T16:30:00').getTime();
-
-                function actualizar() {
-                    const ahora = Date.now();
-                    const diff = fechaEvento - ahora;
-
-                    if (diff <= 0) {
-                        const ceros = { meses: '00', dias: '00', horas: '00', min: '00', seg: '00' };
-                        actualizarElementos(ceros);
-                        clearInterval(intervaloCuenta);
-                        return;
-                    }
-
-                    const totalSegundos = Math.floor(diff / 1000);
-                    const meses = Math.floor(totalSegundos / (30 * 24 * 3600));
-                    const restoMeses = totalSegundos % (30 * 24 * 3600);
-                    const dias = Math.floor(restoMeses / (24 * 3600));
-                    const restoDias = restoMeses % (24 * 3600);
-                    const horas = Math.floor(restoDias / 3600);
-                    const restoHoras = restoDias % 3600;
-                    const minutos = Math.floor(restoHoras / 60);
-                    const segundos = restoHoras % 60;
-
-                    const valores = {
-                        meses: String(meses).padStart(2, '0'),
-                        dias: String(dias).padStart(2, '0'),
-                        horas: String(horas).padStart(2, '0'),
-                        min: String(minutos).padStart(2, '0'),
-                        seg: String(segundos).padStart(2, '0')
-                    };
-
-                    actualizarElementos(valores);
-                }
-
-                function actualizarElementos(v) {
-                    document.getElementById('inicial-meses').textContent = v.meses;
-                    document.getElementById('inicial-dias').textContent = v.dias;
-                    document.getElementById('inicial-horas').textContent = v.horas;
-                    document.getElementById('inicial-minutos').textContent = v.min;
-                    document.getElementById('inicial-segundos').textContent = v.seg;
-
-                    document.getElementById('flotante-meses').textContent = v.meses;
-                    document.getElementById('flotante-dias').textContent = v.dias;
-                    document.getElementById('flotante-horas').textContent = v.horas;
-                    document.getElementById('flotante-minutos').textContent = v.min;
-                    document.getElementById('flotante-segundos').textContent = v.seg;
-                }
-
-                actualizar();
-                intervaloCuenta = setInterval(actualizar, 1000);
-            }
-
-            iniciarCuentaRegresiva();
-
-            // =========================================================
-            // 6. ANIMACIONES
-            // =========================================================
-            function lanzarLluviaCompleta(cantMariposas = 15, cantBrillos = 25, cantEstrellas = 20) {
-                lanzarMariposas(cantMariposas);
-                lanzarBrillos(cantBrillos);
-                lanzarEstrellas(cantEstrellas);
-            }
-
-            function lanzarMariposas(cantidad = 10) {
-                const emojis = ['🦋', '🦋', '🦋', '🦋', '🦋', '✨', '🌸'];
-                for (let i = 0; i < cantidad; i++) {
-                    const m = document.createElement('div');
-                    m.className = 'mariposa-efimera';
-                    m.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-                    const x = Math.random() * window.innerWidth;
-                    const y = Math.random() * window.innerHeight;
-                    m.style.left = x + 'px';
-                    m.style.top = y + 'px';
-                    const tx = (Math.random() - 0.5) * 700;
-                    const ty = (Math.random() - 0.5) * 700;
-                    m.style.setProperty('--tx', tx + 'px');
-                    m.style.setProperty('--ty', ty + 'px');
-                    const size = 1.8 + Math.random() * 2.2;
-                    m.style.fontSize = size + 'rem';
-                    document.body.appendChild(m);
-                    setTimeout(() => m.remove(), 3000);
-                }
-            }
-
-            function lanzarBrillos(cantidad = 20) {
-                const colores = ['#D4AF37', '#E91E63', '#F8BBD0', '#FFD700', '#FFF'];
-                for (let i = 0; i < cantidad; i++) {
-                    const brillo = document.createElement('div');
-                    brillo.className = 'brillo-estrella';
-                    const size = 6 + Math.random() * 12;
-                    brillo.style.width = size + 'px';
-                    brillo.style.height = size + 'px';
-                    brillo.style.background = colores[Math.floor(Math.random() * colores.length)];
-                    brillo.style.left = Math.random() * window.innerWidth + 'px';
-                    brillo.style.top = Math.random() * window.innerHeight + 'px';
-                    const duracion = 1.5 + Math.random() * 2;
-                    brillo.style.animationDuration = duracion + 's';
-                    brillo.style.animationDelay = Math.random() * 0.8 + 's';
-                    document.body.appendChild(brillo);
-                    setTimeout(() => brillo.remove(), duracion * 1000 + 1000);
-                }
-            }
-
-            function lanzarEstrellas(cantidad = 15) {
-                for (let i = 0; i < cantidad; i++) {
-                    const estrella = document.createElement('div');
-                    estrella.className = 'mariposa-efimera';
-                    estrella.textContent = '⭐';
-                    const x = Math.random() * window.innerWidth;
-                    const y = Math.random() * window.innerHeight;
-                    estrella.style.left = x + 'px';
-                    estrella.style.top = y + 'px';
-                    const tx = (Math.random() - 0.5) * 500;
-                    const ty = (Math.random() - 0.5) * 500;
-                    estrella.style.setProperty('--tx', tx + 'px');
-                    estrella.style.setProperty('--ty', ty + 'px');
-                    const size = 1.5 + Math.random() * 2;
-                    estrella.style.fontSize = size + 'rem';
-                    estrella.style.filter = 'drop-shadow(0 0 15px rgba(255,215,0,0.9))';
-                    document.body.appendChild(estrella);
-                    setTimeout(() => estrella.remove(), 3000);
-                }
-            }
-
-            // =========================================================
-            // 7. CLIC EN TODA LA PANTALLA (mariposas y brillos)
-            // =========================================================
-            document.addEventListener('click', function(e) {
-                if (e.target.closest('button')) return;
-                lanzarLluviaCompleta(8, 15, 10);
             });
 
-            document.addEventListener('touchstart', function(e) {
-                if (e.target.closest('button')) return;
-                lanzarLluviaCompleta(8, 15, 10);
+            const rsvpForm = document.getElementById("rsvp-form");
+            const formMessage = document.getElementById("form-message");
+
+            rsvpForm.addEventListener("submit", (event) => {
+                event.preventDefault();
+                if (!rsvpForm.reportValidity()) return;
+
+                formMessage.textContent = "Gracias por completar tus datos. El envío de confirmaciones todavía no está conectado en esta página.";
             });
-
-            // =========================================================
-            // 8. MARIPOSAS DE FONDO
-            // =========================================================
-            function crearMariposasFondo() {
-                const cant = 14;
-                const frame = document.getElementById('phone-frame');
-                for (let i = 0; i < cant; i++) {
-                    const m = document.createElement('div');
-                    m.className = 'mariposa-fondo';
-                    m.textContent = '🦋';
-                    m.style.left = Math.random() * 100 + '%';
-                    m.style.top = Math.random() * 100 + '%';
-                    m.style.fontSize = (1.2 + Math.random() * 1.8) + 'rem';
-                    m.style.opacity = 0.2 + Math.random() * 0.3;
-                    m.style.transform = `rotate(${Math.random() * 360}deg)`;
-                    m.style.animation = `flotar ${6 + Math.random() * 8}s ease-in-out infinite`;
-                    m.style.animationDelay = (Math.random() * 6) + 's';
-                    frame.appendChild(m);
-                }
-            }
-            crearMariposasFondo();
-
-            // =========================================================
-            // 9. FORMULARIO
-            // =========================================================
-            document.getElementById('form-confirmacion').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const nombre = document.getElementById('nombre').value.trim();
-                if (!nombre) {
-                    alert('Por favor, ingresa tu nombre.');
-                    return;
-                }
-                this.style.display = 'none';
-                document.getElementById('mensaje-confirmacion').style.display = 'block';
-                lanzarLluviaCompleta(25, 40, 30);
-            });
-
-            // =========================================================
-            // 10. INICIALIZACIÓN
-            // =========================================================
-            // Ocultar indicador de páginas inicialmente
-            document.querySelector('.indicador-pagina').style.display = 'none';
-
-            const styleAdicional = document.createElement('style');
-            styleAdicional.textContent = `
-                    @keyframes flashAnim {
-                        0% { opacity: 0.8; }
-                        100% { opacity: 0; }
-                    }
-                    @keyframes flotar {
-                        0%, 100% { transform: translateY(0) rotate(-2deg); }
-                        50% { transform: translateY(-12px) rotate(2deg); }
-                    }
-                `;
-            document.head.appendChild(styleAdicional);
-
-            console.log('🎉 Invitación con navegación automática cada 10 segundos.');
         })();
     </script>
-
 </body>
 </html>
