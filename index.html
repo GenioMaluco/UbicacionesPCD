@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#fffaf8">
-    <meta name="description" content="Invitación a los quince años de Abiail, el sábado 16 de enero de 2027.">
-    <title>Mis 15 años · Abiail</title>
+    <meta name="description" content="Invitación a los quince años de Abigail, el sábado 16 de enero de 2027.">
+    <title>Mis 15 años · Abigail</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
@@ -407,6 +407,13 @@
             border: 1px solid var(--line);
             border-radius: 1.2rem;
             background: var(--white);
+            text-decoration: none;
+            transition: border-color 160ms ease, transform 160ms ease;
+        }
+
+        .location-option[href]:hover {
+            transform: translateY(-2px);
+            border-color: var(--rose);
         }
 
         .location-option span {
@@ -430,6 +437,68 @@
             margin: 1rem 0 0;
             color: var(--muted);
             font-size: 0.9rem;
+        }
+
+        .venue-details {
+            width: min(100%, 560px);
+            margin: 1.8rem auto 0;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 1.4rem;
+            background: var(--white);
+            box-shadow: 0 14px 38px rgba(93, 58, 73, 0.06);
+            text-align: left;
+        }
+
+        .venue-address {
+            padding: 1.1rem 1.25rem;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .venue-address p {
+            margin: 0;
+        }
+
+        .venue-name {
+            color: var(--rose-dark);
+            font-size: 1.12rem;
+            font-weight: 700;
+        }
+
+        .venue-coordinates {
+            margin-top: 0.2rem !important;
+            color: var(--muted);
+            font-family: Arial, sans-serif;
+            font-size: 0.82rem;
+        }
+
+        .venue-address a {
+            display: inline-block;
+            margin-top: 0.4rem;
+            color: var(--rose-dark);
+            font-size: 0.92rem;
+            text-underline-offset: 0.18em;
+        }
+
+        .venue-map {
+            width: 100%;
+            height: clamp(250px, 65vw, 340px);
+            display: block;
+            border: 0;
+        }
+
+        .venue-photo {
+            width: 100%;
+            max-height: 400px;
+            display: block;
+            object-fit: cover;
+        }
+
+        .venue-caption {
+            padding: 0.65rem 1rem;
+            color: var(--muted);
+            font-size: 0.85rem;
+            text-align: center;
         }
 
         .dress-card {
@@ -609,7 +678,7 @@
         <section class="hero" aria-labelledby="invitation-title">
             <span class="hero-butterfly" aria-hidden="true">🦋</span>
             <p class="eyebrow">Una celebración muy especial</p>
-            <h1 id="invitation-title">Abiail</h1>
+            <h1 id="invitation-title">Abigail</h1>
             <p class="hero-date">SÁBADO · 16 DE ENERO DE 2027</p>
 
             <div class="music-player" aria-label="Reproductor de música">
@@ -712,16 +781,34 @@
         <section class="section" id="ubicacion" aria-labelledby="location-title">
             <p class="section-icon" aria-hidden="true">📍</p>
             <h2 id="location-title">Cómo llegar</h2>
-            <p class="section-lead">Pronto compartiré la ubicación</p>
-            <div class="location-icons" aria-label="Opciones de navegación próximamente disponibles">
-                <div class="location-option" aria-label="Waze, enlace próximamente">
+            <p class="section-lead">Salón Comunal · Tibás, San José</p>
+            <div class="location-icons" aria-label="Abrir la ubicación en una aplicación de navegación">
+                <a class="location-option" href="https://waze.com/ul?ll=9.9636477%2C-84.063772&amp;navigate=yes&amp;zoom=17" target="_blank" rel="noopener noreferrer" aria-label="Abrir ubicación en Waze">
                     <span class="location-icon" aria-hidden="true">🚘</span>
                     <span class="location-name">Waze</span>
-                </div>
-                <div class="location-option" aria-label="Uber, enlace próximamente">
+                </a>
+                <a class="location-option" href="https://m.uber.com/ul/?action=setPickup&amp;dropoff[latitude]=9.9636477&amp;dropoff[longitude]=-84.063772&amp;pickup=my_location" target="_blank" rel="noopener noreferrer" aria-label="Solicitar un Uber hasta el salón comunal">
                     <span class="location-icon" aria-hidden="true">🚕</span>
                     <span class="location-name">Uber</span>
+                </a>
+            </div>
+            <p class="location-note">Toca una opción para abrirla; si tienes la aplicación instalada, el enlace intentará abrirla.</p>
+            <div class="venue-details">
+                <div class="venue-address">
+                    <p class="venue-name">Salón Comunal</p>
+                    <p class="venue-coordinates">9°57'49.1&quot;N · 84°03'49.6&quot;W</p>
+                    <a href="https://www.google.com/maps/place/9%C2%B057'49.1%22N+84%C2%B003'49.6%22W/@9.9636177,-84.064418,268m/data=!3m1!1e3!4m4!3m3!8m2!3d9.9636477!4d-84.063772?hl=es&amp;entry=ttu" target="_blank" rel="noopener noreferrer">Ver ubicación en Google Maps</a>
                 </div>
+                <iframe
+                    class="venue-map"
+                    src="https://maps.google.com/maps?q=9.9636477%2C-84.063772&amp;z=17&amp;output=embed"
+                    title="Mapa de la ubicación del Salón Comunal"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    allowfullscreen>
+                </iframe>
+                <img class="venue-photo" src="Salon%20comunal.jpg" alt="Fotografía del Salón Comunal donde será la celebración" loading="lazy">
+                <p class="venue-caption">El lugar de nuestra celebración</p>
             </div>
         </section>
 
@@ -749,8 +836,9 @@
                 <label for="guest-email">Correo electrónico</label>
                 <input id="guest-email" name="email" type="email" autocomplete="email" placeholder="tu@correo.com" required>
                 <button class="submit-button" type="submit">Confirmar asistencia</button>
-                <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+                <p class="form-message" id="form-message" role="status" aria-live="polite">Cada correo electrónico puede confirmar una sola vez.</p>
             </form>
+            <iframe id="confirmation-target" name="confirmation-target" title="Respuesta del formulario" hidden></iframe>
         </section>
 
         <section class="section closing" aria-label="Agradecimiento">
@@ -758,7 +846,7 @@
             <div class="closing-copy">
                 <p>Espero que puedas compartir este día tan especial. Tu presencia hará mi día inolvidable.</p>
                 <p>Si además deseas regalarme algo, te lo agradeceré muchísimo en efectivo.</p>
-                <p class="script">Con cariño, Abiail</p>
+                <p class="script">Con cariño, Abigail</p>
             </div>
             <p class="closing-butterflies" aria-hidden="true">🦋 ✨ 🦋</p>
         </section>
@@ -862,12 +950,68 @@
 
             const rsvpForm = document.getElementById("rsvp-form");
             const formMessage = document.getElementById("form-message");
+            const submitButton = rsvpForm.querySelector('button[type="submit"]');
+            const submitButtonText = submitButton.textContent;
+            const confirmationTarget = document.getElementById("confirmation-target");
+            const appsScriptUrl = "https://script.google.com/macros/s/AKfycbxti-l7zulZhodqC5KhynV3Fv6-GT8c4Gx-08V1Sv6o_7NKiq9zJCcf3p-zryFXJIB3/exec";
+            let pendingRequestId = null;
+
+            window.addEventListener("message", (event) => {
+                if (
+                    !/^https:\/\/(?:[a-z0-9-]+-)?script\.googleusercontent\.com$/i.test(event.origin)
+                    || !event.data
+                    || event.data.type !== "confirmation-result"
+                    || event.data.requestId !== pendingRequestId
+                ) {
+                    return;
+                }
+
+                pendingRequestId = null;
+                submitButton.disabled = false;
+                submitButton.textContent = submitButtonText;
+                formMessage.textContent = event.data.message;
+
+                if (event.data.ok) {
+                    rsvpForm.reset();
+                }
+            });
 
             rsvpForm.addEventListener("submit", (event) => {
                 event.preventDefault();
                 if (!rsvpForm.reportValidity()) return;
 
-                formMessage.textContent = "Gracias por completar tus datos. El envío de confirmaciones todavía no está conectado en esta página.";
+                formMessage.textContent = "";
+                if (pendingRequestId !== null) return;
+
+                if (appsScriptUrl.includes("PASTE_DEPLOYMENT_ID")) {
+                    formMessage.textContent = "El formulario aún no está conectado. Sigue las instrucciones de apps-script/README.md para publicarlo.";
+                    return;
+                }
+
+                pendingRequestId = crypto.randomUUID
+                    ? crypto.randomUUID()
+                    : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+                const requestId = document.createElement("input");
+                requestId.type = "hidden";
+                requestId.name = "requestId";
+                requestId.value = pendingRequestId;
+                rsvpForm.appendChild(requestId);
+                rsvpForm.action = appsScriptUrl;
+                rsvpForm.method = "post";
+                rsvpForm.target = confirmationTarget.name;
+                submitButton.disabled = true;
+                submitButton.textContent = "Enviando…";
+                rsvpForm.submit();
+                requestId.remove();
+
+                window.setTimeout(() => {
+                    if (pendingRequestId !== null) {
+                        pendingRequestId = null;
+                        submitButton.disabled = false;
+                        submitButton.textContent = submitButtonText;
+                        formMessage.textContent = "No se recibió respuesta. Comprueba tu conexión e inténtalo de nuevo.";
+                    }
+                }, 20000);
             });
         })();
     </script>
