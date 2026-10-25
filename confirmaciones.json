@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "nombre": "María Fernanda Solís (Prueba)",
+    "correo": "maria.solis@ejemplo.com",
+    "asistencia": "Sí asistiré",
+    "mensaje": "¡Muchas felicidades Abigail en tus 15 años! Que todos tus sueños se hagan realidad.",
+    "fechaRegistro": "2026-10-24T19:22:00.000Z"
+  },
+  {
+    "nombre": "Carlos Andrés Mora (Prueba)",
+    "correo": "carlos.mora@ejemplo.com",
+    "asistencia": "No podré asistir",
+    "mensaje": "Te deseo una noche mágica rodeada de toda tu familia, un fuerte abrazo.",
+    "fechaRegistro": "2026-10-24T19:23:00.000Z"
+  }
+]

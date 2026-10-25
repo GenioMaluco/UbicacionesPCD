@@ -2182,9 +2182,11 @@
             } catch {}
 
             /* =========================================================
-               5. CONFIRMACIÓN DE ASISTENCIA Y TABLA FILTRABLE
+               5. CONFIRMACIÓN DE ASISTENCIA Y SINCRONIZACIÓN JSON EN LA NUBE
                ========================================================= */
             const STORAGE_KEY = "abigail_xv_confirmaciones_json_v1";
+            // Endpoint JSON compartido en la nube (lectura/escritura en tiempo real desde cualquier celular o PC)
+            const CLOUD_JSON_URL = "https://textdb.dev/api/data/abigail-xv-confirmaciones-2027-cr";
             const DEFAULT_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxti-l7zulZhodqC5KhynV3Fv6-GT8c4Gx-08V1Sv6o_7NKiq9zJCcf3p-zryFXJIB3/exec";
 
             const rsvpForm = document.getElementById("rsvp-form");
@@ -2398,33 +2400,79 @@
                 });
             }
 
+            async function fetchCloudJsonList() {
+                try {
+                    const resp = await fetch(`${CLOUD_JSON_URL}?t=${Date.now()}`, {
+                        method: "GET",
+                        cache: "no-store"
+                    });
+                    if (!resp.ok) return null;
+                    const text = (await resp.text()).trim();
+                    if (!text) return [];
+                    const parsed = JSON.parse(text);
+                    if (Array.isArray(parsed)) {
+                        return parsed.map(normalizeEntry).filter(Boolean);
+                    }
+                    if (parsed && Array.isArray(parsed.confirmaciones)) {
+                        return parsed.confirmaciones.map(normalizeEntry).filter(Boolean);
+                    }
+                    return [];
+                } catch {
+                    return null;
+                }
+            }
+
+            async function saveCloudJsonList(list) {
+                try {
+                    const cleanList = list.map(normalizeEntry).filter(Boolean);
+                    const resp = await fetch(CLOUD_JSON_URL, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "text/plain"
+                        },
+                        body: JSON.stringify(cleanList, null, 2)
+                    });
+                    return resp.ok;
+                } catch {
+                    return false;
+                }
+            }
+
             async function syncFromAppsScript() {
-                const cloudData = await fetchAppsScriptJsonp({});
-                if (cloudData && Array.isArray(cloudData.confirmaciones)) {
-                    confirmationsList = mergeConfirmationLists(confirmationsList, cloudData.confirmaciones);
+                const cloudList = await fetchCloudJsonList();
+                if (Array.isArray(cloudList)) {
+                    const localList = loadLocalConfirmations();
+                    const merged = mergeConfirmationLists(cloudList, localList);
+                    confirmationsList = merged;
+                    saveLocalConfirmations(confirmationsList);
+                    renderConfirmationsUI();
+
+                    // Si este dispositivo tenía alguna respuesta local que aún no estaba en la nube, la sube automáticamente
+                    if (merged.length > cloudList.length) {
+                        await saveCloudJsonList(merged);
+                    }
+                    return;
+                }
+
+                const gasData = await fetchAppsScriptJsonp({});
+                if (gasData && Array.isArray(gasData.confirmaciones)) {
+                    confirmationsList = mergeConfirmationLists(confirmationsList, gasData.confirmaciones);
                     saveLocalConfirmations(confirmationsList);
                     renderConfirmationsUI();
                 }
             }
 
             async function initializeConfirmationsData() {
-                let current = loadLocalConfirmations();
-
-                try {
-                    const staticResp = await fetch("confirmaciones.json", { cache: "no-store" });
-                    if (staticResp.ok) {
-                        const staticData = await staticResp.json();
-                        if (Array.isArray(staticData)) {
-                            current = mergeConfirmationLists(staticData, current);
-                        }
-                    }
-                } catch {}
-
-                confirmationsList = current;
-                saveLocalConfirmations(confirmationsList);
+                confirmationsList = loadLocalConfirmations();
                 renderConfirmationsUI();
-
                 await syncFromAppsScript();
+
+                // Mantener sincronizado en segundo plano cuando el cliente tiene abierto el panel
+                window.setInterval(() => {
+                    if (isClientAuthenticated) {
+                        syncFromAppsScript();
+                    }
+                }, 15000);
             }
 
             function setFormFeedback(message, type) {
@@ -2460,15 +2508,25 @@
                     return;
                 }
 
-                const alreadyExists = confirmationsList.some((item) => item.correo.toLowerCase() === correo);
-                if (alreadyExists) {
-                    setFormFeedback("Este correo electrónico ya tiene una confirmación registrada.", "error");
-                    return;
-                }
-
                 submitButton.disabled = true;
                 submitButton.textContent = "Enviando…";
                 setFormFeedback("Registrando tu respuesta…", "");
+
+                // 1. Obtener primero la lista más reciente de la nube para verificar duplicados entre todos los celulares
+                const latestCloud = await fetchCloudJsonList();
+                if (Array.isArray(latestCloud)) {
+                    confirmationsList = mergeConfirmationLists(latestCloud, confirmationsList);
+                }
+
+                const alreadyExists = confirmationsList.some((item) => item.correo.toLowerCase() === correo);
+                if (alreadyExists) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = "Confirmar asistencia";
+                    setFormFeedback("Este correo electrónico ya tiene una confirmación registrada.", "error");
+                    saveLocalConfirmations(confirmationsList);
+                    renderConfirmationsUI();
+                    return;
+                }
 
                 const newEntry = {
                     nombre,
@@ -2478,31 +2536,19 @@
                     fechaRegistro: new Date().toISOString()
                 };
 
-                const cloudResponse = await fetchAppsScriptJsonp({
+                confirmationsList.push(newEntry);
+
+                // 2. Guardar en el archivo JSON compartido en la nube para que todos los dispositivos vean la respuesta
+                await saveCloudJsonList(confirmationsList);
+
+                // 3. Respaldo adicional en Google Apps Script y almacenamiento local
+                fetchAppsScriptJsonp({
                     action: "add",
                     name: nombre,
                     email: correo,
                     attendance: asistencia,
                     note: mensaje
-                });
-
-                if (cloudResponse && cloudResponse.ok === false && cloudResponse.message && cloudResponse.message.includes("ya tiene una confirmación")) {
-                    submitButton.disabled = false;
-                    submitButton.textContent = "Confirmar asistencia";
-                    setFormFeedback(cloudResponse.message, "error");
-                    if (Array.isArray(cloudResponse.confirmaciones)) {
-                        confirmationsList = mergeConfirmationLists(confirmationsList, cloudResponse.confirmaciones);
-                        saveLocalConfirmations(confirmationsList);
-                        renderConfirmationsUI();
-                    }
-                    return;
-                }
-
-                if (cloudResponse && cloudResponse.ok && Array.isArray(cloudResponse.confirmaciones)) {
-                    confirmationsList = mergeConfirmationLists(confirmationsList, cloudResponse.confirmaciones);
-                } else {
-                    confirmationsList.push(newEntry);
-                }
+                }).catch(() => {});
 
                 saveLocalConfirmations(confirmationsList);
                 renderConfirmationsUI();
