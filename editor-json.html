@@ -132,7 +132,8 @@
 
     <script>
         const CLOUD_JSON_URL = "https://textdb.dev/api/data/abigail-xv-confirmaciones-2027-cr";
-        const STORAGE_KEY = "abigail_xv_confirmaciones_json_v1";
+        const STORAGE_KEY = "abigail_xv_confirmaciones_cloud_v2";
+        try { localStorage.removeItem("abigail_xv_confirmaciones_json_v1"); } catch {}
         const editor = document.getElementById("json-editor");
         const statusMsg = document.getElementById("status-msg");
 

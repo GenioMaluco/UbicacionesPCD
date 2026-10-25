@@ -1028,10 +1028,6 @@
             font-weight: 700;
         }
 
-        .reserved-color {
-            color: var(--rose);
-        }
-
         /* =========================================================
            FORMULARIO DE CONFIRMACIÓN (RSVP)
            ========================================================= */
@@ -1535,7 +1531,7 @@
             <div class="envelope-seal" aria-hidden="true">👑</div>
             <p class="envelope-eyebrow">Invitación Real · Mis Quince Años</p>
             <h2 class="envelope-title" id="envelope-title">Abigail</h2>
-            <p class="envelope-subtitle">Sábado 16 de Enero de 2027</p>
+            <p class="envelope-subtitle">Sábado 16 de Enero de 2027 · 2:00 p. m.</p>
             <div class="envelope-preview-photo">
                 <img src="fondo_abigail.jpg" alt="Abigail mirándose en el espejo dorado">
             </div>
@@ -1564,7 +1560,7 @@
                 <h1 id="invitation-title">Abigail</h1>
                 <div class="hero-subtitle-badge">
                     <span>🦋</span>
-                    <span>Sábado · 16 de Enero de 2027</span>
+                    <span>Sábado · 16 de Enero de 2027 · 2:00 p. m.</span>
                     <span>🦋</span>
                 </div>
             </div>
@@ -1647,7 +1643,7 @@
         <section class="glass-section" id="fecha" aria-labelledby="date-title">
             <div class="section-icon" aria-hidden="true">📅</div>
             <h2 id="date-title">Aparta la fecha</h2>
-            <p class="section-lead">Me encantará celebrar contigo esta noche inolvidable</p>
+            <p class="section-lead">Me encantará celebrar contigo este día inolvidable</p>
 
             <div class="calendar-card">
                 <p class="calendar-month">Enero · 2027</p>
@@ -1678,7 +1674,7 @@
                     <span class="calendar-day" role="gridcell">13</span>
                     <span class="calendar-day" role="gridcell">14</span>
                     <span class="calendar-day" role="gridcell">15</span>
-                    <span class="calendar-day event-day" role="gridcell" aria-label="Sábado 16 de enero de 2027, día del evento" aria-current="date">
+                    <span class="calendar-day event-day" role="gridcell" aria-label="Sábado 16 de enero de 2027 a las 2:00 p. m., día del evento" aria-current="date">
                         16
                         <span class="calendar-butterfly" aria-hidden="true">🦋</span>
                     </span>
@@ -1698,7 +1694,7 @@
                     <span class="calendar-day" role="gridcell">30</span>
                     <span class="calendar-day" role="gridcell">31</span>
                 </div>
-                <p class="date-caption">Sábado 16 de enero de 2027</p>
+                <p class="date-caption">Sábado 16 de enero de 2027 · 2:00 p. m.</p>
             </div>
 
             <div class="countdown" aria-label="Cuenta regresiva para la fecha del evento">
@@ -1753,7 +1749,7 @@
                     allowfullscreen>
                 </iframe>
                 <img class="venue-photo" src="Salon%20comunal.jpg" alt="Fotografía del Salón Comunal donde será la celebración" loading="lazy">
-                <p class="venue-caption">El lugar donde celebraremos juntos esta noche mágica</p>
+                <p class="venue-caption">El lugar donde celebraremos juntos este día mágico</p>
             </div>
         </section>
 
@@ -1764,8 +1760,8 @@
             <p class="section-lead">Gracias por ser parte de este día tan especial</p>
 
             <div class="dress-card">
-                <p>Con mucho cariño les informamos que el color <strong class="reserved-color">ROSADO</strong> en todos sus tonos está reservado exclusivamente para nuestra quinceañera.</p>
-                <span class="reserved-badge">🌸 ROSADO exclusivo para Abigail</span>
+                <p>Con mucho cariño les informamos que el color <strong>rosado</strong> en todos sus tonos está reservado exclusivamente para nuestra quinceañera.</p>
+                <span class="reserved-badge">🌸 Rosado exclusivo para Abigail</span>
                 <p style="margin-top: 1.1rem;">Agradecemos a nuestros invitados vestir en tonos oscuros.</p>
                 <div class="dress-colors" aria-label="Tonos oscuros">
                     <span class="dress-color black">Tonos oscuros</span>
@@ -1879,7 +1875,7 @@
             <div class="section-icon" aria-hidden="true">✨</div>
             <h2>Muestra de cariño</h2>
             <div class="intro-copy" style="max-width: 540px;">
-                <p>Espero de corazón que puedas acompañarme en este día tan especial. Tu presencia será mi mejor regalo y hará mi noche inolvidable.</p>
+                <p>Espero de corazón que puedas acompañarme en este día tan especial. Tu presencia será mi mejor regalo y hará mi día inolvidable.</p>
                 <p style="margin-top: 0.85rem;">Si además deseas hacerme un presente, te lo agradeceré muchísimo en efectivo.</p>
                 <p class="script-highlight" style="margin-top: 1.2rem;">Con cariño, Abigail</p>
             </div>
@@ -1936,9 +1932,7 @@
                Clave requerida: "0212" + correo de Dina
                ========================================================= */
             const CLIENT_ACCESS_CODE = "0212";
-            // Correo configurado por defecto para pruebas: "dimoso1182@gmail.com"
-            // (También acepta cualquier correo válido que contenga "dina", o puedes dejar únicamente el correo exacto en esta lista)
-            const DINA_ALLOWED_EMAILS = ["dimoso1182@gmail.com"];
+            const DINA_ALLOWED_EMAILS = ["dimoso1182@gmail.com", "dina@gmail.com"];
             const AUTH_SESSION_KEY = "abigail_xv_client_unlocked_v1";
 
             /* =========================================================
@@ -2037,9 +2031,9 @@
             });
 
             /* =========================================================
-               2. CUENTA REGRESIVA (16 DE ENERO DE 2027)
+               2. CUENTA REGRESIVA (16 DE ENERO DE 2027 · 2:00 P. M.)
                ========================================================= */
-            const eventDate = new Date(2027, 0, 16, 18, 0, 0);
+            const eventDate = new Date(2027, 0, 16, 14, 0, 0);
             const countdownFields = {
                 days: document.getElementById("days"),
                 hours: document.getElementById("hours"),
@@ -2188,7 +2182,11 @@
             /* =========================================================
                5. CONFIRMACIÓN DE ASISTENCIA Y SINCRONIZACIÓN JSON EN LA NUBE
                ========================================================= */
-            const STORAGE_KEY = "abigail_xv_confirmaciones_json_v1";
+            // Limpiar cualquier caché antigua en el navegador para que nunca reaparezcan registros eliminados
+            try {
+                localStorage.removeItem("abigail_xv_confirmaciones_json_v1");
+                localStorage.removeItem("abigail_xv_confirmaciones_cloud_v2");
+            } catch {}
             // Endpoint JSON compartido en la nube (lectura/escritura en tiempo real desde cualquier celular o PC)
             const CLOUD_JSON_URL = "https://textdb.dev/api/data/abigail-xv-confirmaciones-2027-cr";
             const DEFAULT_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxti-l7zulZhodqC5KhynV3Fv6-GT8c4Gx-08V1Sv6o_7NKiq9zJCcf3p-zryFXJIB3/exec";
@@ -2268,20 +2266,11 @@
             }
 
             function loadLocalConfirmations() {
-                try {
-                    const raw = localStorage.getItem(STORAGE_KEY);
-                    if (!raw) return [];
-                    const parsed = JSON.parse(raw);
-                    return Array.isArray(parsed) ? parsed.map(normalizeEntry).filter(Boolean) : [];
-                } catch {
-                    return [];
-                }
+                return [];
             }
 
-            function saveLocalConfirmations(list) {
-                try {
-                    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-                } catch {}
+            function saveLocalConfirmations() {
+                // No guardar copia en localStorage para garantizar que siempre se consulte el JSON real de la nube
             }
 
             function renderConfirmationsUI() {
@@ -2445,30 +2434,23 @@
             async function syncFromAppsScript() {
                 const cloudList = await fetchCloudJsonList();
                 if (Array.isArray(cloudList)) {
-                    const localList = loadLocalConfirmations();
-                    const merged = mergeConfirmationLists(cloudList, localList);
-                    confirmationsList = merged;
+                    // El archivo JSON en la nube es la única fuente de verdad:
+                    // si se eliminaron registros en el JSON, se reemplaza la caché del navegador para que no vuelvan a aparecer
+                    confirmationsList = cloudList;
                     saveLocalConfirmations(confirmationsList);
                     renderConfirmationsUI();
-
-                    // Si este dispositivo tenía alguna respuesta local que aún no estaba en la nube, la sube automáticamente
-                    if (merged.length > cloudList.length) {
-                        await saveCloudJsonList(merged);
-                    }
                     return;
                 }
 
                 const gasData = await fetchAppsScriptJsonp({});
                 if (gasData && Array.isArray(gasData.confirmaciones)) {
-                    confirmationsList = mergeConfirmationLists(confirmationsList, gasData.confirmaciones);
+                    confirmationsList = gasData.confirmaciones.map(normalizeEntry).filter(Boolean);
                     saveLocalConfirmations(confirmationsList);
                     renderConfirmationsUI();
                 }
             }
 
             async function initializeConfirmationsData() {
-                confirmationsList = loadLocalConfirmations();
-                renderConfirmationsUI();
                 await syncFromAppsScript();
 
                 // Mantener sincronizado en segundo plano cuando el cliente tiene abierto el panel
@@ -2516,10 +2498,10 @@
                 submitButton.textContent = "Enviando…";
                 setFormFeedback("Registrando tu respuesta…", "");
 
-                // 1. Obtener primero la lista más reciente de la nube para verificar duplicados entre todos los celulares
+                // 1. Obtener primero la lista exacta del JSON en la nube
                 const latestCloud = await fetchCloudJsonList();
                 if (Array.isArray(latestCloud)) {
-                    confirmationsList = mergeConfirmationLists(latestCloud, confirmationsList);
+                    confirmationsList = latestCloud;
                 }
 
                 const alreadyExists = confirmationsList.some((item) => item.correo.toLowerCase() === correo);
