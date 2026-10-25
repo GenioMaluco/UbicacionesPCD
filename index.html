@@ -1304,6 +1304,36 @@
             z-index: 1;
         }
 
+        .results-table tbody tr.clickable-row {
+            cursor: pointer;
+            transition: background-color 0.16s ease;
+        }
+
+        .results-table tbody tr.clickable-row:hover,
+        .results-table tbody tr.clickable-row:focus-visible {
+            background-color: #fdf1f5;
+            outline: none;
+        }
+
+        .guest-name-cell {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .greeting-indicator {
+            font-size: 0.74rem;
+            font-weight: 600;
+            color: var(--rose-dark);
+            background: var(--rose-light);
+            padding: 0.15rem 0.55rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+
         .attendance-pill {
             display: inline-block;
             padding: 0.2rem 0.6rem;
@@ -1320,6 +1350,20 @@
         .attendance-pill.no {
             background: var(--error-bg);
             color: var(--error);
+        }
+
+        .greeting-quote-box {
+            margin: 1rem 0 0.4rem;
+            padding: 1.15rem 1.2rem;
+            border-radius: 1.1rem;
+            background: #fff8fa;
+            border: 1px solid rgba(197, 155, 82, 0.45);
+            color: var(--ink);
+            font-family: var(--serif);
+            font-size: 1.2rem;
+            font-style: italic;
+            line-height: 1.6;
+            word-break: break-word;
         }
 
         /* =========================================================
@@ -1797,23 +1841,25 @@
                             <button type="button" class="secondary-btn" data-filter="yes">Sí asistirán</button>
                             <button type="button" class="secondary-btn" data-filter="no">No asistirán</button>
                         </div>
-                        <input type="search" class="search-input" id="guest-search-input" placeholder="Buscar por nombre o correo..." aria-label="Buscar invitado">
+                        <input type="search" class="search-input" id="guest-search-input" placeholder="Buscar por nombre..." aria-label="Buscar invitado">
                     </div>
+
+                    <p style="margin: 0 0 0.55rem; font-size: 0.78rem; color: var(--muted);">
+                        💡 Selecciona cualquier persona de la lista para ver su saludo para Abigail.
+                    </p>
 
                     <!-- TABLA DE RESPUESTAS -->
                     <div class="results-table-wrapper">
                         <table class="results-table" aria-label="Lista de invitados confirmados">
                             <thead>
                                 <tr>
-                                    <th>Nombre y Apellidos</th>
-                                    <th>Correo electrónico</th>
+                                    <th>Nombre</th>
                                     <th>¿Asistirá?</th>
-                                    <th>Saludo para Abigail</th>
                                 </tr>
                             </thead>
                             <tbody id="confirmations-table-body">
                                 <tr>
-                                    <td colspan="4" style="text-align: center; color: #7d6471;">Aún no hay respuestas registradas.</td>
+                                    <td colspan="2" style="text-align: center; color: #7d6471;">Aún no hay respuestas registradas.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1836,6 +1882,18 @@
             <p style="margin: 1rem 0 0; font-size: 1.5rem; letter-spacing: 0.6rem;" aria-hidden="true">🦋 ✨ 👑 ✨ 🦋</p>
         </section>
     </main>
+
+    <!-- MODAL POPUP DE SALUDO PARA ABIGAIL -->
+    <div class="auth-modal-backdrop" id="greeting-modal" hidden role="dialog" aria-modal="true" aria-labelledby="greeting-modal-name">
+        <div class="auth-modal-card">
+            <button type="button" class="auth-modal-close" id="greeting-modal-close" aria-label="Cerrar saludo">✕</button>
+            <div style="font-size: 2rem;" aria-hidden="true">💌</div>
+            <h3 id="greeting-modal-name">Nombre del Invitado</h3>
+            <div id="greeting-modal-status" style="margin-bottom: 0.5rem;"></div>
+            <div class="greeting-quote-box" id="greeting-modal-message"></div>
+            <button type="button" class="secondary-btn" id="greeting-modal-ok-btn" style="margin-top: 0.75rem;">Cerrar</button>
+        </div>
+    </div>
 
     <!-- MODAL DE AUTENTICACIÓN DEL CLIENTE (CLAVE 0212 + CORREO DE DINA) -->
     <div class="auth-modal-backdrop" id="auth-modal" hidden role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
@@ -2138,10 +2196,38 @@
             const tableBody = document.getElementById("confirmations-table-body");
             const searchInput = document.getElementById("guest-search-input");
             const filterButtons = document.querySelectorAll("[data-filter]");
+            const greetingModal = document.getElementById("greeting-modal");
+            const greetingModalClose = document.getElementById("greeting-modal-close");
+            const greetingModalOkBtn = document.getElementById("greeting-modal-ok-btn");
+            const greetingModalName = document.getElementById("greeting-modal-name");
+            const greetingModalStatus = document.getElementById("greeting-modal-status");
+            const greetingModalMessage = document.getElementById("greeting-modal-message");
 
             let confirmationsList = [];
             let currentFilter = "all";
             let currentSearchQuery = "";
+
+            function openGreetingPopup(item) {
+                greetingModalName.textContent = item.nombre;
+                const declined = isDeclinedAttendance(item.asistencia);
+                greetingModalStatus.innerHTML = `<span class="attendance-pill ${declined ? "no" : "yes"}">${declined ? "No asistirá" : "Sí asistirá"}</span>`;
+                greetingModalMessage.textContent = item.mensaje
+                    ? `"${item.mensaje}"`
+                    : "Este invitado no dejó un saludo escrito.";
+                greetingModal.hidden = false;
+            }
+
+            function closeGreetingPopup() {
+                greetingModal.hidden = true;
+            }
+
+            greetingModalClose.addEventListener("click", closeGreetingPopup);
+            greetingModalOkBtn.addEventListener("click", closeGreetingPopup);
+            greetingModal.addEventListener("click", (e) => {
+                if (e.target === greetingModal) {
+                    closeGreetingPopup();
+                }
+            });
 
             function isDeclinedAttendance(value) {
                 return String(value || "").toLowerCase().includes("no");
@@ -2163,6 +2249,7 @@
                 };
             }
 
+            // El correo electrónico se conserva internamente como llave única para evitar registros duplicados
             function mergeConfirmationLists(listA, listB) {
                 const map = new Map();
                 [...listA, ...listB].forEach((item) => {
@@ -2205,26 +2292,40 @@
                     if (currentFilter === "no" && !declined) return false;
 
                     if (currentSearchQuery) {
-                        const haystack = `${item.nombre} ${item.correo} ${item.mensaje || ""}`.toLowerCase();
+                        const haystack = `${item.nombre} ${item.mensaje || ""}`.toLowerCase();
                         if (!haystack.includes(currentSearchQuery)) return false;
                     }
                     return true;
                 });
 
                 if (filtered.length === 0) {
-                    tableBody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #7d6471;">No hay respuestas que coincidan con el filtro seleccionado.</td></tr>';
+                    tableBody.innerHTML = '<tr><td colspan="2" style="text-align: center; color: #7d6471;">No hay respuestas que coincidan con el filtro seleccionado.</td></tr>';
                     return;
                 }
 
                 tableBody.innerHTML = "";
                 filtered.forEach((item) => {
                     const tr = document.createElement("tr");
+                    tr.className = "clickable-row";
+                    tr.tabIndex = 0;
+                    tr.setAttribute("role", "button");
+                    tr.setAttribute("aria-label", `Ver saludo de ${item.nombre}`);
 
                     const tdName = document.createElement("td");
-                    tdName.textContent = item.nombre;
+                    const nameWrapper = document.createElement("div");
+                    nameWrapper.className = "guest-name-cell";
 
-                    const tdEmail = document.createElement("td");
-                    tdEmail.textContent = item.correo;
+                    const nameText = document.createElement("span");
+                    nameText.textContent = item.nombre;
+                    nameWrapper.appendChild(nameText);
+
+                    if (item.mensaje) {
+                        const badge = document.createElement("span");
+                        badge.className = "greeting-indicator";
+                        badge.textContent = "💌 Ver saludo";
+                        nameWrapper.appendChild(badge);
+                    }
+                    tdName.appendChild(nameWrapper);
 
                     const tdAtt = document.createElement("td");
                     const pill = document.createElement("span");
@@ -2233,13 +2334,17 @@
                     pill.textContent = declined ? "No asistirá" : "Sí asistirá";
                     tdAtt.appendChild(pill);
 
-                    const tdNote = document.createElement("td");
-                    tdNote.textContent = item.mensaje || "—";
-
                     tr.appendChild(tdName);
-                    tr.appendChild(tdEmail);
                     tr.appendChild(tdAtt);
-                    tr.appendChild(tdNote);
+
+                    tr.addEventListener("click", () => openGreetingPopup(item));
+                    tr.addEventListener("keydown", (e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            openGreetingPopup(item);
+                        }
+                    });
+
                     tableBody.appendChild(tr);
                 });
             }
