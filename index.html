@@ -3,26 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#fffaf8">
-    <meta name="description" content="Invitación a los quince años de Abigail, el sábado 16 de enero de 2027.">
-    <title>Mis 15 años · Abigail</title>
+    <meta name="theme-color" content="#94445f">
+    <meta name="description" content="Invitación a los quince años de Abigail · Sábado 16 de enero de 2027 · Salón Comunal, Tibás, San José.">
+    <title>Mis 15 Años · Abigail</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             color-scheme: light;
-            --ink: #392d38;
-            --muted: #847580;
-            --rose: #bd6683;
-            --rose-dark: #94445f;
-            --rose-light: #f8e8ed;
-            --gold: #b28a50;
-            --paper: #fffaf8;
-            --white: #fff;
-            --line: #eadde1;
-            --serif: "Times New Roman", Times, serif;
-            --script: "Dancing Script", "Brush Script MT", cursive;
+            --ink: #34212b;
+            --ink-soft: #5c4350;
+            --muted: #7d6471;
+            --rose: #c86485;
+            --rose-dark: #8e3554;
+            --rose-deep: #5e1d35;
+            --rose-light: #fbe9f0;
+            --gold: #c59b52;
+            --gold-light: #ebd39c;
+            --gold-dark: #8f6826;
+            --gold-gradient: linear-gradient(135deg, #b6893e 0%, #f3dfb2 35%, #c59b52 70%, #8f6826 100%);
+            --rose-gradient: linear-gradient(135deg, #c86485 0%, #9e3f60 55%, #7a2845 100%);
+            --glass-bg: rgba(255, 250, 252, 0.84);
+            --glass-strong: rgba(255, 252, 253, 0.92);
+            --glass-border: rgba(197, 155, 82, 0.38);
+            --line: rgba(197, 155, 82, 0.28);
+            --white: #ffffff;
+            --success: #236b48;
+            --success-bg: #e8f7ef;
+            --error: #9c2b43;
+            --error-bg: #fdecef;
+            --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+            --script: "Great Vibes", "Dancing Script", cursive;
+            --script-alt: "Dancing Script", cursive;
+            --sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
         *,
@@ -31,134 +45,463 @@
             box-sizing: border-box;
         }
 
+        [hidden] {
+            display: none !important;
+        }
+
         html {
             scroll-behavior: smooth;
             scroll-padding-top: 2rem;
-            background: var(--paper);
+            background-color: #26141d;
         }
 
         body {
             min-width: 320px;
             margin: 0;
             color: var(--ink);
-            background:
-                radial-gradient(ellipse at 50% 0%, rgba(248, 232, 237, 0.65), transparent 34rem),
-                var(--paper);
             font-family: var(--serif);
-            font-size: 1.1rem;
+            font-size: 1.18rem;
             line-height: 1.65;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        button,
-        input {
-            font: inherit;
+        body.envelope-locked {
+            overflow: hidden;
+            height: 100svh;
         }
 
-        button,
-        a,
-        input {
-            -webkit-tap-highlight-color: transparent;
+        /* =========================================================
+           FONDO FIJO CON LA FOTO DE LA CUMPLEAÑERA (fondo_abigail.jpg)
+           ========================================================= */
+        .page-background {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background-color: #2a1620;
+            background-image: url("fondo_abigail.jpg");
+            background-position: center 22%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            transform: scale(1.02);
+            filter: saturate(1.06) contrast(1.02);
         }
 
-        a {
-            color: inherit;
+        .page-background-veil {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background:
+                radial-gradient(circle at 50% 18%, rgba(255, 240, 246, 0.30) 0%, rgba(255, 232, 240, 0.62) 48%, rgba(44, 20, 31, 0.78) 100%),
+                linear-gradient(180deg, rgba(255, 246, 250, 0.45) 0%, rgba(255, 242, 247, 0.72) 45%, rgba(255, 245, 249, 0.82) 100%);
+            backdrop-filter: blur(2px);
         }
 
-        button:focus-visible,
-        a:focus-visible,
-        input:focus-visible {
-            outline: 3px solid rgba(189, 102, 131, 0.55);
-            outline-offset: 4px;
+        /* Mariposas ambientales flotando suavemente */
+        .ambient-butterflies {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
         }
 
-        .invitation {
-            width: min(100% - 2rem, 760px);
-            margin: 0 auto;
+        .ambient-butterfly {
+            position: absolute;
+            font-size: 1.55rem;
+            opacity: 0.42;
+            filter: drop-shadow(0 4px 10px rgba(197, 155, 82, 0.5)) sepia(0.25) saturate(1.4) hue-rotate(315deg);
+            animation: float-across 18s linear infinite;
         }
 
-        .hero {
-            min-height: min(850px, 100svh);
-            padding: clamp(4rem, 11vh, 7rem) 0 4rem;
+        .ambient-butterfly.b1 { top: 14%; left: -5%; animation-duration: 20s; animation-delay: -2s; }
+        .ambient-butterfly.b2 { top: 38%; right: -5%; animation-name: float-left; animation-duration: 23s; animation-delay: -7s; font-size: 1.25rem; }
+        .ambient-butterfly.b3 { top: 68%; left: -5%; animation-duration: 25s; animation-delay: -11s; font-size: 1.35rem; }
+        .ambient-butterfly.b4 { top: 82%; right: -5%; animation-name: float-left; animation-duration: 19s; animation-delay: -4s; }
+
+        @keyframes float-across {
+            0% { transform: translate3d(-5vw, 0, 0) rotate(8deg); }
+            50% { transform: translate3d(52vw, -4vh, 0) rotate(-6deg); }
+            100% { transform: translate3d(110vw, 2vh, 0) rotate(8deg); }
+        }
+
+        @keyframes float-left {
+            0% { transform: translate3d(5vw, 0, 0) scaleX(-1) rotate(-8deg); }
+            50% { transform: translate3d(-52vw, 4vh, 0) scaleX(-1) rotate(6deg); }
+            100% { transform: translate3d(-110vw, -2vh, 0) scaleX(-1) rotate(-8deg); }
+        }
+
+        /* =========================================================
+           PRELUDIO INTERACTIVO: SOBRE REAL DORADO Y ROSA
+           ========================================================= */
+        .envelope-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-align: center;
+            padding: 1.5rem;
+            background:
+                radial-gradient(circle at 50% 30%, rgba(56, 23, 38, 0.55), rgba(28, 11, 19, 0.88)),
+                url("fondo_abigail.jpg") center 25% / cover no-repeat;
+            transition: opacity 0.85s ease, visibility 0.85s ease;
         }
 
-        .hero-butterfly {
+        .envelope-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .envelope-card {
+            width: min(100%, 440px);
+            padding: 2.3rem 1.75rem 2rem;
+            border-radius: 2rem;
+            background: rgba(255, 250, 252, 0.92);
+            backdrop-filter: blur(16px);
+            border: 2px solid rgba(197, 155, 82, 0.55);
+            box-shadow:
+                0 25px 60px rgba(18, 6, 12, 0.55),
+                inset 0 0 0 6px rgba(255, 255, 255, 0.65);
+            text-align: center;
+            position: relative;
+            animation: card-entrance 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        @keyframes card-entrance {
+            from { opacity: 0; transform: translateY(24px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .envelope-seal {
+            width: 5.4rem;
+            height: 5.4rem;
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            background: var(--gold-gradient);
+            display: grid;
+            place-items: center;
+            font-size: 2.5rem;
+            box-shadow:
+                0 10px 25px rgba(143, 104, 38, 0.4),
+                inset 0 2px 6px rgba(255, 255, 255, 0.8);
+            border: 3px solid var(--white);
+            animation: seal-pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes seal-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.06); }
+        }
+
+        .envelope-eyebrow {
+            margin: 0;
+            font-family: var(--sans);
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: var(--gold-dark);
+        }
+
+        .envelope-title {
+            margin: 0.25rem 0 0.2rem;
+            font-family: var(--script);
+            font-size: clamp(3.4rem, 13vw, 4.6rem);
+            font-weight: 400;
+            color: var(--rose-dark);
+            line-height: 1.05;
+        }
+
+        .envelope-subtitle {
+            margin: 0 0 1.4rem;
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--ink-soft);
+        }
+
+        .envelope-preview-photo {
+            width: 7.5rem;
+            height: 7.5rem;
+            margin: 0 auto 1.35rem;
+            border-radius: 50%;
+            padding: 4px;
+            background: var(--gold-gradient);
+            box-shadow: 0 10px 25px rgba(142, 53, 84, 0.25);
+        }
+
+        .envelope-preview-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 22%;
+            border-radius: 50%;
             display: block;
-            margin: 0 0 0.8rem;
-            font-family: sans-serif;
-            font-size: clamp(6rem, 24vw, 10rem);
+            border: 2px solid var(--white);
+        }
+
+        .open-invitation-btn {
+            width: 100%;
+            padding: 1rem 1.8rem;
+            border: 0;
+            border-radius: 999px;
+            background: var(--rose-gradient);
+            color: var(--white);
+            font-family: var(--sans);
+            font-size: 0.98rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 12px 28px rgba(142, 53, 84, 0.38);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .open-invitation-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 34px rgba(142, 53, 84, 0.5);
+        }
+
+        /* =========================================================
+           BOTONES FLOTANTES (MÚSICA + ACCESO CLIENTE)
+           ========================================================= */
+        .floating-controls {
+            position: fixed;
+            bottom: 1.25rem;
+            right: 1.25rem;
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+
+        .fab-btn {
+            width: 3.25rem;
+            height: 3.25rem;
+            border-radius: 50%;
+            border: 2px solid rgba(197, 155, 82, 0.65);
+            background: rgba(255, 250, 252, 0.92);
+            backdrop-filter: blur(10px);
+            color: var(--rose-dark);
+            box-shadow: 0 10px 25px rgba(52, 33, 43, 0.22);
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .fab-btn:hover {
+            transform: scale(1.08);
+            background: var(--white);
+        }
+
+        .fab-btn.playing {
+            background: var(--rose-gradient);
+            color: var(--white);
+            border-color: var(--gold-light);
+            animation: pulse-ring 2.4s infinite;
+        }
+
+        .fab-btn.authenticated {
+            background: var(--gold-gradient);
+            color: #2b1803;
+            border-color: var(--white);
+        }
+
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(200, 100, 133, 0.55); }
+            70% { box-shadow: 0 0 0 14px rgba(200, 100, 133, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(200, 100, 133, 0); }
+        }
+
+        /* =========================================================
+           CONTENEDOR PRINCIPAL Y TARJETAS GLASSMORPHISM
+           ========================================================= */
+        .invitation {
+            position: relative;
+            z-index: 2;
+            width: min(100% - 1.5rem, 820px);
+            margin: 0 auto;
+            padding: 1.25rem 0 4.5rem;
+        }
+
+        .glass-section {
+            position: relative;
+            margin: 0 auto 2rem;
+            padding: clamp(2.4rem, 6vw, 3.8rem) clamp(1.25rem, 5vw, 3rem);
+            border-radius: 2rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1.5px solid var(--glass-border);
+            box-shadow:
+                0 20px 50px rgba(42, 20, 31, 0.16),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.75);
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .glass-section::before {
+            content: "✦ ─── 🦋 ─── ✦";
+            display: block;
+            margin-bottom: 1rem;
+            color: var(--gold);
+            font-family: var(--serif);
+            font-size: 0.85rem;
+            letter-spacing: 0.25em;
+            opacity: 0.85;
+        }
+
+        /* =========================================================
+           HERO PRINCIPAL CON MARCO ESPEJO REAL DE ABIGAIL
+           ========================================================= */
+        .hero {
+            padding-top: clamp(2.2rem, 5vw, 3.5rem);
+            background: linear-gradient(
+                180deg,
+                rgba(255, 250, 252, 0.78) 0%,
+                rgba(255, 246, 250, 0.88) 65%,
+                rgba(255, 250, 252, 0.93) 100%
+            );
+        }
+
+        .hero-crown {
+            display: inline-block;
+            font-size: 2.3rem;
             line-height: 1;
-            filter: drop-shadow(0 12px 18px rgba(160, 94, 126, 0.18));
+            margin-bottom: 0.3rem;
+            filter: drop-shadow(0 6px 12px rgba(197, 155, 82, 0.35));
             animation: butterfly-float 4s ease-in-out infinite;
         }
 
         .eyebrow {
-            margin: 0 0 0.2rem;
-            color: var(--gold);
-            font-family: var(--serif);
-            font-size: 0.82rem;
-            letter-spacing: 0.22em;
+            margin: 0 0 0.3rem;
+            color: var(--gold-dark);
+            font-family: var(--sans);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.26em;
             text-transform: uppercase;
-        }
-
-        h1,
-        h2,
-        .script {
-            font-family: var(--script);
-            font-weight: 600;
         }
 
         h1 {
             margin: 0;
             color: var(--rose-dark);
-            font-size: clamp(4.4rem, 17vw, 7rem);
-            line-height: 1.05;
+            font-family: var(--script);
+            font-weight: 400;
+            font-size: clamp(4.5rem, 16vw, 7.2rem);
+            line-height: 1.02;
+            text-shadow: 0 4px 18px rgba(142, 53, 84, 0.16);
         }
 
-        .hero-date {
-            margin: 0.55rem 0 1.8rem;
-            color: var(--muted);
-            font-size: 1rem;
-            letter-spacing: 0.12em;
+        .hero-subtitle-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin: 0.4rem 0 1.5rem;
+            padding: 0.42rem 1.35rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(251, 233, 240, 0.95), rgba(235, 211, 156, 0.45));
+            border: 1px solid rgba(197, 155, 82, 0.5);
+            color: var(--rose-deep);
+            font-family: var(--sans);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .mirror-portrait-wrapper {
+            position: relative;
+            width: min(100%, 430px);
+            margin: 0.5rem auto 1.8rem;
+            padding: 10px;
+            border-radius: 240px 240px 36px 36px;
+            background: var(--gold-gradient);
+            box-shadow:
+                0 22px 50px rgba(94, 29, 53, 0.28),
+                0 0 0 6px rgba(255, 255, 255, 0.75),
+                0 0 35px rgba(197, 155, 82, 0.35);
+        }
+
+        .mirror-portrait-inner {
+            position: relative;
+            overflow: hidden;
+            border-radius: 230px 230px 28px 28px;
+            border: 3px solid var(--white);
+            aspect-ratio: 3 / 4;
+            background: #f8e8ed;
+        }
+
+        .mirror-portrait-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 18%;
+            display: block;
+            transition: transform 0.8s ease;
+        }
+
+        .mirror-portrait-wrapper:hover .mirror-portrait-inner img {
+            transform: scale(1.03);
+        }
+
+        .mirror-portrait-caption {
+            position: absolute;
+            bottom: 0;
+            inset-inline: 0;
+            padding: 2.2rem 1rem 0.9rem;
+            background: linear-gradient(180deg, transparent 0%, rgba(44, 16, 28, 0.78) 100%);
+            color: var(--white);
+            font-family: var(--script-alt);
+            font-size: clamp(1.55rem, 5vw, 2rem);
+            letter-spacing: 0.03em;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
         }
 
         .music-player {
-            width: min(100%, 420px);
-            padding: 1rem 1.15rem;
+            width: min(100%, 440px);
+            margin: 0 auto 1.8rem;
+            padding: 0.95rem 1.2rem;
             display: grid;
-            grid-template-columns: 3rem minmax(0, 1fr);
+            grid-template-columns: 3.2rem minmax(0, 1fr);
             align-items: center;
-            gap: 0.8rem;
-            border: 1px solid rgba(189, 102, 131, 0.15);
-            border-radius: 1.25rem;
-            background: rgba(255, 255, 255, 0.86);
-            box-shadow: 0 12px 35px rgba(93, 58, 73, 0.08);
+            gap: 0.9rem;
+            border: 1px solid rgba(197, 155, 82, 0.45);
+            border-radius: 1.35rem;
+            background: var(--glass-strong);
+            box-shadow: 0 12px 32px rgba(93, 58, 73, 0.1);
             text-align: left;
         }
 
         .play-button {
-            width: 3rem;
-            height: 3rem;
+            width: 3.2rem;
+            height: 3.2rem;
             padding: 0;
             display: grid;
             place-items: center;
-            border: 0;
+            border: 2px solid var(--gold-light);
             border-radius: 50%;
             color: var(--white);
-            background: var(--rose);
+            background: var(--rose-gradient);
             cursor: pointer;
-            font-family: Arial, sans-serif;
-            font-size: 1.2rem;
-            transition: background 160ms ease, transform 160ms ease;
+            font-family: var(--sans);
+            font-size: 1.15rem;
+            box-shadow: 0 6px 16px rgba(142, 53, 84, 0.3);
+            transition: transform 160ms ease, box-shadow 160ms ease;
         }
 
         .play-button:hover {
             transform: scale(1.06);
-            background: var(--rose-dark);
+            box-shadow: 0 8px 22px rgba(142, 53, 84, 0.42);
         }
 
         .track-heading {
@@ -166,15 +509,15 @@
             align-items: center;
             justify-content: space-between;
             gap: 0.75rem;
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.25rem;
         }
 
         .track-title {
             overflow: hidden;
             color: var(--ink);
-            font-family: Arial, sans-serif;
+            font-family: var(--sans);
             font-size: 0.86rem;
-            font-weight: 600;
+            font-weight: 700;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
@@ -182,33 +525,33 @@
         .track-status,
         .track-time {
             color: var(--muted);
-            font-family: Arial, sans-serif;
+            font-family: var(--sans);
             font-size: 0.72rem;
+            font-weight: 600;
         }
 
         .track-progress {
             width: 100%;
-            height: 0.3rem;
-            margin: 0.25rem 0 0;
+            height: 0.34rem;
+            margin: 0.2rem 0 0;
             display: block;
-            accent-color: var(--rose);
+            accent-color: var(--rose-dark);
             cursor: pointer;
         }
 
         .track-time {
-            margin-top: 0.1rem;
+            margin-top: 0.2rem;
             display: flex;
             justify-content: space-between;
         }
 
         .music-message {
             grid-column: 1 / -1;
-            min-height: 0;
             margin: 0;
             color: var(--rose-dark);
-            font-size: 0.88rem;
+            font-family: var(--sans);
+            font-size: 0.82rem;
             line-height: 1.4;
-            text-align: left;
         }
 
         .music-message:empty {
@@ -216,90 +559,184 @@
         }
 
         .intro-copy {
-            max-width: 590px;
-            margin: 2rem auto 0;
-            font-family: var(--serif);
-            font-size: clamp(1.12rem, 4.5vw, 1.35rem);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: clamp(1.22rem, 4.2vw, 1.45rem);
             line-height: 1.75;
+            color: var(--ink);
         }
 
         .intro-copy p {
             margin: 0;
         }
 
-        .intro-copy .script {
-            margin-top: 0.3rem;
+        .intro-copy .script-highlight {
+            margin-top: 0.5rem;
             color: var(--rose-dark);
-            font-size: clamp(3.1rem, 12vw, 4.3rem);
-            line-height: 1.2;
+            font-family: var(--script);
+            font-size: clamp(3.3rem, 11vw, 4.6rem);
+            line-height: 1.15;
         }
 
         .scroll-cue {
-            margin-top: 1.8rem;
-            color: var(--gold);
-            font-size: 0.9rem;
-            letter-spacing: 0.12em;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 1.4rem;
+            color: var(--gold-dark);
+            font-family: var(--sans);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            text-decoration: none;
         }
 
         .scroll-cue span {
-            display: block;
-            font-family: Arial, sans-serif;
-            font-size: 1.4rem;
-            line-height: 1.2;
+            font-size: 1.35rem;
+            line-height: 1.1;
+            animation: bounce-down 2s infinite;
         }
 
-        .section {
-            position: relative;
-            margin: 0 auto;
-            padding: clamp(3.25rem, 9vw, 5rem) clamp(1rem, 5vw, 2.75rem);
-            border-top: 1px solid var(--line);
-            text-align: center;
+        @keyframes bounce-down {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(5px); }
         }
 
+        /* =========================================================
+           ENCABEZADOS DE SECCIÓN
+           ========================================================= */
         .section-icon {
-            margin: 0 0 0.4rem;
-            font-family: sans-serif;
-            font-size: 2rem;
-            line-height: 1.2;
+            width: 3.5rem;
+            height: 3.5rem;
+            margin: 0 auto 0.65rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fff5f8, #f9e4ec);
+            border: 1px solid rgba(197, 155, 82, 0.45);
+            display: grid;
+            place-items: center;
+            font-size: 1.65rem;
+            box-shadow: 0 8px 20px rgba(142, 53, 84, 0.1);
         }
 
-        .section h2 {
+        .glass-section h2 {
             margin: 0;
             color: var(--rose-dark);
-            font-size: clamp(2.7rem, 9vw, 3.5rem);
-            line-height: 1.2;
+            font-family: var(--script);
+            font-weight: 400;
+            font-size: clamp(3rem, 10vw, 4.1rem);
+            line-height: 1.12;
         }
 
         .section-lead {
-            margin: 0.45rem 0 1.8rem;
-            color: var(--muted);
-            font-size: 1rem;
+            margin: 0.35rem auto 1.8rem;
+            max-width: 520px;
+            color: var(--ink-soft);
+            font-size: 1.12rem;
+            font-style: italic;
         }
 
-        .calendar-card {
-            width: min(100%, 390px);
-            margin: 0 auto;
-            padding: 1.35rem clamp(1rem, 5vw, 2rem) 1.5rem;
-            border: 1px solid var(--line);
-            border-radius: 1.5rem;
+        .client-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-bottom: 0.6rem;
+            padding: 0.3rem 0.85rem;
+            border-radius: 999px;
+            background: var(--gold-gradient);
+            color: #2b1803;
+            font-family: var(--sans);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        /* =========================================================
+           GALERÍA DE RECUERDOS (OCULTA HASTA AUTENTICACIÓN)
+           ========================================================= */
+        .memories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.9rem;
+            margin-top: 1.2rem;
+        }
+
+        .memory-card {
+            position: relative;
+            border-radius: 1.15rem;
+            overflow: hidden;
+            border: 2px solid rgba(197, 155, 82, 0.5);
             background: var(--white);
-            box-shadow: 0 14px 38px rgba(93, 58, 73, 0.06);
+            box-shadow: 0 10px 24px rgba(52, 33, 43, 0.1);
+            aspect-ratio: 4 / 5;
+            cursor: pointer;
+            padding: 0;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .memory-card.featured {
+            grid-column: span 2;
+            aspect-ratio: 16 / 11;
+        }
+
+        .memory-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(142, 53, 84, 0.22);
+        }
+
+        .memory-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .memory-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .memory-label {
+            position: absolute;
+            bottom: 0;
+            inset-inline: 0;
+            padding: 1.2rem 0.65rem 0.5rem;
+            background: linear-gradient(180deg, transparent, rgba(38, 14, 25, 0.8));
+            color: var(--white);
+            font-family: var(--sans);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+        }
+
+        /* =========================================================
+           CALENDARIO Y CUENTA REGRESIVA
+           ========================================================= */
+        .calendar-card {
+            width: min(100%, 400px);
+            margin: 0 auto;
+            padding: 1.5rem clamp(1rem, 5vw, 2rem) 1.65rem;
+            border: 1.5px solid rgba(197, 155, 82, 0.45);
+            border-radius: 1.6rem;
+            background: var(--glass-strong);
+            box-shadow: 0 14px 36px rgba(93, 58, 73, 0.08);
         }
 
         .calendar-month {
             margin: 0 0 1rem;
             color: var(--rose-dark);
             font-family: var(--serif);
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 700;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.16em;
             text-transform: uppercase;
         }
 
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, minmax(0, 1fr));
-            gap: 0.28rem;
+            gap: 0.32rem;
             align-items: center;
         }
 
@@ -312,9 +749,9 @@
 
         .calendar-weekday {
             min-height: 2rem;
-            color: var(--muted);
-            font-family: Arial, sans-serif;
-            font-size: 0.72rem;
+            color: var(--gold-dark);
+            font-family: var(--sans);
+            font-size: 0.74rem;
             font-weight: 700;
             text-transform: uppercase;
         }
@@ -324,8 +761,9 @@
             aspect-ratio: 1;
             border-radius: 50%;
             color: var(--ink);
-            font-family: Arial, sans-serif;
+            font-family: var(--sans);
             font-size: 0.92rem;
+            font-weight: 500;
         }
 
         .calendar-day.empty {
@@ -334,14 +772,15 @@
 
         .calendar-day.event-day {
             color: var(--white);
-            background: var(--rose);
-            box-shadow: 0 4px 14px rgba(189, 102, 131, 0.28);
+            background: var(--rose-gradient);
+            box-shadow: 0 6px 16px rgba(142, 53, 84, 0.38);
             font-weight: 700;
+            border: 2px solid var(--gold-light);
         }
 
         .calendar-butterfly {
             position: absolute;
-            top: -0.65rem;
+            top: -0.7rem;
             right: -0.65rem;
             font-size: 1.2rem;
             line-height: 1;
@@ -351,69 +790,86 @@
             margin: 1.25rem 0 0;
             color: var(--rose-dark);
             font-family: var(--serif);
-            font-size: 1.18rem;
+            font-size: 1.25rem;
             font-weight: 700;
         }
 
         .countdown {
-            width: min(100%, 560px);
+            width: min(100%, 580px);
             margin: 2rem auto 0;
         }
 
         .countdown-label {
             margin: 0 0 0.85rem;
-            color: var(--muted);
-            font-size: 1rem;
+            color: var(--gold-dark);
+            font-family: var(--sans);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
         }
 
         .countdown-units {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: clamp(0.45rem, 3vw, 1rem);
+            gap: clamp(0.5rem, 2.5vw, 1rem);
         }
 
         .countdown-unit {
-            padding: 0.75rem 0.3rem;
-            border: 1px solid var(--line);
-            border-radius: 1rem;
-            background: var(--white);
+            padding: 0.9rem 0.35rem;
+            border: 1.5px solid rgba(197, 155, 82, 0.42);
+            border-radius: 1.2rem;
+            background: var(--glass-strong);
+            box-shadow: 0 10px 24px rgba(93, 58, 73, 0.07);
         }
 
         .countdown-value {
             display: block;
             color: var(--rose-dark);
-            font-family: Arial, sans-serif;
-            font-size: clamp(1.45rem, 7vw, 2.2rem);
+            font-family: var(--sans);
+            font-size: clamp(1.5rem, 6.5vw, 2.25rem);
             font-variant-numeric: tabular-nums;
             font-weight: 700;
-            line-height: 1.2;
+            line-height: 1.15;
         }
 
         .countdown-unit span:last-child {
+            display: block;
+            margin-top: 0.2rem;
             color: var(--muted);
-            font-size: 0.85rem;
+            font-family: var(--sans);
+            font-size: 0.76rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
         }
 
+        /* =========================================================
+           UBICACIÓN Y NAVEGACIÓN
+           ========================================================= */
         .location-icons {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            gap: 1rem;
+            gap: 0.9rem;
             margin: 1.25rem 0 0;
         }
 
         .location-option {
-            min-width: 118px;
-            padding: 1rem 1.25rem 0.8rem;
-            border: 1px solid var(--line);
-            border-radius: 1.2rem;
-            background: var(--white);
+            min-width: 135px;
+            padding: 0.95rem 1.35rem;
+            border: 1.5px solid rgba(197, 155, 82, 0.45);
+            border-radius: 1.25rem;
+            background: var(--glass-strong);
             text-decoration: none;
-            transition: border-color 160ms ease, transform 160ms ease;
+            box-shadow: 0 8px 20px rgba(93, 58, 73, 0.07);
+            transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
         }
 
-        .location-option[href]:hover {
-            transform: translateY(-2px);
+        .location-option:hover {
+            transform: translateY(-3px);
             border-color: var(--rose);
+            box-shadow: 0 12px 26px rgba(142, 53, 84, 0.16);
         }
 
         .location-option span {
@@ -421,38 +877,44 @@
         }
 
         .location-icon {
-            font-family: sans-serif;
-            font-size: 2rem;
-            line-height: 1.3;
+            font-size: 1.9rem;
+            line-height: 1.25;
         }
 
         .location-name {
-            color: var(--muted);
-            font-family: Arial, sans-serif;
-            font-size: 0.78rem;
-            font-weight: 600;
+            margin-top: 0.2rem;
+            color: var(--ink);
+            font-family: var(--sans);
+            font-size: 0.82rem;
+            font-weight: 700;
         }
 
         .location-note {
             margin: 1rem 0 0;
             color: var(--muted);
-            font-size: 0.9rem;
+            font-family: var(--sans);
+            font-size: 0.84rem;
         }
 
         .venue-details {
-            width: min(100%, 560px);
-            margin: 1.8rem auto 0;
+            width: min(100%, 600px);
+            margin: 1.6rem auto 0;
             overflow: hidden;
-            border: 1px solid var(--line);
-            border-radius: 1.4rem;
-            background: var(--white);
-            box-shadow: 0 14px 38px rgba(93, 58, 73, 0.06);
+            border: 1.5px solid rgba(197, 155, 82, 0.45);
+            border-radius: 1.5rem;
+            background: var(--glass-strong);
+            box-shadow: 0 14px 38px rgba(93, 58, 73, 0.08);
             text-align: left;
         }
 
         .venue-address {
-            padding: 1.1rem 1.25rem;
+            padding: 1.2rem 1.4rem;
             border-bottom: 1px solid var(--line);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
         }
 
         .venue-address p {
@@ -461,203 +923,536 @@
 
         .venue-name {
             color: var(--rose-dark);
-            font-size: 1.12rem;
+            font-size: 1.25rem;
             font-weight: 700;
         }
 
         .venue-coordinates {
-            margin-top: 0.2rem !important;
+            margin-top: 0.15rem !important;
             color: var(--muted);
-            font-family: Arial, sans-serif;
-            font-size: 0.82rem;
+            font-family: var(--sans);
+            font-size: 0.8rem;
         }
 
-        .venue-address a {
-            display: inline-block;
-            margin-top: 0.4rem;
+        .venue-map-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.55rem 1rem;
+            border-radius: 999px;
+            background: var(--rose-light);
             color: var(--rose-dark);
-            font-size: 0.92rem;
-            text-underline-offset: 0.18em;
+            font-family: var(--sans);
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-decoration: none;
+            border: 1px solid rgba(200, 100, 133, 0.3);
         }
 
         .venue-map {
             width: 100%;
-            height: clamp(250px, 65vw, 340px);
+            height: clamp(250px, 60vw, 330px);
             display: block;
             border: 0;
         }
 
         .venue-photo {
             width: 100%;
-            max-height: 400px;
+            max-height: 360px;
             display: block;
             object-fit: cover;
         }
 
         .venue-caption {
-            padding: 0.65rem 1rem;
+            padding: 0.7rem 1rem;
+            margin: 0;
             color: var(--muted);
-            font-size: 0.85rem;
+            font-family: var(--sans);
+            font-size: 0.82rem;
             text-align: center;
         }
 
+        /* =========================================================
+           CÓDIGO DE VESTIMENTA
+           ========================================================= */
         .dress-card {
-            width: min(100%, 510px);
+            width: min(100%, 540px);
             margin: 0 auto;
-            padding: 1.6rem 1.25rem;
-            border: 1px solid var(--line);
-            border-radius: 1.4rem;
-            background: var(--white);
+            padding: 1.75rem 1.4rem;
+            border: 1.5px solid rgba(197, 155, 82, 0.45);
+            border-radius: 1.5rem;
+            background: var(--glass-strong);
         }
 
         .dress-card > p {
-            margin: 0;
+            margin: 0.4rem 0;
         }
 
         .dress-colors {
-            margin: 1.2rem 0;
+            margin: 1.25rem 0;
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            gap: 0.8rem;
+            gap: 0.75rem;
         }
 
         .dress-color {
-            min-width: 110px;
-            padding: 0.7rem 1.1rem;
-            border: 1px solid #d9d2d4;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 140px;
+            padding: 0.7rem 1.35rem;
             border-radius: 999px;
-            font-family: Arial, sans-serif;
-            font-size: 0.9rem;
+            font-family: var(--sans);
+            font-size: 0.88rem;
             font-weight: 700;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
         }
 
         .dress-color.black {
             color: var(--white);
-            background: #29252a;
+            background: linear-gradient(135deg, #2b262d, #141115);
+            border: 1px solid var(--gold);
         }
 
-        .dress-color.white {
-            color: var(--ink);
-            background: var(--white);
-        }
-
-        .reserved-color {
+        .reserved-badge {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.35rem 0.95rem;
+            border-radius: 999px;
+            background: var(--rose-light);
             color: var(--rose-dark);
+            border: 1px solid rgba(200, 100, 133, 0.35);
+            font-family: var(--sans);
+            font-size: 0.8rem;
             font-weight: 700;
         }
 
-        .rsvp-form {
-            width: min(100%, 440px);
+        /* =========================================================
+           FORMULARIO DE CONFIRMACIÓN (RSVP)
+           ========================================================= */
+        .rsvp-card {
+            width: min(100%, 520px);
             margin: 0 auto;
-            display: grid;
-            gap: 0.55rem;
+            padding: 1.75rem clamp(1.1rem, 4vw, 2rem);
+            border-radius: 1.6rem;
+            border: 1.5px solid rgba(197, 155, 82, 0.48);
+            background: var(--glass-strong);
+            box-shadow: 0 14px 36px rgba(93, 58, 73, 0.08);
             text-align: left;
         }
 
-        .rsvp-form label {
-            margin-top: 0.55rem;
-            color: var(--ink);
-            font-size: 0.98rem;
+        .rsvp-form {
+            display: grid;
+            gap: 0.95rem;
         }
 
-        .rsvp-form input {
+        .form-field {
+            display: grid;
+            gap: 0.35rem;
+        }
+
+        .rsvp-form label {
+            color: var(--ink);
+            font-family: var(--sans);
+            font-size: 0.84rem;
+            font-weight: 700;
+        }
+
+        .rsvp-form input,
+        .rsvp-form select,
+        .rsvp-form textarea {
             width: 100%;
-            min-height: 3rem;
-            padding: 0.7rem 0.9rem;
-            border: 1px solid #d9cbd0;
-            border-radius: 0.75rem;
+            min-height: 2.95rem;
+            padding: 0.68rem 0.9rem;
+            border: 1.5px solid #decad1;
+            border-radius: 0.85rem;
             color: var(--ink);
             background: var(--white);
-            font-family: Arial, sans-serif;
-            font-size: 1rem;
+            font-family: var(--sans);
+            font-size: 0.95rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .rsvp-form input::placeholder {
-            color: #a49aa0;
+        .rsvp-form textarea {
+            min-height: 4.8rem;
+            resize: vertical;
+        }
+
+        .rsvp-form input:focus,
+        .rsvp-form select:focus,
+        .rsvp-form textarea:focus {
+            outline: none;
+            border-color: var(--rose);
+            box-shadow: 0 0 0 3px rgba(200, 100, 133, 0.2);
         }
 
         .submit-button {
-            min-height: 3.1rem;
-            margin-top: 0.9rem;
-            border: 0;
+            min-height: 3.25rem;
+            margin-top: 0.35rem;
+            border: 1px solid var(--gold-light);
             border-radius: 999px;
             color: var(--white);
-            background: var(--rose);
+            background: var(--rose-gradient);
             cursor: pointer;
-            font-family: Arial, sans-serif;
-            font-size: 0.98rem;
+            font-family: var(--sans);
+            font-size: 0.96rem;
             font-weight: 700;
-            transition: background 160ms ease, transform 160ms ease;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            box-shadow: 0 10px 24px rgba(142, 53, 84, 0.32);
+            transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
         }
 
-        .submit-button:hover {
-            transform: translateY(-1px);
-            background: var(--rose-dark);
+        .submit-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 30px rgba(142, 53, 84, 0.42);
         }
 
-        .form-message {
-            min-height: 1.5rem;
-            margin: 0.5rem 0 0;
+        .submit-button:disabled {
+            opacity: 0.65;
+            cursor: wait;
+        }
+
+        .form-status-box {
+            margin-top: 0.6rem;
+            padding: 0.8rem 1rem;
+            border-radius: 0.9rem;
+            font-family: var(--sans);
+            font-size: 0.86rem;
+            line-height: 1.45;
+            text-align: center;
+            background: rgba(251, 233, 240, 0.65);
+            color: var(--rose-deep);
+            border: 1px solid rgba(200, 100, 133, 0.25);
+        }
+
+        .form-status-box.success {
+            background: var(--success-bg);
+            color: var(--success);
+            border-color: rgba(35, 107, 72, 0.3);
+        }
+
+        .form-status-box.error {
+            background: var(--error-bg);
+            color: var(--error);
+            border-color: rgba(156, 43, 67, 0.3);
+        }
+
+        /* =========================================================
+           PANEL PRIVADO DE RESPUESTAS (EXCLUSIVO CLIENTE)
+           ========================================================= */
+        .client-results-panel {
+            margin-top: 1.8rem;
+            padding: 1.4rem;
+            border-radius: 1.35rem;
+            background: var(--white);
+            border: 1.5px solid rgba(197, 155, 82, 0.55);
+            box-shadow: 0 14px 36px rgba(42, 20, 31, 0.12);
+            text-align: left;
+            font-family: var(--sans);
+        }
+
+        .client-panel-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            padding-bottom: 0.9rem;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .client-panel-title {
+            margin: 0;
+            font-family: var(--sans);
+            font-size: 1.02rem;
+            font-weight: 700;
             color: var(--rose-dark);
-            font-size: 0.94rem;
+        }
+
+        .secondary-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.52rem 0.95rem;
+            border-radius: 999px;
+            border: 1.5px solid rgba(197, 155, 82, 0.55);
+            background: var(--white);
+            color: var(--ink);
+            font-family: var(--sans);
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .secondary-btn:hover {
+            border-color: var(--rose);
+            color: var(--rose-dark);
+            background: var(--rose-light);
+        }
+
+        .secondary-btn.active {
+            background: var(--rose-gradient);
+            color: var(--white);
+            border-color: transparent;
+        }
+
+        .results-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+
+        .stat-card {
+            padding: 0.85rem 0.9rem;
+            border-radius: 0.95rem;
+            text-align: center;
+            border: 1px solid rgba(200, 100, 133, 0.22);
+            background: #fdf6f9;
+        }
+
+        .stat-card.yes {
+            background: #eef8f2;
+            border-color: rgba(35, 107, 72, 0.25);
+        }
+
+        .stat-card.no {
+            background: #fdf2f4;
+            border-color: rgba(156, 43, 67, 0.25);
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 1.55rem;
+            font-weight: 700;
+            color: var(--rose-dark);
+            line-height: 1.15;
+        }
+
+        .stat-card.yes .stat-value {
+            color: var(--success);
+        }
+
+        .stat-card.no .stat-value {
+            color: var(--error);
+        }
+
+        .stat-label {
+            display: block;
+            margin-top: 0.2rem;
+            font-size: 0.75rem;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.65rem;
+            margin: 1rem 0 0.85rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 180px;
+            padding: 0.5rem 0.8rem;
+            border-radius: 999px;
+            border: 1px solid #decad1;
+            font-family: var(--sans);
+            font-size: 0.8rem;
+            color: var(--ink);
+        }
+
+        .results-table-wrapper {
+            max-height: 320px;
+            overflow: auto;
+            border: 1px solid #eadde1;
+            border-radius: 0.9rem;
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+        }
+
+        .results-table th,
+        .results-table td {
+            padding: 0.65rem 0.75rem;
+            border-bottom: 1px solid #f1e6ea;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .results-table th {
+            background: #fbf2f5;
+            color: var(--rose-deep);
+            font-weight: 700;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        .attendance-pill {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 999px;
+            font-size: 0.73rem;
+            font-weight: 700;
+        }
+
+        .attendance-pill.yes {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+
+        .attendance-pill.no {
+            background: var(--error-bg);
+            color: var(--error);
+        }
+
+        /* =========================================================
+           MODAL DE AUTENTICACIÓN DEL CLIENTE (CLAVE 0212 + CORREO DINA)
+           ========================================================= */
+        .auth-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 130;
+            background: rgba(24, 9, 16, 0.78);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.25rem;
+        }
+
+        .auth-modal-card {
+            width: min(100%, 400px);
+            padding: 2rem 1.6rem 1.7rem;
+            border-radius: 1.65rem;
+            background: var(--glass-strong);
+            border: 2px solid rgba(197, 155, 82, 0.65);
+            box-shadow: 0 24px 55px rgba(0, 0, 0, 0.45);
+            text-align: center;
+            font-family: var(--sans);
+            position: relative;
+        }
+
+        .auth-modal-close {
+            position: absolute;
+            top: 0.85rem;
+            right: 0.85rem;
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 50%;
+            border: 1px solid rgba(197, 155, 82, 0.4);
+            background: var(--white);
+            color: var(--ink);
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .auth-modal-card h3 {
+            margin: 0.3rem 0 0.35rem;
+            font-family: var(--serif);
+            font-size: 1.65rem;
+            color: var(--rose-dark);
+        }
+
+        .auth-modal-card p {
+            margin: 0 0 1.2rem;
+            font-size: 0.84rem;
+            color: var(--muted);
+            line-height: 1.45;
+        }
+
+        .auth-form {
+            display: grid;
+            gap: 0.85rem;
+            text-align: left;
+        }
+
+        .auth-form label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 0.25rem;
+        }
+
+        .auth-form input {
+            width: 100%;
+            padding: 0.65rem 0.85rem;
+            border-radius: 0.75rem;
+            border: 1.5px solid #decad1;
+            font-family: var(--sans);
+            font-size: 0.92rem;
+        }
+
+        .auth-error-msg {
+            margin: 0.2rem 0 0;
+            color: var(--error);
+            font-size: 0.8rem;
+            font-weight: 600;
             text-align: center;
         }
 
-        .closing {
-            padding-bottom: 4.5rem;
+        /* Lightbox para ver fotos en grande */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 120;
+            background: rgba(22, 8, 15, 0.88);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
         }
 
-        .closing-copy {
-            max-width: 560px;
-            margin: 0 auto;
+        .lightbox img {
+            max-width: min(92vw, 760px);
+            max-height: 84vh;
+            border-radius: 1.25rem;
+            border: 3px solid var(--gold-light);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+            object-fit: contain;
         }
 
-        .closing-copy p {
-            margin: 0.65rem 0;
-        }
-
-        .closing .script {
-            margin-top: 1.5rem;
-            color: var(--rose-dark);
-            font-size: clamp(2.7rem, 9vw, 3.5rem);
-        }
-
-        .closing-butterflies {
-            margin-top: 1.4rem;
-            font-family: sans-serif;
-            font-size: 1.5rem;
-            letter-spacing: 0.65rem;
+        .lightbox-close {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            width: 2.8rem;
+            height: 2.8rem;
+            border-radius: 50%;
+            border: 1px solid var(--gold-light);
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--white);
+            font-size: 1.3rem;
+            cursor: pointer;
         }
 
         @keyframes butterfly-float {
             0%, 100% { transform: translateY(0) rotate(-3deg); }
-            50% { transform: translateY(-12px) rotate(3deg); }
+            50% { transform: translateY(-8px) rotate(3deg); }
         }
 
-        @media (max-width: 420px) {
-            .invitation {
-                width: min(100% - 1.25rem, 760px);
-            }
-
-            .hero {
-                min-height: 100svh;
-                padding-top: 3.25rem;
-            }
-
-            .calendar-card {
-                padding-inline: 0.8rem;
-            }
-
-            .calendar-grid {
-                gap: 0.12rem;
-            }
-
-            .location-icons {
-                gap: 0.6rem;
-            }
-
-            .location-option {
-                min-width: 105px;
+        @media (max-width: 560px) {
+            .memory-card.featured {
+                grid-column: span 1;
+                aspect-ratio: 4 / 5;
             }
         }
 
@@ -673,21 +1468,75 @@
         }
     </style>
 </head>
-<body>
-    <main class="invitation">
-        <section class="hero" aria-labelledby="invitation-title">
-            <span class="hero-butterfly" aria-hidden="true">🦋</span>
-            <p class="eyebrow">Una celebración muy especial</p>
-            <h1 id="invitation-title">Abigail</h1>
-            <p class="hero-date">SÁBADO · 16 DE ENERO DE 2027</p>
+<body class="envelope-locked">
+    <!-- CAPA DE FONDO CON LA FOTO DE LA CUMPLEAÑERA -->
+    <div class="page-background" aria-hidden="true"></div>
+    <div class="page-background-veil" aria-hidden="true"></div>
 
+    <!-- MARIPOSAS AMBIENTALES -->
+    <div class="ambient-butterflies" aria-hidden="true">
+        <span class="ambient-butterfly b1">🦋</span>
+        <span class="ambient-butterfly b2">🦋</span>
+        <span class="ambient-butterfly b3">🦋</span>
+        <span class="ambient-butterfly b4">🦋</span>
+    </div>
+
+    <!-- SOBRE DE BIENVENIDA INTERACTIVO -->
+    <div class="envelope-overlay" id="envelope-overlay" role="dialog" aria-modal="true" aria-labelledby="envelope-title">
+        <div class="envelope-card">
+            <div class="envelope-seal" aria-hidden="true">👑</div>
+            <p class="envelope-eyebrow">Invitación Real · Mis Quince Años</p>
+            <h2 class="envelope-title" id="envelope-title">Abigail</h2>
+            <p class="envelope-subtitle">Sábado 16 de Enero de 2027</p>
+            <div class="envelope-preview-photo">
+                <img src="fondo_abigail.jpg" alt="Abigail mirándose en el espejo dorado">
+            </div>
+            <button class="open-invitation-btn" id="open-invitation-btn" type="button">
+                <span>✉️ Abrir Invitación</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- BOTONES FLOTANTES (MÚSICA + ACCESO PRIVADO CLIENTE) -->
+    <div class="floating-controls">
+        <button class="fab-btn" id="fab-music" type="button" aria-label="Reproducir o pausar música" title="Música de fondo">
+            <span id="fab-music-icon" aria-hidden="true">🎵</span>
+        </button>
+        <button class="fab-btn" id="fab-client-auth" type="button" aria-label="Acceso privado de anfitrión" title="Acceso privado de anfitrión">
+            <span id="fab-auth-icon" aria-hidden="true">🔒</span>
+        </button>
+    </div>
+
+    <main class="invitation">
+        <!-- SECCIÓN 1: HERO PRINCIPAL -->
+        <section class="glass-section hero" id="inicio" aria-labelledby="invitation-title">
+            <div id="hero-header-focus" tabindex="-1" style="outline: none;">
+                <span class="hero-crown" aria-hidden="true">👑</span>
+                <p class="eyebrow">Una celebración muy especial</p>
+                <h1 id="invitation-title">Abigail</h1>
+                <div class="hero-subtitle-badge">
+                    <span>🦋</span>
+                    <span>Sábado · 16 de Enero de 2027</span>
+                    <span>🦋</span>
+                </div>
+            </div>
+
+            <!-- RETRATO ESPEJO REAL DE ABIGAIL -->
+            <div class="mirror-portrait-wrapper">
+                <div class="mirror-portrait-inner">
+                    <img src="fondo_abigail.jpg" alt="Abigail en su vestido de quinceañera mirándose en un espejo dorado donde se refleja de niña">
+                    <div class="mirror-portrait-caption">Un sueño hecho realidad</div>
+                </div>
+            </div>
+
+            <!-- REPRODUCTOR DE MÚSICA -->
             <div class="music-player" aria-label="Reproductor de música">
                 <button class="play-button" id="play-button" type="button" aria-label="Reproducir música" aria-pressed="false">
                     <span id="play-icon" aria-hidden="true">▶</span>
                 </button>
                 <div>
                     <div class="track-heading">
-                        <span class="track-title">Una canción para este día</span>
+                        <span class="track-title">Melodía para este gran día</span>
                         <span class="track-status" id="track-status">En pausa</span>
                     </div>
                     <input class="track-progress" id="track-progress" type="range" min="0" max="100" value="0" step="0.1" aria-label="Posición de la canción">
@@ -698,22 +1547,59 @@
                 </div>
                 <p class="music-message" id="music-message" role="status" aria-live="polite"></p>
             </div>
-            <audio id="song" src="cancion.mp3" preload="metadata"></audio>
+            <audio id="song" src="cancion.mp3" preload="metadata" loop></audio>
 
             <div class="intro-copy">
-                <p>Hay momentos inolvidables que se atesoran para siempre. Por esta razón, quiero que compartas conmigo este día tan especial.</p>
-                <p class="script">Mis 15 años</p>
+                <p>Hay momentos inolvidables que se atesoran en el corazón para siempre. Hoy miro atrás con ternura a la niña que fui y doy un paso hacia mis sueños; por esta razón, quiero que compartas conmigo este día tan mágico.</p>
+                <p class="script-highlight">Mis 15 Años</p>
             </div>
+
             <a class="scroll-cue" href="#fecha">
                 Desliza para descubrir
                 <span aria-hidden="true">⌄</span>
             </a>
         </section>
 
-        <section class="section" id="fecha" aria-labelledby="date-title">
-            <p class="section-icon" aria-hidden="true">📅</p>
+        <!-- SECCIÓN 2 (OCULTA HASTA AUTENTICACIÓN DEL CLIENTE): CADA ETAPA DE MI HISTORIA -->
+        <section class="glass-section" id="recuerdos" aria-labelledby="memories-title" hidden>
+            <div class="client-badge">🔓 Vista exclusiva de anfitrión</div>
+            <div class="section-icon" aria-hidden="true">🪞</div>
+            <h2 id="memories-title">Cada etapa de mi historia</h2>
+            <p class="section-lead">Pequeños recuerdos que me trajeron hasta este gran sueño</p>
+
+            <div class="memories-grid">
+                <button type="button" class="memory-card featured" data-full-src="fondo_abigail.jpg" aria-label="Ver foto de Abigail frente al espejo dorado">
+                    <img src="fondo_abigail.jpg" alt="Abigail frente al espejo dorado" loading="lazy">
+                    <span class="memory-label">Reflejo de mis sueños · 15 Años</span>
+                </button>
+                <button type="button" class="memory-card" data-full-src="abby04.jpeg" aria-label="Ver foto de Abigail de bebé">
+                    <img src="abby04.jpeg" alt="Abigail de bebé sonriendo" loading="lazy">
+                    <span class="memory-label">Mis primeros pasos</span>
+                </button>
+                <button type="button" class="memory-card" data-full-src="abby05.jpeg" aria-label="Ver foto de infancia de Abigail con corona">
+                    <img src="abby05.jpeg" alt="Abigail de niña con vestido y tiara" loading="lazy">
+                    <span class="memory-label">Pequeña princesa</span>
+                </button>
+                <button type="button" class="memory-card" data-full-src="abby03.jpeg" aria-label="Ver foto de promesa scout de Abigail">
+                    <img src="abby03.jpeg" alt="Abigail con su certificado de promesa" loading="lazy">
+                    <span class="memory-label">Aventuras y promesas</span>
+                </button>
+                <button type="button" class="memory-card" data-full-src="abby01.jpeg" aria-label="Ver foto de artes marciales de Abigail">
+                    <img src="abby01.jpeg" alt="Abigail en kimono con cinturón amarillo" loading="lazy">
+                    <span class="memory-label">Disciplina y alegría</span>
+                </button>
+                <button type="button" class="memory-card" data-full-src="abby02.jpeg" aria-label="Ver foto de graduación de Abigail">
+                    <img src="abby02.jpeg" alt="Abigail en su graduación" loading="lazy">
+                    <span class="memory-label">Nuevas metas</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: FECHA Y CUENTA REGRESIVA -->
+        <section class="glass-section" id="fecha" aria-labelledby="date-title">
+            <div class="section-icon" aria-hidden="true">📅</div>
             <h2 id="date-title">Aparta la fecha</h2>
-            <p class="section-lead">Me encantará celebrar contigo</p>
+            <p class="section-lead">Me encantará celebrar contigo esta noche inolvidable</p>
 
             <div class="calendar-card">
                 <p class="calendar-month">Enero · 2027</p>
@@ -768,7 +1654,7 @@
             </div>
 
             <div class="countdown" aria-label="Cuenta regresiva para la fecha del evento">
-                <p class="countdown-label">Faltan</p>
+                <p class="countdown-label">Cuenta regresiva para el gran día</p>
                 <div class="countdown-units">
                     <div class="countdown-unit"><span class="countdown-value" id="days">000</span><span>Días</span></div>
                     <div class="countdown-unit"><span class="countdown-value" id="hours">00</span><span>Horas</span></div>
@@ -778,26 +1664,37 @@
             </div>
         </section>
 
-        <section class="section" id="ubicacion" aria-labelledby="location-title">
-            <p class="section-icon" aria-hidden="true">📍</p>
+        <!-- SECCIÓN 4: UBICACIÓN -->
+        <section class="glass-section" id="ubicacion" aria-labelledby="location-title">
+            <div class="section-icon" aria-hidden="true">📍</div>
             <h2 id="location-title">Cómo llegar</h2>
-            <p class="section-lead">Salón Comunal · Tibás, San José</p>
+            <p class="section-lead">Salón Comunal (CEDI ASODIFLO) · La Florida de Tibás, San José</p>
+
             <div class="location-icons" aria-label="Abrir la ubicación en una aplicación de navegación">
                 <a class="location-option" href="https://waze.com/ul?ll=9.9636477%2C-84.063772&amp;navigate=yes&amp;zoom=17" target="_blank" rel="noopener noreferrer" aria-label="Abrir ubicación en Waze">
                     <span class="location-icon" aria-hidden="true">🚘</span>
-                    <span class="location-name">Waze</span>
+                    <span class="location-name">Ir con Waze</span>
                 </a>
                 <a class="location-option" href="https://m.uber.com/ul/?action=setPickup&amp;dropoff[latitude]=9.9636477&amp;dropoff[longitude]=-84.063772&amp;pickup=my_location" target="_blank" rel="noopener noreferrer" aria-label="Solicitar un Uber hasta el salón comunal">
                     <span class="location-icon" aria-hidden="true">🚕</span>
-                    <span class="location-name">Uber</span>
+                    <span class="location-name">Pedir Uber</span>
+                </a>
+                <a class="location-option" href="https://www.google.com/maps/place/9%C2%B057'49.1%22N+84%C2%B003'49.6%22W/@9.9636177,-84.064418,268m/data=!3m1!1e3!4m4!3m3!8m2!3d9.9636477!4d-84.063772?hl=es&amp;entry=ttu" target="_blank" rel="noopener noreferrer" aria-label="Abrir ubicación en Google Maps">
+                    <span class="location-icon" aria-hidden="true">🗺️</span>
+                    <span class="location-name">Google Maps</span>
                 </a>
             </div>
-            <p class="location-note">Toca una opción para abrirla; si tienes la aplicación instalada, el enlace intentará abrirla.</p>
+            <p class="location-note">Toca tu aplicación favorita para abrir la ruta directa hasta el salón.</p>
+
             <div class="venue-details">
                 <div class="venue-address">
-                    <p class="venue-name">Salón Comunal</p>
-                    <p class="venue-coordinates">9°57'49.1&quot;N · 84°03'49.6&quot;W</p>
-                    <a href="https://www.google.com/maps/place/9%C2%B057'49.1%22N+84%C2%B003'49.6%22W/@9.9636177,-84.064418,268m/data=!3m1!1e3!4m4!3m3!8m2!3d9.9636477!4d-84.063772?hl=es&amp;entry=ttu" target="_blank" rel="noopener noreferrer">Ver ubicación en Google Maps</a>
+                    <div>
+                        <p class="venue-name">Salón Comunal · Tibás</p>
+                        <p class="venue-coordinates">Coordenadas: 9°57'49.1"N · 84°03'49.6"W</p>
+                    </div>
+                    <a class="venue-map-link" href="https://www.google.com/maps/place/9%C2%B057'49.1%22N+84%C2%B003'49.6%22W/@9.9636177,-84.064418,268m/data=!3m1!1e3!4m4!3m3!8m2!3d9.9636477!4d-84.063772?hl=es&amp;entry=ttu" target="_blank" rel="noopener noreferrer">
+                        Ampliar mapa ↗
+                    </a>
                 </div>
                 <iframe
                     class="venue-map"
@@ -808,17 +1705,20 @@
                     allowfullscreen>
                 </iframe>
                 <img class="venue-photo" src="Salon%20comunal.jpg" alt="Fotografía del Salón Comunal donde será la celebración" loading="lazy">
-                <p class="venue-caption">El lugar de nuestra celebración</p>
+                <p class="venue-caption">El lugar donde celebraremos juntos esta noche mágica</p>
             </div>
         </section>
 
-        <section class="section" aria-labelledby="dress-title">
-            <p class="section-icon" aria-hidden="true">👗</p>
+        <!-- SECCIÓN 5: CÓDIGO DE VESTIMENTA -->
+        <section class="glass-section" aria-labelledby="dress-title">
+            <div class="section-icon" aria-hidden="true">👗</div>
             <h2 id="dress-title">Código de vestimenta</h2>
             <p class="section-lead">Gracias por ser parte de este día tan especial</p>
+
             <div class="dress-card">
-                <p>Con mucho cariño les informamos que el color <span class="reserved-color">rosado</span> es exclusivo de nuestra quinceañera.</p>
-                <p>Agradecemos a nuestros invitados vestir en tonos oscuros.</p>
+                <p>Con mucho cariño les informamos que el color <strong>rosado</strong> en todos sus tonos está reservado exclusivamente para nuestra quinceañera.</p>
+                <span class="reserved-badge">🌸 Rosado exclusivo para Abigail</span>
+                <p style="margin-top: 1.1rem;">Agradecemos a nuestros invitados vestir en tonos oscuros.</p>
                 <div class="dress-colors" aria-label="Tonos oscuros">
                     <span class="dress-color black">Tonos oscuros</span>
                 </div>
@@ -826,70 +1726,191 @@
             </div>
         </section>
 
-        <section class="section" id="confirmacion" aria-labelledby="rsvp-title">
-            <p class="section-icon" aria-hidden="true">💌</p>
+        <!-- SECCIÓN 6: CONFIRMACIÓN DE ASISTENCIA -->
+        <section class="glass-section" id="confirmacion" aria-labelledby="rsvp-title">
+            <div class="section-icon" aria-hidden="true">💌</div>
             <h2 id="rsvp-title">Confirma tu asistencia</h2>
             <p class="section-lead">Será muy especial contar contigo</p>
-            <form class="rsvp-form" id="rsvp-form">
-                <label for="guest-name">Nombre</label>
-                <input id="guest-name" name="name" type="text" autocomplete="name" placeholder="Tu nombre completo" required>
-                <label for="guest-email">Correo electrónico</label>
-                <input id="guest-email" name="email" type="email" autocomplete="email" placeholder="tu@correo.com" required>
-                <button class="submit-button" type="submit">Confirmar asistencia</button>
-                <p class="form-message" id="form-message" role="status" aria-live="polite">Cada correo electrónico puede confirmar una sola vez.</p>
-            </form>
+
+            <div class="rsvp-card">
+                <form class="rsvp-form" id="rsvp-form" novalidate>
+                    <div class="form-field">
+                        <label for="guest-name">Nombre y apellidos *</label>
+                        <input id="guest-name" name="name" type="text" autocomplete="name" placeholder="Tu nombre y apellidos" required maxlength="120">
+                    </div>
+
+                    <div class="form-field">
+                        <label for="guest-email">Correo electrónico *</label>
+                        <input id="guest-email" name="email" type="email" autocomplete="email" placeholder="tu@correo.com" required maxlength="254">
+                    </div>
+
+                    <div class="form-field">
+                        <label for="guest-attendance">¿Asistirás a la celebración?</label>
+                        <select id="guest-attendance" name="attendance">
+                            <option value="Sí asistiré">✨ Sí asistiré</option>
+                            <option value="No podré asistir">No podré asistir</option>
+                        </select>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="guest-note">Saludo o mensaje para la cumpleañera (opcional)</label>
+                        <textarea id="guest-note" name="note" placeholder="Escribe un saludo especial para Abigail..." maxlength="300"></textarea>
+                    </div>
+
+                    <button class="submit-button" id="submit-button" type="submit">Confirmar asistencia</button>
+                    <div class="form-status-box" id="form-message" role="status" aria-live="polite" hidden></div>
+                </form>
+
+                <!-- PANEL DE RESULTADOS (OCULTO POR DEFECTO · SOLO VISIBLE PARA EL CLIENTE AUTENTICADO) -->
+                <div class="client-results-panel" id="client-results-panel" hidden>
+                    <div class="client-panel-header">
+                        <div>
+                            <span class="client-badge" style="margin-bottom: 0.25rem;">🔓 Panel de Anfitrión</span>
+                            <h3 class="client-panel-title">Lista de Confirmaciones y Saludos</h3>
+                        </div>
+                        <div style="display: flex; gap: 0.45rem; flex-wrap: wrap;">
+                            <button type="button" class="secondary-btn" id="refresh-results-btn">🔄 Actualizar</button>
+                            <button type="button" class="secondary-btn" id="logout-client-btn">🔒 Cerrar vista</button>
+                        </div>
+                    </div>
+
+                    <!-- TOTALES DE PERSONAS QUE SÍ Y QUE NO -->
+                    <div class="results-stats">
+                        <div class="stat-card yes">
+                            <span class="stat-value" id="stat-yes-count">0</span>
+                            <span class="stat-label">Confirmados que Sí</span>
+                        </div>
+                        <div class="stat-card no">
+                            <span class="stat-value" id="stat-no-count">0</span>
+                            <span class="stat-label">Confirmados que No</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value" id="stat-total-count">0</span>
+                            <span class="stat-label">Total de respuestas</span>
+                        </div>
+                    </div>
+
+                    <!-- FILTROS POR OPCIÓN Y BUSCADOR -->
+                    <div class="filter-bar">
+                        <div class="filter-buttons" role="group" aria-label="Filtrar por asistencia">
+                            <button type="button" class="secondary-btn active" data-filter="all">Todos</button>
+                            <button type="button" class="secondary-btn" data-filter="yes">Sí asistirán</button>
+                            <button type="button" class="secondary-btn" data-filter="no">No asistirán</button>
+                        </div>
+                        <input type="search" class="search-input" id="guest-search-input" placeholder="Buscar por nombre o correo..." aria-label="Buscar invitado">
+                    </div>
+
+                    <!-- TABLA DE RESPUESTAS -->
+                    <div class="results-table-wrapper">
+                        <table class="results-table" aria-label="Lista de invitados confirmados">
+                            <thead>
+                                <tr>
+                                    <th>Nombre y Apellidos</th>
+                                    <th>Correo electrónico</th>
+                                    <th>¿Asistirá?</th>
+                                    <th>Saludo para Abigail</th>
+                                </tr>
+                            </thead>
+                            <tbody id="confirmations-table-body">
+                                <tr>
+                                    <td colspan="4" style="text-align: center; color: #7d6471;">Aún no hay respuestas registradas.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
             <iframe id="confirmation-target" name="confirmation-target" title="Respuesta del formulario" hidden></iframe>
         </section>
 
-        <section class="section closing" aria-label="Agradecimiento">
-            <p class="section-icon" aria-hidden="true">✨</p>
-            <div class="closing-copy">
-                <p>Espero que puedas compartir este día tan especial. Tu presencia hará mi día inolvidable.</p>
-                <p>Si además deseas regalarme algo, te lo agradeceré muchísimo en efectivo.</p>
-                <p class="script">Con cariño, Abigail</p>
+        <!-- SECCIÓN 7: MUESTRA DE CARIÑO -->
+        <section class="glass-section closing" aria-label="Agradecimiento">
+            <div class="section-icon" aria-hidden="true">✨</div>
+            <h2>Muestra de cariño</h2>
+            <div class="intro-copy" style="max-width: 540px;">
+                <p>Espero de corazón que puedas acompañarme en este día tan especial. Tu presencia será mi mejor regalo y hará mi noche inolvidable.</p>
+                <p style="margin-top: 0.85rem;">Si además deseas hacerme un presente, te lo agradeceré muchísimo en efectivo.</p>
+                <p class="script-highlight" style="margin-top: 1.2rem;">Con cariño, Abigail</p>
             </div>
-            <p class="closing-butterflies" aria-hidden="true">🦋 ✨ 🦋</p>
+            <p style="margin: 1rem 0 0; font-size: 1.5rem; letter-spacing: 0.6rem;" aria-hidden="true">🦋 ✨ 👑 ✨ 🦋</p>
         </section>
     </main>
+
+    <!-- MODAL DE AUTENTICACIÓN DEL CLIENTE (CLAVE 0212 + CORREO DE DINA) -->
+    <div class="auth-modal-backdrop" id="auth-modal" hidden role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+        <div class="auth-modal-card">
+            <button type="button" class="auth-modal-close" id="auth-modal-close" aria-label="Cerrar ventana">✕</button>
+            <div style="font-size: 2rem;" aria-hidden="true">🔐</div>
+            <h3 id="auth-modal-title">Acceso de Cliente</h3>
+            <p>Ingresa el correo de Dina y la clave para visualizar los recuerdos y la lista de confirmaciones.</p>
+            <form class="auth-form" id="client-auth-form">
+                <div>
+                    <label for="auth-email">Correo electrónico</label>
+                    <input id="auth-email" type="email" autocomplete="email" placeholder="Correo de Dina" required>
+                </div>
+                <div>
+                    <label for="auth-code">Clave de acceso</label>
+                    <input id="auth-code" type="password" inputmode="numeric" placeholder="••••" required>
+                </div>
+                <p class="auth-error-msg" id="auth-error-msg" hidden>Datos incorrectos. Mostrando únicamente la invitación.</p>
+                <button type="submit" class="submit-button" style="min-height: 2.85rem; font-size: 0.88rem;">Desbloquear módulos</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- LIGHTBOX PARA VER FOTOS EN GRANDE -->
+    <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Vista ampliada de fotografía">
+        <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Cerrar imagen">✕</button>
+        <img id="lightbox-img" src="" alt="Fotografía ampliada de Abigail">
+    </div>
 
     <script>
         (() => {
             "use strict";
 
-            const eventDate = new Date(2027, 0, 16, 0, 0, 0);
-            const countdownFields = {
-                days: document.getElementById("days"),
-                hours: document.getElementById("hours"),
-                minutes: document.getElementById("minutes"),
-                seconds: document.getElementById("seconds")
-            };
+            /* =========================================================
+               CONFIGURACIÓN DE AUTENTICACIÓN DEL CLIENTE
+               Clave requerida: "0212" + correo de Dina
+               ========================================================= */
+            const CLIENT_ACCESS_CODE = "0212";
+            // Correo configurado por defecto para pruebas: "dina@gmail.com"
+            // (También acepta cualquier correo válido que contenga "dina", o puedes dejar únicamente el correo exacto en esta lista)
+            const DINA_ALLOWED_EMAILS = ["dina@gmail.com"];
+            const AUTH_SESSION_KEY = "abigail_xv_client_unlocked_v1";
 
-            function updateCountdown() {
-                const remaining = Math.max(0, eventDate.getTime() - Date.now());
-                const totalSeconds = Math.floor(remaining / 1000);
-                const values = {
-                    days: Math.floor(totalSeconds / 86400),
-                    hours: Math.floor((totalSeconds % 86400) / 3600),
-                    minutes: Math.floor((totalSeconds % 3600) / 60),
-                    seconds: totalSeconds % 60
-                };
-
-                Object.entries(values).forEach(([unit, value]) => {
-                    countdownFields[unit].textContent = String(value).padStart(unit === "days" ? 3 : 2, "0");
-                });
+            /* =========================================================
+               1. SOBRE DE BIENVENIDA Y REPRODUCTOR DE MÚSICA
+               ========================================================= */
+            if ("scrollRestoration" in history) {
+                history.scrollRestoration = "manual";
             }
+            window.scrollTo(0, 0);
 
-            updateCountdown();
-            window.setInterval(updateCountdown, 1000);
-
+            const envelopeOverlay = document.getElementById("envelope-overlay");
+            const openInvitationBtn = document.getElementById("open-invitation-btn");
+            const heroHeaderFocus = document.getElementById("hero-header-focus");
             const audio = document.getElementById("song");
             const playButton = document.getElementById("play-button");
             const playIcon = document.getElementById("play-icon");
+            const fabMusic = document.getElementById("fab-music");
+            const fabMusicIcon = document.getElementById("fab-music-icon");
             const trackStatus = document.getElementById("track-status");
             const trackProgress = document.getElementById("track-progress");
             const elapsedTime = document.getElementById("elapsed-time");
             const durationTime = document.getElementById("duration-time");
             const musicMessage = document.getElementById("music-message");
+
+            function unlockEnvelope() {
+                envelopeOverlay.classList.add("hidden");
+                document.body.classList.remove("envelope-locked");
+                window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+                if (heroHeaderFocus) {
+                    heroHeaderFocus.focus({ preventScroll: true });
+                }
+            }
+
+            openInvitationBtn.addEventListener("click", () => unlockEnvelope());
 
             function formatTime(seconds) {
                 if (!Number.isFinite(seconds) || seconds < 0) return "0:00";
@@ -915,21 +1936,26 @@
                 playButton.setAttribute("aria-label", playing ? "Pausar música" : "Reproducir música");
                 playButton.setAttribute("aria-pressed", String(playing));
                 trackStatus.textContent = playing ? "Reproduciendo" : "En pausa";
+                fabMusic.classList.toggle("playing", playing);
+                fabMusicIcon.textContent = playing ? "🔊" : "🎵";
             }
 
-            playButton.addEventListener("click", async () => {
+            async function toggleAudioPlayback() {
                 musicMessage.textContent = "";
                 if (audio.paused) {
                     try {
                         await audio.play();
                     } catch {
-                        musicMessage.textContent = "No se pudo reproducir la canción. Comprueba que cancion.mp3 esté disponible.";
+                        musicMessage.textContent = "Toca el botón ▶ para escuchar la melodía.";
                         updatePlaybackState();
                     }
                 } else {
                     audio.pause();
                 }
-            });
+            }
+
+            playButton.addEventListener("click", toggleAudioPlayback);
+            fabMusic.addEventListener("click", toggleAudioPlayback);
 
             audio.addEventListener("play", updatePlaybackState);
             audio.addEventListener("pause", updatePlaybackState);
@@ -937,7 +1963,7 @@
             audio.addEventListener("loadedmetadata", updateAudioProgress);
             audio.addEventListener("timeupdate", updateAudioProgress);
             audio.addEventListener("error", () => {
-                musicMessage.textContent = "No se pudo cargar la canción. Comprueba que cancion.mp3 esté disponible.";
+                musicMessage.textContent = "No se pudo cargar cancion.mp3.";
                 trackStatus.textContent = "No disponible";
                 updatePlaybackState();
             });
@@ -948,71 +1974,441 @@
                 }
             });
 
-            const rsvpForm = document.getElementById("rsvp-form");
-            const formMessage = document.getElementById("form-message");
-            const submitButton = rsvpForm.querySelector('button[type="submit"]');
-            const submitButtonText = submitButton.textContent;
-            const confirmationTarget = document.getElementById("confirmation-target");
-            const appsScriptUrl = "https://script.google.com/macros/s/AKfycbxti-l7zulZhodqC5KhynV3Fv6-GT8c4Gx-08V1Sv6o_7NKiq9zJCcf3p-zryFXJIB3/exec";
-            let pendingRequestId = null;
+            /* =========================================================
+               2. CUENTA REGRESIVA (16 DE ENERO DE 2027)
+               ========================================================= */
+            const eventDate = new Date(2027, 0, 16, 18, 0, 0);
+            const countdownFields = {
+                days: document.getElementById("days"),
+                hours: document.getElementById("hours"),
+                minutes: document.getElementById("minutes"),
+                seconds: document.getElementById("seconds")
+            };
 
-            window.addEventListener("message", (event) => {
-                if (
-                    !/^https:\/\/(?:[a-z0-9-]+-)?script\.googleusercontent\.com$/i.test(event.origin)
-                    || !event.data
-                    || event.data.type !== "confirmation-result"
-                    || event.data.requestId !== pendingRequestId
-                ) {
-                    return;
-                }
+            function updateCountdown() {
+                const remaining = Math.max(0, eventDate.getTime() - Date.now());
+                const totalSeconds = Math.floor(remaining / 1000);
+                const values = {
+                    days: Math.floor(totalSeconds / 86400),
+                    hours: Math.floor((totalSeconds % 86400) / 3600),
+                    minutes: Math.floor((totalSeconds % 3600) / 60),
+                    seconds: totalSeconds % 60
+                };
 
-                pendingRequestId = null;
-                submitButton.disabled = false;
-                submitButton.textContent = submitButtonText;
-                formMessage.textContent = event.data.message;
+                Object.entries(values).forEach(([unit, value]) => {
+                    countdownFields[unit].textContent = String(value).padStart(unit === "days" ? 3 : 2, "0");
+                });
+            }
 
-                if (event.data.ok) {
-                    rsvpForm.reset();
+            updateCountdown();
+            window.setInterval(updateCountdown, 1000);
+
+            /* =========================================================
+               3. LIGHTBOX DE GALERÍA DE RECUERDOS
+               ========================================================= */
+            const lightbox = document.getElementById("lightbox");
+            const lightboxImg = document.getElementById("lightbox-img");
+            const lightboxClose = document.getElementById("lightbox-close");
+
+            document.querySelectorAll(".memory-card").forEach((card) => {
+                card.addEventListener("click", () => {
+                    const src = card.getAttribute("data-full-src");
+                    if (src) {
+                        lightboxImg.src = src;
+                        lightbox.hidden = false;
+                    }
+                });
+            });
+
+            lightboxClose.addEventListener("click", () => {
+                lightbox.hidden = true;
+            });
+
+            lightbox.addEventListener("click", (e) => {
+                if (e.target === lightbox) {
+                    lightbox.hidden = true;
                 }
             });
 
-            rsvpForm.addEventListener("submit", (event) => {
+            /* =========================================================
+               4. AUTENTICACIÓN DEL CLIENTE (CLAVE 0212 + CORREO DE DINA)
+               ========================================================= */
+            const recuerdosSection = document.getElementById("recuerdos");
+            const clientResultsPanel = document.getElementById("client-results-panel");
+            const fabClientAuth = document.getElementById("fab-client-auth");
+            const fabAuthIcon = document.getElementById("fab-auth-icon");
+            const authModal = document.getElementById("auth-modal");
+            const authModalClose = document.getElementById("auth-modal-close");
+            const clientAuthForm = document.getElementById("client-auth-form");
+            const authEmailInput = document.getElementById("auth-email");
+            const authCodeInput = document.getElementById("auth-code");
+            const authErrorMsg = document.getElementById("auth-error-msg");
+            const logoutClientBtn = document.getElementById("logout-client-btn");
+
+            let isClientAuthenticated = false;
+
+            function isValidDinaCredentials(email, code) {
+                const cleanEmail = String(email || "").trim().toLowerCase();
+                const cleanCode = String(code || "").trim();
+                if (cleanCode !== CLIENT_ACCESS_CODE) return false;
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) return false;
+
+                return DINA_ALLOWED_EMAILS.some((allowed) => allowed.toLowerCase() === cleanEmail) || cleanEmail.includes("dina");
+            }
+
+            function applyClientVisibility(authenticated) {
+                isClientAuthenticated = Boolean(authenticated);
+                recuerdosSection.hidden = !isClientAuthenticated;
+                clientResultsPanel.hidden = !isClientAuthenticated;
+                fabClientAuth.classList.toggle("authenticated", isClientAuthenticated);
+                fabAuthIcon.textContent = isClientAuthenticated ? "🔓" : "🔒";
+                if (isClientAuthenticated) {
+                    renderConfirmationsUI();
+                }
+            }
+
+            fabClientAuth.addEventListener("click", () => {
+                if (isClientAuthenticated) {
+                    // Si ya está autenticado, lo lleva a los módulos desbloqueados
+                    recuerdosSection.scrollIntoView({ behavior: "smooth" });
+                    return;
+                }
+                authErrorMsg.hidden = true;
+                authModal.hidden = false;
+                authEmailInput.focus();
+            });
+
+            authModalClose.addEventListener("click", () => {
+                authModal.hidden = true;
+            });
+
+            authModal.addEventListener("click", (e) => {
+                if (e.target === authModal) {
+                    authModal.hidden = true;
+                }
+            });
+
+            clientAuthForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const email = authEmailInput.value;
+                const code = authCodeInput.value;
+
+                if (isValidDinaCredentials(email, code)) {
+                    authErrorMsg.hidden = true;
+                    authModal.hidden = true;
+                    clientAuthForm.reset();
+                    try {
+                        sessionStorage.setItem(AUTH_SESSION_KEY, "1");
+                    } catch {}
+                    applyClientVisibility(true);
+                    syncFromAppsScript();
+                    recuerdosSection.scrollIntoView({ behavior: "smooth" });
+                } else {
+                    // Si no atina, mantiene ocultos los módulos y muestra solamente la invitación
+                    applyClientVisibility(false);
+                    authErrorMsg.hidden = false;
+                }
+            });
+
+            logoutClientBtn.addEventListener("click", () => {
+                try {
+                    sessionStorage.removeItem(AUTH_SESSION_KEY);
+                } catch {}
+                applyClientVisibility(false);
+            });
+
+            try {
+                if (sessionStorage.getItem(AUTH_SESSION_KEY) === "1") {
+                    applyClientVisibility(true);
+                }
+            } catch {}
+
+            /* =========================================================
+               5. CONFIRMACIÓN DE ASISTENCIA Y TABLA FILTRABLE
+               ========================================================= */
+            const STORAGE_KEY = "abigail_xv_confirmaciones_json_v1";
+            const DEFAULT_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxti-l7zulZhodqC5KhynV3Fv6-GT8c4Gx-08V1Sv6o_7NKiq9zJCcf3p-zryFXJIB3/exec";
+
+            const rsvpForm = document.getElementById("rsvp-form");
+            const submitButton = document.getElementById("submit-button");
+            const formMessage = document.getElementById("form-message");
+            const statYesCount = document.getElementById("stat-yes-count");
+            const statNoCount = document.getElementById("stat-no-count");
+            const statTotalCount = document.getElementById("stat-total-count");
+            const tableBody = document.getElementById("confirmations-table-body");
+            const searchInput = document.getElementById("guest-search-input");
+            const filterButtons = document.querySelectorAll("[data-filter]");
+
+            let confirmationsList = [];
+            let currentFilter = "all";
+            let currentSearchQuery = "";
+
+            function isDeclinedAttendance(value) {
+                return String(value || "").toLowerCase().includes("no");
+            }
+
+            function normalizeEntry(raw) {
+                if (!raw || typeof raw !== "object") return null;
+                const nombre = String(raw.nombre || raw.name || "").trim();
+                const correo = String(raw.correo || raw.email || "").trim().toLowerCase();
+                if (!nombre || !correo) return null;
+                const rawAttendance = String(raw.asistencia || raw.attendance || "Sí asistiré").trim();
+                const asistencia = isDeclinedAttendance(rawAttendance) ? "No podré asistir" : "Sí asistiré";
+                return {
+                    nombre,
+                    correo,
+                    asistencia,
+                    mensaje: String(raw.mensaje || raw.note || "").trim(),
+                    fechaRegistro: raw.fechaRegistro || new Date().toISOString()
+                };
+            }
+
+            function mergeConfirmationLists(listA, listB) {
+                const map = new Map();
+                [...listA, ...listB].forEach((item) => {
+                    const norm = normalizeEntry(item);
+                    if (norm) {
+                        map.set(norm.correo, norm);
+                    }
+                });
+                return Array.from(map.values());
+            }
+
+            function loadLocalConfirmations() {
+                try {
+                    const raw = localStorage.getItem(STORAGE_KEY);
+                    if (!raw) return [];
+                    const parsed = JSON.parse(raw);
+                    return Array.isArray(parsed) ? parsed.map(normalizeEntry).filter(Boolean) : [];
+                } catch {
+                    return [];
+                }
+            }
+
+            function saveLocalConfirmations(list) {
+                try {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+                } catch {}
+            }
+
+            function renderConfirmationsUI() {
+                const yesCount = confirmationsList.filter((item) => !isDeclinedAttendance(item.asistencia)).length;
+                const noCount = confirmationsList.filter((item) => isDeclinedAttendance(item.asistencia)).length;
+
+                statYesCount.textContent = String(yesCount);
+                statNoCount.textContent = String(noCount);
+                statTotalCount.textContent = String(confirmationsList.length);
+
+                const filtered = confirmationsList.filter((item) => {
+                    const declined = isDeclinedAttendance(item.asistencia);
+                    if (currentFilter === "yes" && declined) return false;
+                    if (currentFilter === "no" && !declined) return false;
+
+                    if (currentSearchQuery) {
+                        const haystack = `${item.nombre} ${item.correo} ${item.mensaje || ""}`.toLowerCase();
+                        if (!haystack.includes(currentSearchQuery)) return false;
+                    }
+                    return true;
+                });
+
+                if (filtered.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #7d6471;">No hay respuestas que coincidan con el filtro seleccionado.</td></tr>';
+                    return;
+                }
+
+                tableBody.innerHTML = "";
+                filtered.forEach((item) => {
+                    const tr = document.createElement("tr");
+
+                    const tdName = document.createElement("td");
+                    tdName.textContent = item.nombre;
+
+                    const tdEmail = document.createElement("td");
+                    tdEmail.textContent = item.correo;
+
+                    const tdAtt = document.createElement("td");
+                    const pill = document.createElement("span");
+                    const declined = isDeclinedAttendance(item.asistencia);
+                    pill.className = `attendance-pill ${declined ? "no" : "yes"}`;
+                    pill.textContent = declined ? "No asistirá" : "Sí asistirá";
+                    tdAtt.appendChild(pill);
+
+                    const tdNote = document.createElement("td");
+                    tdNote.textContent = item.mensaje || "—";
+
+                    tr.appendChild(tdName);
+                    tr.appendChild(tdEmail);
+                    tr.appendChild(tdAtt);
+                    tr.appendChild(tdNote);
+                    tableBody.appendChild(tr);
+                });
+            }
+
+            filterButtons.forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    filterButtons.forEach((b) => b.classList.remove("active"));
+                    btn.classList.add("active");
+                    currentFilter = btn.getAttribute("data-filter") || "all";
+                    renderConfirmationsUI();
+                });
+            });
+
+            searchInput.addEventListener("input", () => {
+                currentSearchQuery = searchInput.value.trim().toLowerCase();
+                renderConfirmationsUI();
+            });
+
+            document.getElementById("refresh-results-btn").addEventListener("click", () => {
+                syncFromAppsScript();
+            });
+
+            function fetchAppsScriptJsonp(paramsObj) {
+                return new Promise((resolve) => {
+                    const cbName = `agas_cb_${Date.now()}_${Math.floor(Math.random() * 10000)}`;
+                    const script = document.createElement("script");
+                    const timeout = window.setTimeout(() => {
+                        cleanup();
+                        resolve(null);
+                    }, 9000);
+
+                    function cleanup() {
+                        window.clearTimeout(timeout);
+                        delete window[cbName];
+                        if (script.parentNode) script.parentNode.removeChild(script);
+                    }
+
+                    window[cbName] = (data) => {
+                        cleanup();
+                        resolve(data);
+                    };
+
+                    const query = new URLSearchParams(paramsObj || {});
+                    query.set("callback", cbName);
+                    script.src = `${DEFAULT_APPS_SCRIPT_URL}?${query.toString()}`;
+                    script.onerror = () => {
+                        cleanup();
+                        resolve(null);
+                    };
+                    document.body.appendChild(script);
+                });
+            }
+
+            async function syncFromAppsScript() {
+                const cloudData = await fetchAppsScriptJsonp({});
+                if (cloudData && Array.isArray(cloudData.confirmaciones)) {
+                    confirmationsList = mergeConfirmationLists(confirmationsList, cloudData.confirmaciones);
+                    saveLocalConfirmations(confirmationsList);
+                    renderConfirmationsUI();
+                }
+            }
+
+            async function initializeConfirmationsData() {
+                let current = loadLocalConfirmations();
+
+                try {
+                    const staticResp = await fetch("confirmaciones.json", { cache: "no-store" });
+                    if (staticResp.ok) {
+                        const staticData = await staticResp.json();
+                        if (Array.isArray(staticData)) {
+                            current = mergeConfirmationLists(staticData, current);
+                        }
+                    }
+                } catch {}
+
+                confirmationsList = current;
+                saveLocalConfirmations(confirmationsList);
+                renderConfirmationsUI();
+
+                await syncFromAppsScript();
+            }
+
+            function setFormFeedback(message, type) {
+                formMessage.hidden = false;
+                formMessage.textContent = message;
+                formMessage.className = "form-status-box" + (type ? ` ${type}` : "");
+            }
+
+            rsvpForm.addEventListener("submit", async (event) => {
                 event.preventDefault();
                 if (!rsvpForm.reportValidity()) return;
 
-                formMessage.textContent = "";
-                if (pendingRequestId !== null) return;
+                const nameInput = document.getElementById("guest-name");
+                const emailInput = document.getElementById("guest-email");
+                const attendanceInput = document.getElementById("guest-attendance");
+                const noteInput = document.getElementById("guest-note");
 
-                if (appsScriptUrl.includes("PASTE_DEPLOYMENT_ID")) {
-                    formMessage.textContent = "El formulario aún no está conectado. Sigue las instrucciones de apps-script/README.md para publicarlo.";
+                const nombre = nameInput.value.trim().replace(/\s+/g, " ");
+                const correo = emailInput.value.trim().toLowerCase();
+                const asistencia = attendanceInput.value;
+                const mensaje = noteInput.value.trim();
+
+                if (nombre.length < 2) {
+                    setFormFeedback("Por favor ingresa tu nombre y apellidos.", "error");
+                    nameInput.focus();
                     return;
                 }
 
-                pendingRequestId = crypto.randomUUID
-                    ? crypto.randomUUID()
-                    : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-                const requestId = document.createElement("input");
-                requestId.type = "hidden";
-                requestId.name = "requestId";
-                requestId.value = pendingRequestId;
-                rsvpForm.appendChild(requestId);
-                rsvpForm.action = appsScriptUrl;
-                rsvpForm.method = "post";
-                rsvpForm.target = confirmationTarget.name;
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(correo)) {
+                    setFormFeedback("Por favor ingresa un correo electrónico válido.", "error");
+                    emailInput.focus();
+                    return;
+                }
+
+                const alreadyExists = confirmationsList.some((item) => item.correo.toLowerCase() === correo);
+                if (alreadyExists) {
+                    setFormFeedback("Este correo electrónico ya tiene una confirmación registrada.", "error");
+                    return;
+                }
+
                 submitButton.disabled = true;
                 submitButton.textContent = "Enviando…";
-                rsvpForm.submit();
-                requestId.remove();
+                setFormFeedback("Registrando tu respuesta…", "");
 
-                window.setTimeout(() => {
-                    if (pendingRequestId !== null) {
-                        pendingRequestId = null;
-                        submitButton.disabled = false;
-                        submitButton.textContent = submitButtonText;
-                        formMessage.textContent = "No se recibió respuesta. Comprueba tu conexión e inténtalo de nuevo.";
+                const newEntry = {
+                    nombre,
+                    correo,
+                    asistencia,
+                    mensaje,
+                    fechaRegistro: new Date().toISOString()
+                };
+
+                const cloudResponse = await fetchAppsScriptJsonp({
+                    action: "add",
+                    name: nombre,
+                    email: correo,
+                    attendance: asistencia,
+                    note: mensaje
+                });
+
+                if (cloudResponse && cloudResponse.ok === false && cloudResponse.message && cloudResponse.message.includes("ya tiene una confirmación")) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = "Confirmar asistencia";
+                    setFormFeedback(cloudResponse.message, "error");
+                    if (Array.isArray(cloudResponse.confirmaciones)) {
+                        confirmationsList = mergeConfirmationLists(confirmationsList, cloudResponse.confirmaciones);
+                        saveLocalConfirmations(confirmationsList);
+                        renderConfirmationsUI();
                     }
-                }, 20000);
+                    return;
+                }
+
+                if (cloudResponse && cloudResponse.ok && Array.isArray(cloudResponse.confirmaciones)) {
+                    confirmationsList = mergeConfirmationLists(confirmationsList, cloudResponse.confirmaciones);
+                } else {
+                    confirmationsList.push(newEntry);
+                }
+
+                saveLocalConfirmations(confirmationsList);
+                renderConfirmationsUI();
+
+                submitButton.disabled = false;
+                submitButton.textContent = "Confirmar asistencia";
+                rsvpForm.reset();
+                setFormFeedback("¡Muchas gracias! Tu confirmación ha sido registrada con éxito.", "success");
             });
+
+            initializeConfirmationsData();
         })();
     </script>
 </body>
