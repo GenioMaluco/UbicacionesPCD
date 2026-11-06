@@ -1028,6 +1028,50 @@
             font-weight: 700;
         }
 
+        .dress-reserved-color {
+            color: var(--rose-dark);
+        }
+
+        /* =========================================================
+           CELEBRACIÓN SIN BEBIDAS ALCOHÓLICAS
+           ========================================================= */
+        .alcohol-free-card {
+            width: min(100%, 540px);
+            margin: 0 auto;
+            padding: 1.5rem clamp(1.1rem, 4vw, 2rem);
+            border: 1.5px solid rgba(200, 100, 133, 0.5);
+            border-radius: 1.5rem;
+            background: linear-gradient(135deg, rgba(251, 233, 240, 0.96), var(--glass-strong));
+            box-shadow: 0 10px 28px rgba(142, 53, 84, 0.1);
+        }
+
+        .alcohol-free-icon {
+            display: grid;
+            place-items: center;
+            width: 3rem;
+            height: 3rem;
+            margin: 0 auto 0.65rem;
+            border: 1px solid rgba(142, 53, 84, 0.25);
+            border-radius: 50%;
+            background: var(--white);
+            color: var(--rose-dark);
+            font-family: var(--sans);
+            font-size: 1.4rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .alcohol-free-card p {
+            max-width: 430px;
+            margin: 0 auto;
+        }
+
+        .alcohol-free-card strong {
+            color: var(--rose-dark);
+            font-family: var(--sans);
+            font-size: 0.92em;
+        }
+
         /* =========================================================
            FORMULARIO DE CONFIRMACIÓN (RSVP)
            ========================================================= */
@@ -1760,7 +1804,7 @@
             <p class="section-lead">Gracias por ser parte de este día tan especial</p>
 
             <div class="dress-card">
-                <p>Con mucho cariño les informamos que el color <strong>rosado</strong> en todos sus tonos está reservado exclusivamente para nuestra quinceañera.</p>
+                <p>Con mucho cariño les informamos que el color <strong class="dress-reserved-color">rosado</strong> en todos sus tonos está reservado exclusivamente para nuestra quinceañera.</p>
                 <span class="reserved-badge">🌸 Rosado exclusivo para Abigail</span>
                 <p style="margin-top: 1.1rem;">Agradecemos a nuestros invitados vestir en tonos oscuros.</p>
                 <div class="dress-colors" aria-label="Tonos oscuros">
@@ -1770,7 +1814,19 @@
             </div>
         </section>
 
-        <!-- SECCIÓN 6: CONFIRMACIÓN DE ASISTENCIA -->
+        <!-- SECCIÓN 6: CELEBRACIÓN SIN BEBIDAS ALCOHÓLICAS -->
+        <section class="glass-section" aria-labelledby="alcohol-free-title">
+            <div class="section-icon" aria-hidden="true">👨‍👩‍👧‍👦</div>
+            <h2 id="alcohol-free-title">Un espacio familiar y sin alcohol</h2>
+            <p class="section-lead">Queremos que todos disfruten con tranquilidad</p>
+
+            <div class="alcohol-free-card">
+                <span class="alcohol-free-icon" aria-hidden="true">🚫</span>
+                <p><strong>No se permite el ingreso ni el consumo de bebidas alcohólicas</strong> durante la celebración. Gracias por ayudarnos a mantener un ambiente seguro y especial para todos.</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 7: CONFIRMACIÓN DE ASISTENCIA -->
         <section class="glass-section" id="confirmacion" aria-labelledby="rsvp-title">
             <div class="section-icon" aria-hidden="true">💌</div>
             <h2 id="rsvp-title">Confirma tu asistencia</h2>
@@ -1870,7 +1926,7 @@
             <iframe id="confirmation-target" name="confirmation-target" title="Respuesta del formulario" hidden></iframe>
         </section>
 
-        <!-- SECCIÓN 7: MUESTRA DE CARIÑO -->
+        <!-- SECCIÓN 8: MUESTRA DE CARIÑO -->
         <section class="glass-section closing" aria-label="Agradecimiento">
             <div class="section-icon" aria-hidden="true">✨</div>
             <h2>Muestra de cariño</h2>
